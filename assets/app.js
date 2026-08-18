@@ -82,16 +82,25 @@
     if (!day || !day.markets) { el.markets.hidden = true; return; }
     day.markets.forEach(function (m) {
       var card = document.createElement("div");
-      card.className = "market-card" + (m.ok ? "" : " unavailable");
+      card.className = "market-card" + (m.ok || m.stale_from ? "" : " unavailable");
       var cls = "flat", arrow = "→";
       if (m.change_pct > 0) { cls = "up"; arrow = "▲"; }
       if (m.change_pct < 0) { cls = "down"; arrow = "▼"; }
+      var changeHtml;
+      if (m.stale_from) {
+        var d = new Date(m.stale_from + "T12:00:00");
+        changeHtml = "dernier cours du " +
+          d.toLocaleDateString("fr-FR", { day: "numeric", month: "short" });
+        cls = "flat";
+      } else if (m.change_pct == null) {
+        changeHtml = "—";
+      } else {
+        changeHtml = arrow + " " + Math.abs(m.change_pct).toLocaleString("fr-FR") + " %";
+      }
       card.innerHTML =
         '<div class="m-label">' + esc(m.label) + "</div>" +
         '<div class="m-price">' + esc(fmtPrice(m)) + "</div>" +
-        '<div class="m-change ' + cls + '">' +
-        (m.change_pct == null ? "—" : arrow + " " + Math.abs(m.change_pct).toLocaleString("fr-FR") + " %") +
-        "</div>";
+        '<div class="m-change ' + cls + '">' + esc(changeHtml) + "</div>";
       el.markets.appendChild(card);
     });
     el.markets.hidden = false;

@@ -15,6 +15,7 @@ import json
 import os
 import re
 import sys
+import time
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -102,12 +103,25 @@ def item_id(title, link):
 
 
 def fetch_yahoo(symbol):
-    url = (
-        "https://query1.finance.yahoo.com/v8/finance/chart/"
-        + urllib.parse.quote(symbol)
-        + "?range=5d&interval=1d"
-    )
-    meta = json.loads(fetch(url))["chart"]["result"][0]["meta"]
+    # Le 429 de Yahoo depuis les runners GitHub est souvent intermittent :
+    # on retente sur les deux hotes avec une pause croissante.
+    last_exc = None
+    payload = None
+    for attempt, host in enumerate(["query1", "query2", "query1", "query2"]):
+        url = (
+            f"https://{host}.finance.yahoo.com/v8/finance/chart/"
+            + urllib.parse.quote(symbol)
+            + "?range=5d&interval=1d"
+        )
+        try:
+            payload = json.loads(fetch(url))
+            break
+        except Exception as exc:
+            last_exc = exc
+            time.sleep(2 * (attempt + 1))
+    if payload is None:
+        raise last_exc
+    meta = payload["chart"]["result"][0]["meta"]
     price = meta.get("regularMarketPrice")
     if price is None:
         raise ValueError("pas de cours")
@@ -293,8 +307,25 @@ def main():
     deleted_ids = set(deleted.get("ids", []))
 
     print(f"Collecte des donnees pour le {today}...")
+    latest_prev = load_json(LATEST_PATH, {"days": []})
     markets = [fetch_market(m) for m in MARKETS]
     news = collect_news(deleted_ids)
+
+    # Si toutes les sources ont echoue pour un actif, on conserve le dernier
+    # cours connu (marque "stale_from" avec sa date) plutot que rien.
+    prev_prices = {}
+    for d in sorted(latest_prev.get("days", []), key=lambda d: d["date"], reverse=True):
+        for m in d.get("markets", []):
+            if m.get("price") is not None and m["key"] not in prev_prices:
+                prev_prices[m["key"]] = {
+                    "price": m["price"],
+                    "date": m.get("stale_from") or d["date"],
+                }
+    for m in markets:
+        if m["price"] is None and m["key"] in prev_prices:
+            prev = prev_prices[m["key"]]
+            m["price"] = prev["price"]
+            m["stale_from"] = prev["date"]
 
     today_entry = {
         "date": today,
@@ -303,8 +334,7 @@ def main():
         "news": news,
     }
 
-    latest = load_json(LATEST_PATH, {"days": []})
-    days = {d["date"]: d for d in latest.get("days", [])}
+    days = {d["date"]: d for d in latest_prev.get("days", [])}
     days[today] = today_entry
     ordered = sorted(days.values(), key=lambda d: d["date"], reverse=True)
 
