@@ -28,7 +28,9 @@ jobs:
           python-version: "3.12"
 
       - name: Supprimer les éléments
-        run: python scripts/delete_items.py "${{ inputs.ids }}"
+        env:
+          IDS_A_SUPPRIMER: ${{ inputs.ids }}
+        run: python scripts/delete_items.py "$IDS_A_SUPPRIMER"
 
       - name: Publier les données
         run: |

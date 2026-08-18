@@ -234,7 +234,8 @@ def fetch_news_query(query):
         for node in root.iter("item"):
             title = strip_html(node.findtext("title") or "")
             link = (node.findtext("link") or "").strip()
-            if not title or not link:
+            # Seuls les liens http(s) sont acceptes (jamais de javascript:, data:, etc.)
+            if not title or not link.lower().startswith(("http://", "https://")):
                 continue
             source = strip_html(node.findtext("source") or "")
             pub = node.findtext("pubDate") or ""
