@@ -39,3 +39,5 @@ jobs:
             git commit -m "Mise à jour automatique des données ($(date -u +%F))"
             git push
           fi
+
+# Réenregistrement des workflows

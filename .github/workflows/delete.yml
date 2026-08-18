@@ -41,3 +41,5 @@ jobs:
             git commit -m "Suppression d'informations demandée par l'utilisateur"
             git push
           fi
+
+# Réenregistrement des workflows
