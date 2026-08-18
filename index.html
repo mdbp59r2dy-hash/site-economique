@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pulse Éco — Suivi quotidien des investissements</title>
+  <meta name="description" content="Suivi quotidien de l'économie : actions, immobilier, or, crypto et déclarations des grandes figures de la finance.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <div>
+        <h1>📈 Pulse Éco</h1>
+        <p class="tagline">Actions · Immobilier · Or · Crypto — mis à jour chaque jour automatiquement</p>
+      </div>
+      <div class="header-actions">
+        <button id="btn-view-latest" class="nav-btn active">3 derniers jours</button>
+        <button id="btn-view-archive" class="nav-btn">Archives</button>
+        <button id="btn-edit-mode" class="nav-btn ghost" title="Activer le mode suppression">🗑️ Gérer</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <p id="status" class="status">Chargement des données…</p>
+
+    <!-- Bandeau des marchés -->
+    <section id="markets" class="markets" hidden></section>
+
+    <!-- Barre du mode suppression -->
+    <div id="edit-bar" class="edit-bar" hidden>
+      <span>🗑️ <strong>Mode suppression actif</strong> — cliquez sur ✕ pour masquer une info.
+        <span id="hidden-count"></span></span>
+      <span class="edit-bar-actions">
+        <button id="btn-restore" class="small-btn">Tout restaurer</button>
+        <button id="btn-permanent" class="small-btn">Suppression définitive…</button>
+        <button id="btn-close-edit" class="small-btn">Terminer</button>
+      </span>
+    </div>
+
+    <!-- Sélecteur de mois (vue archives) -->
+    <div id="archive-picker" class="archive-picker" hidden></div>
+
+    <!-- Onglets catégories -->
+    <nav id="tabs" class="tabs" hidden>
+      <button data-cat="declarations" class="tab active">🎙️ Déclarations</button>
+      <button data-cat="actions" class="tab">📊 Actions</button>
+      <button data-cat="immobilier" class="tab">🏠 Immobilier</button>
+      <button data-cat="or" class="tab">🥇 Or</button>
+      <button data-cat="crypto" class="tab">₿ Crypto</button>
+    </nav>
+
+    <!-- Contenu des jours -->
+    <section id="days"></section>
+  </main>
+
+  <!-- Fenêtre de suppression définitive -->
+  <div id="modal" class="modal-backdrop" hidden>
+    <div class="modal">
+      <h2>Suppression définitive</h2>
+      <p>Les infos masquées ci-dessous ne le sont que <strong>sur ce navigateur</strong>.
+         Pour les supprimer définitivement du site (y compris des archives) :</p>
+      <ol>
+        <li>Copiez la liste d'identifiants ci-dessous ;</li>
+        <li>Ouvrez l'action GitHub <a id="delete-workflow-link" href="#" target="_blank" rel="noopener">« Supprimer des informations »</a> ;</li>
+        <li>Cliquez sur <em>Run workflow</em> et collez la liste.</li>
+      </ol>
+      <textarea id="ids-box" readonly rows="3"></textarea>
+      <div class="modal-actions">
+        <button id="btn-copy-ids" class="small-btn">📋 Copier les identifiants</button>
+        <button id="btn-close-modal" class="small-btn">Fermer</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer wrap">
+    <p>Données : Yahoo Finance &amp; Google News. Mise à jour automatique quotidienne via GitHub Actions.
+       Dernière génération : <span id="generated-at">—</span>.</p>
+    <p class="disclaimer">⚠️ Informations fournies à titre indicatif uniquement — ceci n'est pas un conseil en investissement.</p>
+  </footer>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>
