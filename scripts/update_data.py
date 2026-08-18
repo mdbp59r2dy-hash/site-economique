@@ -35,14 +35,15 @@ USER_AGENT = (
     "(KHTML, like Gecko) Chrome/124.0 Safari/537.36"
 )
 
-# Indices et actifs suivis (symbole Yahoo Finance -> libelle)
+# Indices et actifs suivis. Plusieurs sources par actif (repli automatique) :
+# yahoo -> stooq (CSV gratuit) -> coingecko (crypto / or via PAXG).
 MARKETS = [
-    {"key": "sp500", "symbol": "^GSPC", "label": "S&P 500", "category": "actions", "currency": "USD"},
-    {"key": "cac40", "symbol": "^FCHI", "label": "CAC 40", "category": "actions", "currency": "EUR"},
-    {"key": "immobilier", "symbol": "VNQ", "label": "Immobilier (ETF VNQ)", "category": "immobilier", "currency": "USD"},
-    {"key": "or", "symbol": "GC=F", "label": "Or (once)", "category": "or", "currency": "USD"},
-    {"key": "btc", "symbol": "BTC-USD", "label": "Bitcoin", "category": "crypto", "currency": "USD"},
-    {"key": "eth", "symbol": "ETH-USD", "label": "Ethereum", "category": "crypto", "currency": "USD"},
+    {"key": "sp500", "symbol": "^GSPC", "stooq": "^spx", "label": "S&P 500", "category": "actions", "currency": "USD"},
+    {"key": "cac40", "symbol": "^FCHI", "stooq": "^cac", "label": "CAC 40", "category": "actions", "currency": "EUR"},
+    {"key": "immobilier", "symbol": "VNQ", "stooq": "vnq.us", "label": "Immobilier (ETF VNQ)", "category": "immobilier", "currency": "USD"},
+    {"key": "or", "symbol": "GC=F", "stooq": "xauusd", "coingecko": "pax-gold", "label": "Or (once)", "category": "or", "currency": "USD"},
+    {"key": "btc", "symbol": "BTC-USD", "stooq": "btcusd", "coingecko": "bitcoin", "label": "Bitcoin", "category": "crypto", "currency": "USD"},
+    {"key": "eth", "symbol": "ETH-USD", "stooq": "ethusd", "coingecko": "ethereum", "label": "Ethereum", "category": "crypto", "currency": "USD"},
 ]
 
 # Requetes Google News par categorie
@@ -100,40 +101,86 @@ def item_id(title, link):
     return hashlib.sha1((title + "|" + link).encode("utf-8")).hexdigest()[:12]
 
 
-def fetch_market(entry):
+def fetch_yahoo(symbol):
     url = (
         "https://query1.finance.yahoo.com/v8/finance/chart/"
-        + urllib.parse.quote(entry["symbol"])
+        + urllib.parse.quote(symbol)
         + "?range=5d&interval=1d"
     )
-    try:
-        payload = json.loads(fetch(url))
-        meta = payload["chart"]["result"][0]["meta"]
-        price = meta.get("regularMarketPrice")
-        prev = meta.get("chartPreviousClose") or meta.get("previousClose")
-        change_pct = None
-        if price is not None and prev:
-            change_pct = round((price - prev) / prev * 100, 2)
-        return {
-            "key": entry["key"],
-            "label": entry["label"],
-            "category": entry["category"],
-            "currency": entry["currency"],
-            "price": round(price, 2) if price is not None else None,
-            "change_pct": change_pct,
-            "ok": price is not None,
-        }
-    except Exception as exc:  # reseau, format, symbole retire...
-        print(f"[marche] echec {entry['symbol']}: {exc}", file=sys.stderr)
-        return {
-            "key": entry["key"],
-            "label": entry["label"],
-            "category": entry["category"],
-            "currency": entry["currency"],
-            "price": None,
-            "change_pct": None,
-            "ok": False,
-        }
+    meta = json.loads(fetch(url))["chart"]["result"][0]["meta"]
+    price = meta.get("regularMarketPrice")
+    if price is None:
+        raise ValueError("pas de cours")
+    prev = meta.get("chartPreviousClose") or meta.get("previousClose")
+    change_pct = round((price - prev) / prev * 100, 2) if prev else None
+    return price, change_pct
+
+
+def fetch_stooq(symbol):
+    """Historique quotidien CSV de stooq.com : Date,Open,High,Low,Close[,Volume]."""
+    from datetime import timedelta
+    now = datetime.now(timezone.utc)
+    d1 = (now - timedelta(days=21)).strftime("%Y%m%d")
+    d2 = now.strftime("%Y%m%d")
+    url = (
+        "https://stooq.com/q/d/l/?s=" + urllib.parse.quote(symbol)
+        + f"&i=d&d1={d1}&d2={d2}"
+    )
+    lines = [l for l in fetch(url).decode("utf-8", "replace").splitlines() if l.strip()]
+    closes = []
+    for line in lines[1:]:  # saute l'en-tete
+        parts = line.split(",")
+        if len(parts) >= 5:
+            try:
+                closes.append(float(parts[4]))
+            except ValueError:
+                continue
+    if not closes:
+        raise ValueError("CSV vide")
+    price = closes[-1]
+    change_pct = round((price - closes[-2]) / closes[-2] * 100, 2) if len(closes) >= 2 else None
+    return price, change_pct
+
+
+_COINGECKO_CACHE = None
+
+
+def fetch_coingecko(cg_id):
+    global _COINGECKO_CACHE
+    if _COINGECKO_CACHE is None:
+        url = (
+            "https://api.coingecko.com/api/v3/simple/price"
+            "?ids=bitcoin,ethereum,pax-gold&vs_currencies=usd&include_24hr_change=true"
+        )
+        _COINGECKO_CACHE = json.loads(fetch(url))
+    data = _COINGECKO_CACHE[cg_id]
+    change = data.get("usd_24h_change")
+    return data["usd"], round(change, 2) if change is not None else None
+
+
+def fetch_market(entry):
+    providers = [("yahoo", lambda: fetch_yahoo(entry["symbol"]))]
+    if entry.get("stooq"):
+        providers.append(("stooq", lambda: fetch_stooq(entry["stooq"])))
+    if entry.get("coingecko"):
+        providers.append(("coingecko", lambda: fetch_coingecko(entry["coingecko"])))
+
+    price = change_pct = None
+    for name, fn in providers:
+        try:
+            price, change_pct = fn()
+            break
+        except Exception as exc:  # reseau, format, symbole retire...
+            print(f"[marche] echec {entry['key']} via {name}: {exc}", file=sys.stderr)
+    return {
+        "key": entry["key"],
+        "label": entry["label"],
+        "category": entry["category"],
+        "currency": entry["currency"],
+        "price": round(price, 2) if price is not None else None,
+        "change_pct": change_pct,
+        "ok": price is not None,
+    }
 
 
 def strip_html(text):
