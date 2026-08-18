@@ -39,10 +39,10 @@ USER_AGENT = (
 # Indices et actifs suivis. Plusieurs sources par actif (repli automatique) :
 # yahoo -> stooq (CSV gratuit) -> coingecko (crypto / or via PAXG).
 MARKETS = [
-    {"key": "sp500", "symbol": "^GSPC", "stooq": "^spx", "label": "S&P 500", "category": "actions", "currency": "USD"},
-    {"key": "cac40", "symbol": "^FCHI", "stooq": "^cac", "label": "CAC 40", "category": "actions", "currency": "EUR"},
-    {"key": "immobilier", "symbol": "VNQ", "stooq": "vnq.us", "label": "Immobilier (ETF VNQ)", "category": "immobilier", "currency": "USD"},
-    {"key": "or", "symbol": "GC=F", "stooq": "xauusd", "coingecko": "pax-gold", "label": "Or (once)", "category": "or", "currency": "USD"},
+    {"key": "sp500", "symbol": "^GSPC", "cnbc": ".SPX", "stooq": "^spx", "label": "S&P 500", "category": "actions", "currency": "USD"},
+    {"key": "cac40", "symbol": "^FCHI", "cnbc": ".FCHI", "stooq": "^cac", "label": "CAC 40", "category": "actions", "currency": "EUR"},
+    {"key": "immobilier", "symbol": "VNQ", "cnbc": "VNQ", "stooq": "vnq.us", "label": "Immobilier (ETF VNQ)", "category": "immobilier", "currency": "USD"},
+    {"key": "or", "symbol": "GC=F", "cnbc": "@GC.1", "stooq": "xauusd", "coingecko": "pax-gold", "label": "Or (once)", "category": "or", "currency": "USD"},
     {"key": "btc", "symbol": "BTC-USD", "stooq": "btcusd", "coingecko": "bitcoin", "label": "Bitcoin", "category": "crypto", "currency": "USD"},
     {"key": "eth", "symbol": "ETH-USD", "stooq": "ethusd", "coingecko": "ethereum", "label": "Ethereum", "category": "crypto", "currency": "USD"},
 ]
@@ -107,7 +107,7 @@ def fetch_yahoo(symbol):
     # on retente sur les deux hotes avec une pause croissante.
     last_exc = None
     payload = None
-    for attempt, host in enumerate(["query1", "query2", "query1", "query2"]):
+    for attempt, host in enumerate(["query1", "query2"]):
         url = (
             f"https://{host}.finance.yahoo.com/v8/finance/chart/"
             + urllib.parse.quote(symbol)
@@ -156,6 +156,25 @@ def fetch_stooq(symbol):
     return price, change_pct
 
 
+def fetch_cnbc(symbol):
+    """API de cotation publique de CNBC (cours + variation directement)."""
+    url = (
+        "https://quote.cnbc.com/quote-html-webservice/restQuote/symbolType/symbol"
+        "?symbols=" + urllib.parse.quote(symbol)
+        + "&requestMethod=itv&noform=1&partnerId=2&fund=1&exthrs=1&output=json"
+    )
+    quote = json.loads(fetch(url))["FormattedQuoteResult"]["FormattedQuote"][0]
+    price = float(str(quote["last"]).replace(",", "").replace("$", ""))
+    change_pct = None
+    raw = str(quote.get("change_pct", "")).strip()
+    if raw and raw.upper() != "UNCH":
+        try:
+            change_pct = round(float(raw.replace("%", "").replace("+", "")), 2)
+        except ValueError:
+            pass
+    return price, change_pct
+
+
 _COINGECKO_CACHE = None
 
 
@@ -174,6 +193,8 @@ def fetch_coingecko(cg_id):
 
 def fetch_market(entry):
     providers = [("yahoo", lambda: fetch_yahoo(entry["symbol"]))]
+    if entry.get("cnbc"):
+        providers.append(("cnbc", lambda: fetch_cnbc(entry["cnbc"])))
     if entry.get("stooq"):
         providers.append(("stooq", lambda: fetch_stooq(entry["stooq"])))
     if entry.get("coingecko"):
