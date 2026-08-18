@@ -1,9 +1,9 @@
 {
- "generated_at": "2026-08-18T21:36:11+00:00",
+ "generated_at": "2026-08-18T21:39:05+00:00",
  "days": [
   {
    "date": "2026-08-18",
-   "updated_at": "2026-08-18T21:36:11+00:00",
+   "updated_at": "2026-08-18T21:39:05+00:00",
    "markets": [
     {
      "key": "sp500",
@@ -37,7 +37,7 @@
      "label": "Or (once)",
      "category": "or",
      "currency": "USD",
-     "price": 4341.22,
+     "price": 4341.41,
      "change_pct": -1.48,
      "ok": true
     },
@@ -46,8 +46,8 @@
      "label": "Bitcoin",
      "category": "crypto",
      "currency": "USD",
-     "price": 64574,
-     "change_pct": 0.44,
+     "price": 64567,
+     "change_pct": 0.45,
      "ok": true
     },
     {
@@ -55,26 +55,26 @@
      "label": "Ethereum",
      "category": "crypto",
      "currency": "USD",
-     "price": 1911.92,
-     "change_pct": 0.34,
+     "price": 1911.87,
+     "change_pct": 0.36,
      "ok": true
     }
    ],
    "news": {
     "declarations": [
      {
-      "id": "e2f5743a7ea0",
-      "title": "Les entreprises qui résistent à Trump ne sont pas pénalisées par les marchés - legrandcontinent.eu",
+      "id": "3a17b31a14ce",
+      "title": "Les entreprises qui résistent à Trump ne sont pas pénalisées par les marchés - Le Grand Continent",
       "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxQX3ViczAtb09URzlkVzBKM2dnN2ozM0pibTg4TFpqTDVVSzMtMnY4V0JnUzdHUlo2Xy13M2JZYjVicmdvWUNLUHdlZXBUenRsdTRmMGhkTy1fd0d5bmlLQUwzMXU4dENRM2dsN1hLb1dYT0xCS0NxWDFHZ2tEVk02UVFyNUlMZEl4TE9lUi1MUUJRcDJqUlRXMEVzVzBhcUlXZXJ0OEJzTnluYW1zcVR4WnBiNDZZVU41cGZn?oc=5",
-      "source": "legrandcontinent.eu",
+      "source": "Le Grand Continent",
       "published": "2026-08-18T12:30:30+00:00",
       "query": "Trump économie marchés"
      },
      {
-      "id": "e55ff6292e28",
-      "title": "Il fera \"profil bas\": Jerome Powell annonce qu'il restera comme gouverneur de la Fed, les taux directeurs restent inchangés - BFM",
+      "id": "f93b484e55e8",
+      "title": "Il fera \"profil bas\": Jerome Powell annonce qu'il restera comme gouverneur de la Fed, les taux directeurs restent inchangés - bfmtv.com",
       "link": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxNN2hRQ0pEcDhydFBsSzhZQTZfQnhJT0gyTFdhc3lxUjJvLUhfeEhpTXB2RUZWY01ieW9FdFd6YWhCYko4S1VZcHdJRkhlOUV6aTd2OFNEQkQ4M1Q3NjRScXRob3RuOWdlWDZNRTE2YXdwSVBHUThTQVgzWjJIMkVZT1lPR2JjOHRqMzVXaGV2WGdUdVo4Zl9UYlhpV1Q5OVZPVW5Ob2lyanpRMG1scUZEeE05ODhhUy1neXZpREVWZTY0UHdqM0ludjV3QWNuWFRyS05DMGFzNUxLOUpLaEVfa3hYa2VBaVBIWmtuXw?oc=5",
-      "source": "BFM",
+      "source": "bfmtv.com",
       "published": "2026-04-29T07:00:00+00:00",
       "query": "Jerome Powell Fed taux"
      },
@@ -111,27 +111,27 @@
       "query": "Jamie Dimon économie"
      },
      {
-      "id": "45250f6961ad",
-      "title": "\"Plus il fait bouger les marchés, plus l'abonnement devient rentable\": Donald Trump vend désormais ses annonces officielles sur Truth Social en avant-première aux investisseurs (et va empocher des centaines de milliers de dollars au passage) - BFM",
+      "id": "f46b2bc6c26e",
+      "title": "\"Plus il fait bouger les marchés, plus l'abonnement devient rentable\": Donald Trump vend désormais ses annonces officielles sur Truth Social en avant-première aux investisseurs (et va empocher des centaines de milliers de dollars au passage) - bfmtv.com",
       "link": "https://news.google.com/rss/articles/CBMirwNBVV95cUxPMlZmVHRXTE9yRmptcE9BQTN6dkVvTFZwNE45eWNYeENkWWtUa2VVMGJnZXkyMnlxeFNJQi1lM2UxMGhGMFRJc19qUUc2RzVIYl9LZnc1eW9rcEtmMXg1b2hfTGpXZWdnZlBNTzJMTWxZUUdnRlBhbjEzZGI4QWFnMG54amljWkZRSEhFeUktWHUtV2hHZ2k4NjdwZENfc1FZa0k0VGlWS29YNklsenFfbXVVMW85ZENJMS14Mjg1T1pka1ZRTWhRdDVOcm9HMnBqbmF2WkhnSl9leko4QVQteU53R3prTkJUdS1UOGpnUHZ4TTJETUROMGJQeERSYmdLMkxGdmdzdFdpa2k1emNadm9ONTYyMnhyS1VlUFRwbGFvekg2ZTA2TXFJR01MckcxZlFFN2FrWTQxcEl5Y29TSUR3T1pzZkx5MlY2R29WaVV0bzdmY2VReFhtNl9qbWw0SWZ0STUya2ZWb1RZd0hZYnVHZ0xrSENCU1dOUTRyc1N3bHdoNzVEODllVkRWU21xZ2JHT21HX2ppSkNmdk5kSDg3WVFOSEItM1FwVEk2aw?oc=5",
-      "source": "BFM",
+      "source": "bfmtv.com",
       "published": "2026-08-05T07:00:00+00:00",
       "query": "Trump économie marchés"
      },
      {
-      "id": "bd90b43a43ff",
-      "title": "La Fed maintient ses taux, Jérôme Powell annonce qu'il restera au conseil - Euronews.com",
+      "id": "1648905b580f",
+      "title": "La Fed maintient ses taux, Jérôme Powell annonce qu'il restera au conseil - fr.euronews.com",
       "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQMWJ6b09GLUNRVXR6OU9fUnBpRDJSUGJBSDk2dWFFcHVLTHA1enlWeEZqUmlVaEkwQ1R2RFp2TExzak5ZdTgwR3pGa045Q3hiLW5HRUd5RXA0OFU1Sld1ZXFZUkpTRGl1aU1ZSGtnbzd6djBhandUNVg3VDY1Qk42S3k0MmJ3SjA4dmhPcTNkUlVIejdpMHpJNHhraDJWUC1JNzZCdF83Ykd5bFg0a1gwTFZjU1NKZw?oc=5",
-      "source": "Euronews.com",
+      "source": "fr.euronews.com",
       "published": "2026-04-29T07:00:00+00:00",
       "query": "Jerome Powell Fed taux"
      },
      {
-      "id": "b67a49cf9351",
-      "title": "\"Vous ne me verrez pas partir avant 2027\", assure la présidente de la BCE Christine Lagarde - BFM",
-      "link": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxPc3RoNjNMZ3lWb0c4MU5sazB4VUZwakVmcUl5enU4UmVVM3g5czdKV3NmV2ZxTkY3OW8wRTZtZmZ3M0VpaFFhZlh2eTdlTldQTFlta0dRWWlhVU1NUmJjcE4yOGExR0pkdzViR3ZCNjlWSVVLaVJsdmxibWl1TXZxS0ZSUjN3VjYwOTZ4M2ttVmpKbGFJSmoyNzFfWHJQWDVCVEhLX29xbkNTSFdtNE1WdGtVR0tRNm41a2lXT3QyZldlLUQ1eDVnQkZpT0ZsMVYzRE43eDJjSjNjVzN3eU5Z?oc=5",
-      "source": "BFM",
-      "published": "2026-07-23T07:00:00+00:00",
+      "id": "cd4fb175f890",
+      "title": "LA BCE maintient ses taux : suivez en direct la conférence de presse de Christine Lagarde - Boursorama",
+      "link": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxQTjJJLVJSS1VzU0lhV2o5am1vdDRNdWI4bTNLeVV0NFUteDlPY2hsY1J5ZTNUS3RjZFhHNUFZb19rd3FLNHpnUmlkQXZSb01RU3FwSUdNVWhfaWlXV2htT2lTX0IyYXl2MWVhQ182dHUtT2NzMGFrWjdZVFhEZVpzRnJyOFUwbXhOYXVqUFZWQ1ZWODZuem5TcDI0X0k4bEwwSS1GTFZNMkJ1WDRPcW1EbmdxWWN3NEV6SC1LelFJUTVheXVvNGpWM096eHhsYTQ1cEJfZjVYT0h2VGNIVHZUWmU1cjR1NGUzTFZsYUF0aGNEWFdHSGl3NQ?oc=5",
+      "source": "Boursorama",
+      "published": "2026-07-23T12:22:44+00:00",
       "query": "Christine Lagarde BCE"
      },
      {
@@ -151,10 +151,10 @@
       "query": "Warren Buffett investissement"
      },
      {
-      "id": "a540bb31fc5f",
-      "title": "Jamie Dimon met en exergue les menaces qui pèsent sur l’économie américaine - L'Agefi",
+      "id": "57790131f276",
+      "title": "Jamie Dimon met en exergue les menaces qui pèsent sur l’économie américaine - agefi.fr",
       "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxOUTk2VkRSX05TRXItSENacnpJeVo1a0pqSU9lZjVYc1hzaENJdGhLemFEZHp6dUFLakdsM2xTVDVxbEw2SmwwQks5Vk1feFY1QmlGVFJTems0RXQ3UEtnYlhBNkRqWnFxd2RWT3psWTRXM1VwTmJ6QWpfckZPd29ySmRJRlNYZzdZOUFuTFktUW10SUFNaTRBaERVdnVEWDM0MGZEUHEyZXozLWZwU0kwTXpsTWc2V3Q3?oc=5",
-      "source": "L'Agefi",
+      "source": "agefi.fr",
       "published": "2026-04-06T07:00:00+00:00",
       "query": "Jamie Dimon économie"
      }
@@ -227,10 +227,10 @@
     ],
     "immobilier": [
      {
-      "id": "af4a76fed15c",
-      "title": "Calendrier macroéconomique : le marché immobilier américain sous les projecteurs des investisseurs (18.08.2026) - xtb.com",
+      "id": "da2ec99afe35",
+      "title": "Calendrier macroéconomique : le marché immobilier américain sous les projecteurs des investisseurs (18.08.2026) - XTB.com",
       "link": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxNNUdPRlpMc0wzYXdOdm9sWGN3amQ1NE1peXNOSW40NlJtcERqMk1KTTN0ZzBNLWRicVR4WTFLVEhUdWJYdThUYWgzTHRNVkpDLWI4VkRBQWl1TGZXVlhjcC1NejBLWG80UkF3NmFhenFkVFpYQ3FIR3d0OHo0TmhQYTFwUFJTU2ZBa0xwX2FFMnFycXh1NGswMG0tQ19YWFJxcG1XOFV5aFFyVVNIYWMyTS1TZzBibGlkZVBtTXVzRklNRUJGQlBzdFlFSC04Sm5EczRoMzltNUFyd3Nma2hSeA?oc=5",
-      "source": "xtb.com",
+      "source": "XTB.com",
       "published": "2026-08-18T07:09:00+00:00",
       "query": "marché immobilier investissement"
      },
@@ -275,10 +275,10 @@
       "query": "taux crédit immobilier"
      },
      {
-      "id": "420859f7ec16",
-      "title": "Le marché de l’investissement en immobilier d'entreprise | Bilan 2025 & Perspectives 2026 - colliers.com",
+      "id": "ec85076c3666",
+      "title": "Le marché de l’investissement en immobilier d'entreprise | Bilan 2025 & Perspectives 2026 - Colliers",
       "link": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPUmpFR21od0NfYmNBTjJyZGtRdktDQmRGLUZxeFkwTmpLM1hyWFh3aDI4QlNaTHVGRFNveDBEa3pYUHhjZGYzblZzbXdhR190LUZiaDNrUWVyS0NQMG9pZnUyUHZTV3FQTXVyaVIxZkpFc1Fpd2NiWklIdWNwQ3BnTjBn?oc=5",
-      "source": "colliers.com",
+      "source": "Colliers",
       "published": "2026-01-15T08:00:00+00:00",
       "query": "marché immobilier investissement"
      },
@@ -293,10 +293,10 @@
     ],
     "or": [
      {
-      "id": "32d17c469c55",
-      "title": "Cours de l'or : baisse de l'once face aux rendements obligataires - xtb.com",
+      "id": "0dda0316a79b",
+      "title": "Cours de l'or : baisse de l'once face aux rendements obligataires - XTB.com",
       "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNc0F1QkJlQnhnSTA1YlVoNHRCWDZoWm9zUEtXRWVTOWNvekdEYWw1aFpuWGZGb3ZtRXZQRmVmOTl6QTJIQkJLdzhaVEMxM29vSUpiTld2anZPbURPU3AyTl9aYUs2TnFCNGV1VjJ4Y3V4STh5Ykg5UWRHSld2R0x6TWx0aXhvZ2pXSE9OYmVGSEpyamV4QTNTN1BVWU1RM3AtVmhRYTYtaUw?oc=5",
-      "source": "xtb.com",
+      "source": "XTB.com",
       "published": "2026-08-18T14:31:00+00:00",
       "query": "cours de l'or once"
      },
