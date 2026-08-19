@@ -554,6 +554,106 @@ body.hover-link .cursor-dot { transform: translate(-50%, -50%) scale(0.4); }
 }
 .edition-lede .drop { color: var(--gold-bright); font-size: 1.35em; vertical-align: -0.05em; font-weight: 400; }
 
+/* ---------- Résumé matinal ---------- */
+.edition-briefing {
+  position: relative;
+  max-width: 760px;
+  margin: 2.6rem auto 0;
+  padding: 1.9rem 2.4rem 2rem;
+  background:
+    radial-gradient(120% 100% at 50% 0%, rgba(212, 169, 78, 0.09), transparent 60%),
+    linear-gradient(180deg, var(--panel-2), var(--panel));
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 250, 235, 0.05),
+    var(--shadow-lg);
+  overflow: hidden;
+  text-align: center;
+}
+.edition-briefing::before,
+.edition-briefing::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 60%;
+  height: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, transparent, var(--gold-bright), transparent);
+  opacity: 0.55;
+}
+.edition-briefing::before { top: 0; }
+.edition-briefing::after  { bottom: 0; }
+.briefing-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--gold);
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.36em;
+  margin-bottom: 1.15rem;
+}
+.briefing-diamond {
+  color: var(--gold-bright);
+  font-size: 0.85em;
+  text-shadow: 0 0 8px rgba(240, 207, 122, 0.5);
+}
+.briefing-lines {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+.briefing-line {
+  display: block;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-variation-settings: "opsz" 96, "SOFT" 40;
+  font-size: 1.28rem;
+  line-height: 1.45;
+  letter-spacing: -0.012em;
+  color: var(--text);
+  text-wrap: balance;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: brf-in 0.9s var(--ease-out) forwards;
+}
+.briefing-line.l1 { animation-delay: 0.15s; }
+.briefing-line.l2 {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--text-soft);
+  font-size: 1.14rem;
+  animation-delay: 0.35s;
+}
+.briefing-line .up   { color: var(--up); font-style: normal; font-weight: 500; }
+.briefing-line .down { color: var(--down); font-style: normal; font-weight: 500; }
+.briefing-line .accent {
+  background: linear-gradient(180deg, var(--gold-bright), var(--gold-deep));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-style: italic;
+  font-weight: 500;
+}
+.briefing-line .num {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  color: var(--text);
+  font-style: normal;
+  letter-spacing: -0.01em;
+}
+@keyframes brf-in { to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 640px) {
+  .edition-briefing { padding: 1.4rem 1.3rem 1.5rem; margin-top: 2rem; }
+  .briefing-line { font-size: 1.1rem; }
+  .briefing-line.l2 { font-size: 1rem; }
+  .briefing-kicker { letter-spacing: 0.28em; }
+}
+
 /* =====================================================
    Chapitres (I. Les Marchés, II. La Chronique)
    ===================================================== */

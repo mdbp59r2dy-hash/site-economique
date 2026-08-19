@@ -16,6 +16,7 @@ Site statique existant "Pulse Éco" (journal quotidien des marchés). Demande ut
 - Curseur signature (point doré + anneau magnétique, désactivé sur touch).
 - Aurore d'arrière-plan (3 blobs animés) + vignette + grain de papier.
 - Manchette éditoriale : ornement diamant, kicker « Édition n° X », date splittée mot par mot avec reveal cinéma (année en italique doré), lede en guillemets serif.
+- **Résumé matinal** : bloc éditorial en tête, ligne 1 = humeur des marchés (mood + focus + contrepoint, chiffres colorés up/down, nom accentué en italique doré), ligne 2 = chronique dominante (catégorie prioritaire déclarations→actions→crypto→or→immobilier, titre nettoyé, source).
 - Chapitres numérotés : I. Les marchés / II. La chronique (chiffres serif italiques dorés).
 - Cartes marchés : bento asymétrique, prix serif géants avec count-up animé, sparklines qui se dessinent (stroke-dashoffset), devise en exposant, filet or en haut/bas.
 - Ticker « Cotations · en continu » avec label épinglé et masque gradient.

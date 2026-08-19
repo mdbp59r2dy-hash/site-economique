@@ -420,7 +420,85 @@
       '<span class="num">' + nNews + '</span>&nbsp;chroniques<span class="sep">◆</span>' +
       '<span class="num">' + nMarkets + '</span>&nbsp;baromètres suivis<span class="sep">◆</span>' +
       'clos&nbsp;à&nbsp;<span class="num">' + esc(fmtDateTime(day.updated_at)) + '</span>';
+
+    buildBriefing(day);
     el.edition.hidden = false;
+  }
+
+  /* ---------- Résumé matinal : deux lignes éditoriales ---------- */
+  function buildBriefing(day) {
+    var box = document.getElementById("edition-briefing");
+    var l1 = document.getElementById("briefing-l1");
+    var l2 = document.getElementById("briefing-l2");
+    if (!box || !l1 || !l2) return;
+
+    // === Ligne 1 : humeur des marchés ===
+    var markets = (day.markets || []).filter(function (m) {
+      return m.price != null && m.change_pct != null && !m.stale_from;
+    });
+    var line1 = "";
+    if (markets.length) {
+      var ups   = markets.filter(function (m) { return m.change_pct > 0; }).sort(function (a, b) { return b.change_pct - a.change_pct; });
+      var downs = markets.filter(function (m) { return m.change_pct < 0; }).sort(function (a, b) { return a.change_pct - b.change_pct; });
+      var netChange = markets.reduce(function (s, m) { return s + m.change_pct; }, 0);
+      var mood;
+      if (netChange > 1.2)        mood = "Belle séance sur les marchés";
+      else if (netChange > 0.2)   mood = "Marchés en légère progression";
+      else if (netChange > -0.2)  mood = "Séance sans grand relief";
+      else if (netChange > -1.2)  mood = "Marchés hésitants";
+      else                        mood = "Séance rouge sur les marchés";
+
+      var focus = downs.length && (!ups.length || Math.abs(downs[0].change_pct) >= ups[0].change_pct) ? downs[0] : ups[0];
+      var counter = downs.length && ups.length
+        ? (focus.change_pct < 0 ? ups[0] : downs[0])
+        : null;
+
+      var focusHtml = focus
+        ? ' — <span class="accent">' + esc(focus.label) + '</span>' +
+          ' <span class="' + (focus.change_pct >= 0 ? 'up' : 'down') + '">' +
+          (focus.change_pct >= 0 ? '+' : '−') +
+          Math.abs(focus.change_pct).toLocaleString('fr-FR', { maximumFractionDigits: 2 }) + '\u202f%</span>'
+        : "";
+      var counterHtml = counter
+        ? ', tandis que ' + esc(counter.label) +
+          ' <span class="' + (counter.change_pct >= 0 ? 'up' : 'down') + '">' +
+          (counter.change_pct >= 0 ? '+' : '−') +
+          Math.abs(counter.change_pct).toLocaleString('fr-FR', { maximumFractionDigits: 2 }) + '\u202f%</span>' +
+          ' tient le cap'
+        : "";
+      line1 = mood + focusHtml + counterHtml + ".";
+    } else {
+      line1 = "Une matinée feutrée sur les places financières, en attente du premier signal.";
+    }
+
+    // === Ligne 2 : thème éditorial dominant ===
+    var priorityCats = ["declarations", "actions", "crypto", "or", "immobilier"];
+    var catLead = { declarations: "Sur le fil politique", actions: "Côté actions", crypto: "Dans l'univers crypto", or: "Sur le marché de l'or", immobilier: "Côté pierre" };
+    var headline = null, headlineCat = null;
+    for (var i = 0; i < priorityCats.length && !headline; i++) {
+      var cat = priorityCats[i];
+      var items = ((day.news && day.news[cat]) || [])
+        .filter(function (it) { return !state.hidden.has(it.id); })
+        .sort(byDateDesc);
+      if (items.length) { headline = items[0]; headlineCat = cat; }
+    }
+    var line2;
+    if (headline) {
+      var title = String(headline.title || "").replace(/\s+-\s+[^-]+$/, "").trim();
+      if (title.length > 150) title = title.slice(0, 147).replace(/\s+\S*$/, "") + "…";
+      line2 = catLead[headlineCat] + ', <em>«&nbsp;' + esc(title) + '&nbsp;»</em>' +
+        (headline.source ? ' — ' + esc(headline.source) : '') + '.';
+    } else {
+      line2 = "La chronique reste à écrire — les premiers signaux du jour arrivent.";
+    }
+
+    l1.innerHTML = line1;
+    l2.innerHTML = line2;
+    // Redémarrage des animations à chaque render
+    [l1, l2].forEach(function (n) {
+      n.style.animation = "none"; void n.offsetWidth; n.style.animation = "";
+    });
+    box.hidden = false;
   }
 
   /* ---------- Rendu : marchés (bento double-bezel) ---------- */
