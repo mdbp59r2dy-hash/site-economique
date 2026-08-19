@@ -522,6 +522,91 @@ body.edit-mode .del-btn { display: block; }
 
 .empty-cat { color: var(--muted); font-style: italic; }
 
+/* ---------- Rubriques interactives ---------- */
+.rub { margin: 0.9rem 0; }
+.rub-head {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-radius: 12px;
+  padding: 0.6rem 0.7rem;
+  cursor: pointer;
+  color: var(--text);
+  text-align: left;
+  overflow: hidden;
+  transition: background 0.4s var(--ease);
+}
+.rub-head:hover { background: var(--shell); }
+.rub-num {
+  font-family: "Fraunces", Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--gold);
+  font-size: 1rem;
+  min-width: 1.7rem;
+  text-align: center;
+}
+.rub-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+}
+.rub-line { flex: 1; height: 1px; background: var(--border); }
+.rub-count {
+  color: var(--gold);
+  font-size: 0.7rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.rub-chev {
+  color: var(--muted);
+  font-size: 0.72rem;
+  transition: transform 0.45s var(--ease);
+}
+.rub.closed .rub-chev { transform: rotate(-90deg); }
+.rub-body {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.55s var(--ease);
+}
+.rub.closed .rub-body { grid-template-rows: 0fr; }
+.rub-inner { overflow: hidden; min-height: 0; padding-left: 2.45rem; }
+
+/* ---------- Point « info fraîche » ---------- */
+.fresh {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  margin-right: 0.5rem;
+  vertical-align: 2px;
+  animation: breathe 2.6s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%, 100% { opacity: 0.55; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+/* ---------- Halo doré sous le curseur ---------- */
+.spot { position: relative; }
+.spot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(230px circle at var(--mx, 50%) var(--my, 50%),
+              color-mix(in srgb, var(--gold) 11%, transparent), transparent 68%);
+  opacity: 0;
+  transition: opacity 0.5s var(--ease);
+  pointer-events: none;
+}
+.spot:hover::after { opacity: 1; }
+
 /* ---------- Révélation au défilement ---------- */
 .reveal {
   opacity: 0;
@@ -654,4 +739,5 @@ body.edit-mode .del-btn { display: block; }
   .tabs { gap: 0.85rem; }
   .news-card.lead .lead-inner { padding: 1rem 2.2rem 1rem 1rem; }
   .news-card.lead a { font-size: 1.12rem; }
+  .rub-inner { padding-left: 0.9rem; }
 }

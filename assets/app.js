@@ -3,12 +3,21 @@
   "use strict";
 
   var CATEGORIES = ["declarations", "actions", "immobilier", "or", "crypto"];
+  var RUBRIQUES = [
+    { cat: "declarations", label: "Déclarations" },
+    { cat: "actions", label: "Actions" },
+    { cat: "immobilier", label: "Immobilier" },
+    { cat: "or", label: "Or" },
+    { cat: "crypto", label: "Crypto" }
+  ];
+  var ROMAN = ["I", "II", "III", "IV", "V"];
   var HIDDEN_KEY = "pulse-eco-hidden-ids";
   var THEME_KEY = "pulse-eco-theme";
 
   var state = {
     view: "latest", // "latest" | "archive"
-    category: "declarations",
+    category: "toutes",
+    rubClosed: {},
     query: "",
     latest: null,
     archiveIndex: null,
@@ -119,11 +128,27 @@
     if (!state.query) return true;
     return (it.title + " " + (it.source || "")).toLowerCase().indexOf(state.query) !== -1;
   }
+  function byDateDesc(a, b) {
+    var pa = a.published || "", pb = b.published || "";
+    return pa > pb ? -1 : pa < pb ? 1 : 0;
+  }
   function visibleItems(day, category) {
     var items = (day.news && day.news[category]) || [];
     return items.filter(function (it) {
       return !state.hidden.has(it.id) && matchesQuery(it);
-    });
+    }).sort(byDateDesc);
+  }
+  function fmtRelative(iso) {
+    if (!iso) return "—";
+    var mins = (Date.now() - new Date(iso).getTime()) / 60000;
+    if (mins < 1) return "à l'instant";
+    if (mins < 60) return "il y a " + Math.round(mins) + " min";
+    if (mins < 36 * 60) return "il y a " + Math.round(mins / 60) + " h";
+    return fmtDateTime(iso);
+  }
+  function isFresh(iso) {
+    if (!iso) return false;
+    return Date.now() - new Date(iso).getTime() < 12 * 3600 * 1000;
   }
 
   /* ---------- Toast ---------- */
@@ -309,7 +334,7 @@
       shell.className = "m-shell reveal";
       shell.style.transitionDelay = (i * 0.06) + "s";
       var card = document.createElement("div");
-      card.className = "market-card" + (m.ok || m.stale_from ? "" : " unavailable");
+      card.className = "market-card spot" + (m.ok || m.stale_from ? "" : " unavailable");
       var cls = "flat", arrow = "→";
       if (m.change_pct > 0) { cls = "up"; arrow = "▲"; }
       if (m.change_pct < 0) { cls = "down"; arrow = "▼"; }
@@ -400,19 +425,108 @@
     return (state.archiveData && state.archiveData.days) || [];
   }
 
+  function makeNewsCard(it, opts) {
+    opts = opts || {};
+    var card = document.createElement("article");
+    card.className = "news-card" + (opts.lead ? " lead" : "");
+    var fresh = isFresh(it.published) ? '<span class="fresh" title="Publié il y a moins de 12 h"></span>' : "";
+    var inner =
+      (opts.lead ? '<div class="lead-kicker">' + esc(opts.kicker || "À la une") + "</div>" : "") +
+      fresh +
+      '<a href="' + esc(it.link) + '" target="_blank" rel="noopener">' + esc(it.title) + "</a>" +
+      '<div class="news-meta">' +
+      (it.source ? '<span class="src">' + esc(it.source) + "</span> · " : "") +
+      '<time title="' + esc(fmtDateTime(it.published)) + '">' + esc(fmtRelative(it.published)) + "</time>" +
+      ' · <code title="Identifiant pour la suppression définitive">' + esc(it.id) + "</code></div>" +
+      '<button class="del-btn" title="Masquer cette information">✕</button>';
+    card.innerHTML = opts.lead ? '<div class="lead-inner spot">' + inner + "</div>" : inner;
+    card.querySelector(".del-btn").addEventListener("click", function () {
+      card.classList.add("removing");
+      setTimeout(function () {
+        state.hidden.add(it.id);
+        state.lastHidden = it.id;
+        saveHidden();
+        render();
+        showToast("Info masquée sur ce navigateur.", true);
+      }, 220);
+    });
+    return card;
+  }
+
+  function makeRubrique(day, r, idx, excludeId) {
+    var items = visibleItems(day, r.cat).filter(function (it) { return it.id !== excludeId; });
+    if (!items.length) return null;
+    var rub = document.createElement("section");
+    rub.className = "rub";
+    var rubKey = state.view + ":" + day.date + ":" + r.cat;
+    if (state.rubClosed[rubKey]) rub.classList.add("closed");
+    var head = document.createElement("button");
+    head.className = "rub-head spot";
+    head.setAttribute("aria-expanded", state.rubClosed[rubKey] ? "false" : "true");
+    head.innerHTML =
+      '<span class="rub-num">' + ROMAN[idx] + "</span>" +
+      '<span class="rub-name">' + esc(r.label) + "</span>" +
+      '<span class="rub-line"></span>' +
+      '<span class="rub-count">' + items.length + "</span>" +
+      '<span class="rub-chev">▾</span>';
+    head.addEventListener("click", function () {
+      state.rubClosed[rubKey] = !state.rubClosed[rubKey];
+      rub.classList.toggle("closed");
+      head.setAttribute("aria-expanded", state.rubClosed[rubKey] ? "false" : "true");
+    });
+    var body = document.createElement("div");
+    body.className = "rub-body";
+    var innerEl = document.createElement("div");
+    innerEl.className = "rub-inner";
+    items.forEach(function (it) { innerEl.appendChild(makeNewsCard(it)); });
+    body.appendChild(innerEl);
+    rub.appendChild(head);
+    rub.appendChild(body);
+    return rub;
+  }
+
   function renderDays(days) {
     el.days.innerHTML = "";
     if (!days || !days.length) {
       el.days.innerHTML = '<p class="empty-cat">Aucune donnée disponible pour le moment.</p>';
       return;
     }
+    var isAll = state.category === "toutes";
     days.forEach(function (day) {
       var block = document.createElement("section");
       block.className = "day-block reveal";
       var collapseKey = state.view + ":" + day.date;
       if (state.collapsed[collapseKey]) block.classList.add("collapsed");
 
-      var items = visibleItems(day, state.category);
+      // Contenu d'abord, pour connaître le nombre total d'infos du jour
+      var content = document.createElement("div");
+      content.className = "news-list";
+      var total = 0;
+
+      if (isAll) {
+        var all = [];
+        RUBRIQUES.forEach(function (r) {
+          visibleItems(day, r.cat).forEach(function (it) {
+            all.push({ it: it, label: r.label });
+          });
+        });
+        total = all.length;
+        if (total) {
+          all.sort(function (a, b) { return byDateDesc(a.it, b.it); });
+          var lead = all[0];
+          content.appendChild(makeNewsCard(lead.it, { lead: true, kicker: "À la une · " + lead.label }));
+          RUBRIQUES.forEach(function (r, idx) {
+            var rub = makeRubrique(day, r, idx, lead.it.id);
+            if (rub) content.appendChild(rub);
+          });
+        }
+      } else {
+        var items = visibleItems(day, state.category);
+        total = items.length;
+        items.forEach(function (it, i) {
+          content.appendChild(makeNewsCard(it, i === 0 ? { lead: true } : {}));
+        });
+      }
 
       var title = document.createElement("h2");
       title.className = "day-title";
@@ -421,14 +535,14 @@
         '<span class="chevron">▼</span>' +
         (rel ? rel + ' <span class="badge">' + esc(fmtDate(day.date)) + "</span>"
              : esc(fmtDate(day.date))) +
-        ' <span class="n-items">' + items.length + " info(s)</span>";
+        ' <span class="n-items">' + total + " info(s)</span>";
       title.addEventListener("click", function () {
         state.collapsed[collapseKey] = !state.collapsed[collapseKey];
         block.classList.toggle("collapsed");
       });
       block.appendChild(title);
 
-      if (!items.length) {
+      if (!total) {
         var p = document.createElement("p");
         p.className = "empty-cat";
         p.textContent = state.query
@@ -436,33 +550,7 @@
           : "Aucune information dans cette catégorie pour ce jour.";
         block.appendChild(p);
       } else {
-        var list = document.createElement("div");
-        list.className = "news-list";
-        items.forEach(function (it, i) {
-          var isLead = i === 0;
-          var card = document.createElement("article");
-          card.className = "news-card" + (isLead ? " lead" : "");
-          var inner =
-            (isLead ? '<div class="lead-kicker">À la une</div>' : "") +
-            '<a href="' + esc(it.link) + '" target="_blank" rel="noopener">' + esc(it.title) + "</a>" +
-            '<div class="news-meta">' +
-            (it.source ? '<span class="src">' + esc(it.source) + "</span> · " : "") + esc(fmtDateTime(it.published)) +
-            ' · <code title="Identifiant pour la suppression définitive">' + esc(it.id) + "</code></div>" +
-            '<button class="del-btn" title="Masquer cette information">✕</button>';
-          card.innerHTML = isLead ? '<div class="lead-inner">' + inner + "</div>" : inner;
-          card.querySelector(".del-btn").addEventListener("click", function () {
-            card.classList.add("removing");
-            setTimeout(function () {
-              state.hidden.add(it.id);
-              state.lastHidden = it.id;
-              saveHidden();
-              render();
-              showToast("Info masquée sur ce navigateur.", true);
-            }, 220);
-          });
-          list.appendChild(card);
-        });
-        block.appendChild(list);
+        block.appendChild(content);
       }
       el.days.appendChild(block);
     });
@@ -500,7 +588,10 @@
     Array.prototype.forEach.call(el.tabs.querySelectorAll(".tab"), function (t) {
       t.classList.toggle("active", t.dataset.cat === state.category);
       var n = 0;
-      days.forEach(function (d) { n += visibleItems(d, t.dataset.cat).length; });
+      var cats = t.dataset.cat === "toutes" ? CATEGORIES : [t.dataset.cat];
+      days.forEach(function (d) {
+        cats.forEach(function (c) { n += visibleItems(d, c).length; });
+      });
       t.querySelector(".count").textContent = n ? String(n) : "";
     });
 
@@ -622,6 +713,19 @@
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") el.modal.hidden = true;
   });
+
+  // Halo doré qui suit le curseur sur les surfaces marquées .spot
+  function trackSpotlight(container) {
+    container.addEventListener("pointermove", function (e) {
+      var s = e.target.closest(".spot");
+      if (!s) return;
+      var r = s.getBoundingClientRect();
+      s.style.setProperty("--mx", (e.clientX - r.left) + "px");
+      s.style.setProperty("--my", (e.clientY - r.top) + "px");
+    });
+  }
+  trackSpotlight(el.markets);
+  trackSpotlight(el.days);
 
   var progressEl = document.getElementById("progress");
   var scrollScheduled = false;
