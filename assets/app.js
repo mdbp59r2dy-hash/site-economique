@@ -22,6 +22,11 @@
 
   var el = {
     status: document.getElementById("status"),
+    ticker: document.getElementById("ticker"),
+    tickerTrack: document.getElementById("ticker-track"),
+    edition: document.getElementById("edition"),
+    editionDate: document.getElementById("edition-date"),
+    editionMeta: document.getElementById("edition-meta"),
     markets: document.getElementById("markets"),
     toolbar: document.getElementById("toolbar"),
     tabs: document.getElementById("tabs"),
@@ -46,7 +51,7 @@
   /* ---------- Thème clair / sombre ---------- */
   function applyTheme(theme) {
     document.documentElement.setAttribute("data-theme", theme);
-    el.btnTheme.textContent = theme === "light" ? "☀️" : "🌙";
+    el.btnTheme.textContent = theme === "light" ? "☀" : "☾";
     localStorage.setItem(THEME_KEY, theme);
   }
   var urlTheme = new URLSearchParams(location.search).get("theme");
@@ -246,6 +251,51 @@
       });
   }
 
+  /* ---------- Rendu : bandeau défilant + manchette ---------- */
+  function tickerItemHtml(m) {
+    if (m.price == null) return "";
+    var cls = "flat", arrow = "→";
+    if (m.change_pct > 0) { cls = "up"; arrow = "▲"; }
+    if (m.change_pct < 0) { cls = "down"; arrow = "▼"; }
+    var change = m.stale_from || m.change_pct == null
+      ? ""
+      : '<span class="t-change ' + cls + '">' + arrow + " " +
+        Math.abs(m.change_pct).toLocaleString("fr-FR") + " %</span>";
+    return '<span class="ticker-item" data-cat="' + esc(m.category) + '">' +
+      '<span class="t-label">' + esc(m.label) + "</span>" +
+      '<span class="t-price">' + esc(fmtPrice(m)) + "</span>" + change + "</span>";
+  }
+
+  function renderTicker(day) {
+    if (!day || !day.markets) { el.ticker.hidden = true; return; }
+    var html = day.markets.map(tickerItemHtml).join("");
+    if (!html) { el.ticker.hidden = true; return; }
+    el.tickerTrack.innerHTML = html + html; // doublé pour un défilement sans couture
+    el.ticker.hidden = false;
+  }
+  el.tickerTrack.addEventListener("click", function (e) {
+    var item = e.target.closest(".ticker-item");
+    if (!item || CATEGORIES.indexOf(item.dataset.cat) === -1) return;
+    state.view = "latest";
+    state.category = item.dataset.cat;
+    render();
+    el.toolbar.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  function renderEdition(days) {
+    var day = days[0];
+    if (state.view !== "latest" || !day) { el.edition.hidden = true; return; }
+    el.editionDate.textContent = fmtDate(day.date);
+    var nNews = 0;
+    CATEGORIES.forEach(function (c) { nNews += ((day.news && day.news[c]) || []).length; });
+    var nMarkets = (day.markets || []).filter(function (m) { return m.price != null; }).length;
+    el.editionMeta.innerHTML =
+      esc(nNews + " informations") + '<span class="sep">·</span>' +
+      esc(nMarkets + " marchés suivis") + '<span class="sep">·</span>' +
+      esc("mise à jour " + fmtDateTime(day.updated_at));
+    el.edition.hidden = false;
+  }
+
   /* ---------- Rendu : marchés ---------- */
   function renderMarkets(day) {
     el.markets.innerHTML = "";
@@ -340,7 +390,7 @@
           card.innerHTML =
             '<a href="' + esc(it.link) + '" target="_blank" rel="noopener">' + esc(it.title) + "</a>" +
             '<div class="news-meta">' +
-            (it.source ? esc(it.source) + " · " : "") + esc(fmtDateTime(it.published)) +
+            (it.source ? '<span class="src">' + esc(it.source) + "</span> · " : "") + esc(fmtDateTime(it.published)) +
             ' · <code title="Identifiant pour la suppression définitive">' + esc(it.id) + "</code></div>" +
             '<button class="del-btn" title="Masquer cette information">✕</button>';
           card.querySelector(".del-btn").addEventListener("click", function () {
@@ -400,10 +450,13 @@
     var hiddenN = state.hidden.size;
     el.hiddenCount.textContent = hiddenN ? "(" + hiddenN + " info(s) masquée(s))" : "";
 
+    renderEdition(days);
     if (state.view === "latest") {
+      renderTicker(days[0]);
       renderMarkets(days[0]);
       renderDays(days);
     } else {
+      el.ticker.hidden = true;
       renderArchivePicker();
       if (state.archiveData) {
         el.markets.hidden = true;

@@ -8,37 +8,47 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
   <header class="site-header">
     <div class="wrap header-inner">
       <div class="brand">
-        <span class="logo">📈</span>
-        <div>
-          <h1>Pulse&nbsp;Éco</h1>
-          <p class="tagline">Actions · Immobilier · Or · Crypto — mis à jour chaque jour</p>
-        </div>
+        <h1>Pulse&nbsp;Éco</h1>
+        <span class="brand-rule"></span>
+        <p class="tagline">Actions · Immobilier · Or · Crypto</p>
       </div>
       <div class="header-actions">
-        <button id="btn-view-latest" class="nav-btn active">3 derniers jours</button>
-        <button id="btn-view-archive" class="nav-btn">🗃️ Archives</button>
-        <button id="btn-edit-mode" class="nav-btn ghost" title="Masquer / supprimer des infos">🗑️</button>
-        <button id="btn-theme" class="nav-btn ghost" title="Basculer clair / sombre">🌙</button>
+        <button id="btn-view-latest" class="nav-btn active">Édition du jour</button>
+        <button id="btn-view-archive" class="nav-btn">Archives</button>
+        <button id="btn-edit-mode" class="nav-btn ghost" title="Masquer / supprimer des infos">Gérer</button>
+        <button id="btn-theme" class="nav-btn ghost icon" title="Basculer clair / sombre">◐</button>
       </div>
     </div>
   </header>
 
+  <!-- Bandeau défilant des cours -->
+  <div id="ticker" class="ticker" hidden>
+    <div id="ticker-track" class="ticker-track"></div>
+  </div>
+
   <main class="wrap">
     <p id="status" class="status">Chargement des données…</p>
+
+    <!-- Manchette de l'édition -->
+    <section id="edition" class="edition" hidden>
+      <p class="edition-kicker">L'essentiel des marchés</p>
+      <h2 id="edition-date" class="edition-date"></h2>
+      <p id="edition-meta" class="edition-meta"></p>
+    </section>
 
     <!-- Bandeau des marchés -->
     <section id="markets" class="markets" hidden></section>
 
     <!-- Barre du mode suppression -->
     <div id="edit-bar" class="edit-bar" hidden>
-      <span>🗑️ <strong>Mode suppression</strong> — cliquez sur ✕ pour masquer une info.
+      <span><strong>Mode suppression</strong> — cliquez sur ✕ pour masquer une info.
         <span id="hidden-count"></span></span>
       <span class="edit-bar-actions">
         <button id="btn-restore" class="small-btn">Tout restaurer</button>
@@ -53,14 +63,14 @@
     <!-- Onglets + recherche -->
     <nav id="toolbar" class="toolbar" hidden>
       <div id="tabs" class="tabs">
-        <button data-cat="declarations" class="tab active">🎙️ Déclarations<span class="count"></span></button>
-        <button data-cat="actions" class="tab">📊 Actions<span class="count"></span></button>
-        <button data-cat="immobilier" class="tab">🏠 Immobilier<span class="count"></span></button>
-        <button data-cat="or" class="tab">🥇 Or<span class="count"></span></button>
-        <button data-cat="crypto" class="tab">₿ Crypto<span class="count"></span></button>
+        <button data-cat="declarations" class="tab active">Déclarations<span class="count"></span></button>
+        <button data-cat="actions" class="tab">Actions<span class="count"></span></button>
+        <button data-cat="immobilier" class="tab">Immobilier<span class="count"></span></button>
+        <button data-cat="or" class="tab">Or<span class="count"></span></button>
+        <button data-cat="crypto" class="tab">Crypto<span class="count"></span></button>
       </div>
       <div class="search-box">
-        <input id="search" type="search" placeholder="🔍 Rechercher une info…" autocomplete="off">
+        <input id="search" type="search" placeholder="Rechercher une info…" autocomplete="off">
       </div>
     </nav>
 
@@ -81,7 +91,7 @@
       </ol>
       <textarea id="ids-box" readonly rows="3"></textarea>
       <div class="modal-actions">
-        <button id="btn-copy-ids" class="small-btn">📋 Copier les identifiants</button>
+        <button id="btn-copy-ids" class="small-btn">Copier les identifiants</button>
         <button id="btn-close-modal" class="small-btn">Fermer</button>
       </div>
     </div>
@@ -98,7 +108,7 @@
   <footer class="site-footer wrap">
     <p>Données : CNBC, CoinGecko, Yahoo Finance &amp; Google News. Mise à jour automatique quotidienne via GitHub Actions.
        Dernière génération : <span id="generated-at">—</span>.</p>
-    <p class="disclaimer">⚠️ Informations fournies à titre indicatif uniquement — ceci n'est pas un conseil en investissement.</p>
+    <p class="disclaimer">Informations fournies à titre indicatif uniquement — ceci n'est pas un conseil en investissement.</p>
   </footer>
 
   <script src="assets/app.js"></script>
