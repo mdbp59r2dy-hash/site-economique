@@ -57,6 +57,81 @@
     toastUndo: document.getElementById("toast-undo")
   };
 
+  /* ---------- Rideau d'ouverture ---------- */
+  window.addEventListener("load", function () {
+    setTimeout(function () { document.body.classList.add("loaded"); }, 100);
+  });
+
+  /* ---------- Curseur signature ---------- */
+  (function () {
+    if (window.matchMedia && window.matchMedia("(hover: none)").matches) return;
+    var cursor = document.getElementById("cursor");
+    if (!cursor) return;
+    var dot = cursor.querySelector(".cursor-dot");
+    var ring = cursor.querySelector(".cursor-ring");
+    var mx = 0, my = 0, rx = 0, ry = 0, dx = 0, dy = 0;
+    document.addEventListener("mousemove", function (e) {
+      mx = e.clientX; my = e.clientY;
+      dx = mx; dy = my;
+    });
+    function raf() {
+      rx += (mx - rx) * 0.18;
+      ry += (my - ry) * 0.18;
+      dot.style.transform = "translate(" + (dx - 3) + "px," + (dy - 3) + "px)";
+      ring.style.transform = "translate(" + (rx - 16) + "px," + (ry - 16) + "px)";
+      requestAnimationFrame(raf);
+    }
+    raf();
+    // Rendre les liens/boutons "magnétiques"
+    document.addEventListener("mouseover", function (e) {
+      if (e.target.closest("a, button, .market-card, .rub-head, .month-btn, .tab, .ticker-item")) {
+        document.body.classList.add("hover-link");
+      }
+    });
+    document.addEventListener("mouseout", function (e) {
+      if (e.target.closest("a, button, .market-card, .rub-head, .month-btn, .tab, .ticker-item")) {
+        document.body.classList.remove("hover-link");
+      }
+    });
+  })();
+
+  /* ---------- Splittage de la manchette pour reveal mot par mot ---------- */
+  function splitWordsReveal(elText) {
+    if (!elText) return;
+    var text = elText.textContent.trim();
+    if (!text) return;
+    var words = text.split(/\s+/);
+    elText.innerHTML = "";
+    words.forEach(function (w, i) {
+      var span = document.createElement("span");
+      span.className = "word";
+      var inner = document.createElement("span");
+      inner.textContent = w + (i < words.length - 1 ? "\u00a0" : "");
+      inner.style.animationDelay = (0.05 + i * 0.09) + "s";
+      if (i === words.length - 1 && /^\d{4}$/.test(w)) inner.classList.add("em");
+      span.appendChild(inner);
+      elText.appendChild(span);
+    });
+  }
+
+  /* ---------- Compteur animé (odomètre) ---------- */
+  function animateNumber(node, from, to, opts) {
+    opts = opts || {};
+    var duration = opts.duration || 1200;
+    var symbol = opts.symbol || "";
+    var start = performance.now();
+    function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+    function step(now) {
+      var p = Math.min(1, (now - start) / duration);
+      var v = from + (to - from) * easeOut(p);
+      node.textContent = v.toLocaleString("fr-FR", { maximumFractionDigits: 2 });
+      if (opts.after) node.textContent += opts.after;
+      if (p < 1) requestAnimationFrame(step);
+      else if (opts.done) opts.done();
+    }
+    requestAnimationFrame(step);
+  }
+
   /* ---------- Thème clair / sombre ---------- */
   function applyTheme(theme) {
     document.documentElement.setAttribute("data-theme", theme);
@@ -112,6 +187,15 @@
     if (diff === 1) return "Hier";
     if (diff === 2) return "Avant-hier";
     return null;
+  }
+  function fmtPriceParts(m) {
+    if (m.price == null) return { value: "indisponible", currency: "" };
+    var symbol = m.currency === "EUR" ? "€" : "$";
+    return {
+      value: m.price.toLocaleString("fr-FR", { maximumFractionDigits: 2 }),
+      raw: m.price,
+      currency: symbol
+    };
   }
   function fmtPrice(m) {
     if (m.price == null) return "indisponible";
@@ -213,6 +297,7 @@
     svg.appendChild(area);
 
     var line = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+    line.setAttribute("class", "spark-line");
     line.setAttribute("stroke", trend);
     line.setAttribute("vector-effect", "non-scaling-stroke");
     line.setAttribute("points", coords.map(function (c) { return c.join(","); }).join(" "));
@@ -308,20 +393,33 @@
     state.view = "latest";
     state.category = item.dataset.cat;
     render();
-    el.toolbar.scrollIntoView({ behavior: "smooth", block: "start" });
+    var target = document.getElementById("chapter-news") || el.toolbar;
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
   });
 
   function renderEdition(days) {
     var day = days[0];
     if (state.view !== "latest" || !day) { el.edition.hidden = true; return; }
     el.editionDate.textContent = fmtDate(day.date);
+    // Splittage mot par mot pour reveal cinématographique
+    requestAnimationFrame(function () { splitWordsReveal(el.editionDate); });
+
+    // Numéro d'édition = jours depuis un ancrage éditorial (fictif mais stable)
+    var editionNumEl = document.getElementById("edition-number");
+    if (editionNumEl) {
+      var anchor = new Date("2024-01-01T12:00:00Z").getTime();
+      var target = new Date(day.date + "T12:00:00Z").getTime();
+      var n = Math.max(1, Math.round((target - anchor) / 86400000));
+      editionNumEl.textContent = n.toLocaleString("fr-FR");
+    }
+
     var nNews = 0;
     CATEGORIES.forEach(function (c) { nNews += ((day.news && day.news[c]) || []).length; });
     var nMarkets = (day.markets || []).filter(function (m) { return m.price != null; }).length;
     el.editionMeta.innerHTML =
-      esc(nNews + " informations") + '<span class="sep">·</span>' +
-      esc(nMarkets + " marchés suivis") + '<span class="sep">·</span>' +
-      esc("mise à jour " + fmtDateTime(day.updated_at));
+      '<span class="num">' + nNews + '</span>&nbsp;chroniques<span class="sep">◆</span>' +
+      '<span class="num">' + nMarkets + '</span>&nbsp;baromètres suivis<span class="sep">◆</span>' +
+      'clos&nbsp;à&nbsp;<span class="num">' + esc(fmtDateTime(day.updated_at)) + '</span>';
     el.edition.hidden = false;
   }
 
@@ -332,7 +430,7 @@
     day.markets.forEach(function (m, i) {
       var shell = document.createElement("div");
       shell.className = "m-shell reveal";
-      shell.style.transitionDelay = (i * 0.06) + "s";
+      shell.style.transitionDelay = (i * 0.07) + "s";
       var card = document.createElement("div");
       card.className = "market-card spot" + (m.ok || m.stale_from ? "" : " unavailable");
       var cls = "flat", arrow = "→";
@@ -347,10 +445,23 @@
       } else {
         changeHtml = arrow + " " + Math.abs(m.change_pct).toLocaleString("fr-FR") + " %";
       }
+      var parts = fmtPriceParts(m);
+      var priceHtml = m.price == null
+        ? '<div class="m-price"><span class="p-val">indisponible</span></div>'
+        : '<div class="m-price"><span class="p-val">0</span><span class="cur">' + esc(parts.currency) + '</span></div>';
       card.innerHTML =
         '<div class="m-label">' + esc(m.label) + "</div>" +
-        '<div class="m-price">' + esc(fmtPrice(m)) + "</div>" +
+        priceHtml +
         '<div class="m-change ' + cls + '">' + esc(changeHtml) + "</div>";
+
+      // Count-up animé sur le prix
+      if (m.price != null) {
+        var pv = card.querySelector(".p-val");
+        var start = 0.75 * m.price;
+        setTimeout(function () {
+          animateNumber(pv, start, m.price, { duration: 1400 });
+        }, 200 + i * 90);
+      }
 
       if (state.history && state.history[m.key]) {
         buildSparkline(card, state.history[m.key].slice(-30), m.currency);
@@ -362,7 +473,7 @@
         card.addEventListener("click", function () {
           state.category = m.category;
           render();
-          el.toolbar.scrollIntoView({ behavior: "smooth", block: "start" });
+          document.getElementById("chapter-news").scrollIntoView({ behavior: "smooth", block: "start" });
         });
       }
       shell.appendChild(card);

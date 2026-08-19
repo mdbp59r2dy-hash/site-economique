@@ -3,47 +3,92 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pulse Éco — Suivi quotidien des investissements</title>
-  <meta name="description" content="Suivi quotidien de l'économie : actions, immobilier, or, crypto et déclarations des grandes figures de la finance.">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>">
+  <title>Pulse Éco — Le Journal des Marchés</title>
+  <meta name="description" content="Le journal quotidien des marchés. Actions, immobilier, or, crypto et les déclarations qui font bouger le monde.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◆</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/style.css?v=4">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,500;1,9..144,600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css?v=6">
 </head>
 <body>
+  <!-- Rideau d'ouverture cinématographique -->
+  <div id="curtain" class="curtain" aria-hidden="true">
+    <div class="curtain-panel top"></div>
+    <div class="curtain-panel bot"></div>
+    <div class="curtain-center">
+      <span class="curtain-mark">◆</span>
+      <span class="curtain-brand">Pulse&nbsp;Éco</span>
+      <span class="curtain-tag">Le journal des marchés</span>
+      <span class="curtain-line"><span></span></span>
+    </div>
+  </div>
+
+  <!-- Curseur signature -->
+  <div id="cursor" class="cursor" aria-hidden="true">
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+  </div>
+
+  <!-- Aurore d'arrière-plan -->
+  <div class="aurora" aria-hidden="true">
+    <span class="aurora-blob b1"></span>
+    <span class="aurora-blob b2"></span>
+    <span class="aurora-blob b3"></span>
+  </div>
+
   <div id="progress" class="progress" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
 
   <header class="floating-nav">
     <div class="nav-pill">
-      <span class="brand">Pulse&nbsp;Éco</span>
+      <span class="brand" data-testid="brand-logo">
+        <span class="brand-mark">◆</span>
+        <span class="brand-name">Pulse&nbsp;Éco</span>
+      </span>
       <span class="nav-sep"></span>
       <nav class="nav-actions">
-        <button id="btn-view-latest" class="nav-btn active">Édition du jour</button>
-        <button id="btn-view-archive" class="nav-btn">Archives</button>
-        <button id="btn-edit-mode" class="nav-btn ghost" title="Masquer / supprimer des infos">Gérer</button>
-        <button id="btn-theme" class="nav-btn ghost icon" title="Basculer clair / sombre">◐</button>
+        <button id="btn-view-latest" class="nav-btn active" data-testid="btn-view-latest">Édition du jour</button>
+        <button id="btn-view-archive" class="nav-btn" data-testid="btn-view-archive">Archives</button>
+        <button id="btn-edit-mode" class="nav-btn ghost" title="Masquer / supprimer des infos" data-testid="btn-edit-mode">Gérer</button>
+        <button id="btn-theme" class="nav-btn ghost icon" title="Basculer clair / sombre" data-testid="btn-theme">☾</button>
       </nav>
     </div>
   </header>
 
-  <!-- Bandeau défilant des cours -->
+  <!-- Bandeau des cotations -->
   <div id="ticker" class="ticker" hidden>
+    <span class="ticker-label">Cotations · en&nbsp;continu</span>
     <div id="ticker-track" class="ticker-track"></div>
   </div>
 
   <main class="wrap">
     <p id="status" class="status" hidden></p>
 
-    <!-- Manchette de l'édition -->
+    <!-- Manchette éditoriale -->
     <section id="edition" class="edition" hidden>
-      <p class="edition-kicker">L'essentiel des marchés</p>
-      <h1 id="edition-date" class="edition-date"></h1>
+      <div class="edition-ornament" aria-hidden="true">
+        <span class="orn-line"></span>
+        <span class="orn-diamond">◆</span>
+        <span class="orn-line"></span>
+      </div>
+      <p class="edition-kicker">L'essentiel des marchés · Édition n<sup>o</sup> <span id="edition-number" class="edition-number">—</span></p>
+      <h1 id="edition-date" class="edition-date" data-testid="edition-date"></h1>
       <p id="edition-meta" class="edition-meta"></p>
+      <p class="edition-lede">
+        <span class="drop">«</span> Chaque matin, le pouls des marchés, transcrit à l'encre du jour —
+        une chronique brève de ce qui bouge, ce qui vacille, ce qui s'écrit. <span class="drop">»</span>
+      </p>
     </section>
 
-    <!-- Bandeau des marchés -->
+    <!-- Chapitre I : Marchés -->
+    <div class="chapter" id="chapter-markets">
+      <span class="chapter-num">I</span>
+      <span class="chapter-title">Les&nbsp;marchés</span>
+      <span class="chapter-sub">Six baromètres, à l'instant</span>
+    </div>
+
     <section id="markets" class="markets" aria-label="Cours du jour"></section>
 
     <!-- Barre du mode suppression -->
@@ -57,21 +102,28 @@
       </span>
     </div>
 
-    <!-- Sélecteur de mois (vue archives) -->
+    <!-- Sélecteur d'archives -->
     <div id="archive-picker" class="archive-picker" hidden></div>
+
+    <!-- Chapitre II : Chronique -->
+    <div class="chapter" id="chapter-news">
+      <span class="chapter-num">II</span>
+      <span class="chapter-title">La&nbsp;chronique</span>
+      <span class="chapter-sub">Voix, chiffres et manœuvres</span>
+    </div>
 
     <!-- Onglets + recherche -->
     <nav id="toolbar" class="toolbar" hidden aria-label="Catégories">
       <div id="tabs" class="tabs">
-        <button data-cat="toutes" class="tab active">Toutes<span class="count"></span></button>
-        <button data-cat="declarations" class="tab">Déclarations<span class="count"></span></button>
-        <button data-cat="actions" class="tab">Actions<span class="count"></span></button>
-        <button data-cat="immobilier" class="tab">Immobilier<span class="count"></span></button>
-        <button data-cat="or" class="tab">Or<span class="count"></span></button>
-        <button data-cat="crypto" class="tab">Crypto<span class="count"></span></button>
+        <button data-cat="toutes" class="tab active" data-testid="tab-toutes">Toutes<span class="count"></span></button>
+        <button data-cat="declarations" class="tab" data-testid="tab-declarations">Déclarations<span class="count"></span></button>
+        <button data-cat="actions" class="tab" data-testid="tab-actions">Actions<span class="count"></span></button>
+        <button data-cat="immobilier" class="tab" data-testid="tab-immobilier">Immobilier<span class="count"></span></button>
+        <button data-cat="or" class="tab" data-testid="tab-or">Or<span class="count"></span></button>
+        <button data-cat="crypto" class="tab" data-testid="tab-crypto">Crypto<span class="count"></span></button>
       </div>
       <div class="search-box">
-        <input id="search" type="search" placeholder="Rechercher une info…" autocomplete="off">
+        <input id="search" type="search" placeholder="Rechercher une info…" autocomplete="off" data-testid="search-input">
       </div>
     </nav>
 
@@ -104,14 +156,22 @@
     <button id="toast-undo" class="small-btn">Annuler</button>
   </div>
 
-  <button id="btn-top" class="btn-top" hidden title="Revenir en haut">↑</button>
+  <button id="btn-top" class="btn-top" hidden title="Revenir en haut" data-testid="btn-top">↑</button>
 
   <footer class="site-footer wrap">
-    <p>Données : CNBC, CoinGecko, Yahoo Finance &amp; Google News. Mise à jour automatique quotidienne via GitHub Actions.
-       Dernière génération : <span id="generated-at">—</span>.</p>
-    <p class="disclaimer">Informations fournies à titre indicatif uniquement — ceci n'est pas un conseil en investissement.</p>
+    <div class="footer-ornament" aria-hidden="true">
+      <span class="orn-line"></span>
+      <span class="orn-diamond">◆</span>
+      <span class="orn-line"></span>
+    </div>
+    <p class="footer-imprint">
+      <span class="serif italic">Pulse Éco</span> · Le journal quotidien des marchés
+    </p>
+    <p>Données : CNBC, CoinGecko, Yahoo Finance &amp; Google News. Mise à jour automatique quotidienne via GitHub Actions.<br>
+       Dernière génération : <span id="generated-at" class="num">—</span>.</p>
+    <p class="disclaimer">Informations fournies à titre indicatif — ceci n'est pas un conseil en investissement.</p>
   </footer>
 
-  <script src="assets/app.js?v=4"></script>
+  <script src="assets/app.js?v=6"></script>
 </body>
 </html>
