@@ -189,14 +189,18 @@
 
     var line = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
     line.setAttribute("stroke", trend);
+    line.setAttribute("vector-effect", "non-scaling-stroke");
     line.setAttribute("points", coords.map(function (c) { return c.join(","); }).join(" "));
     svg.appendChild(line);
 
-    var dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-    dot.setAttribute("class", "spark-dot");
-    dot.setAttribute("fill", trend);
-    dot.setAttribute("cx", coords[coords.length - 1][0]);
-    dot.setAttribute("cy", coords[coords.length - 1][1]);
+    // Point final : trait d'un seul point à bout rond (reste circulaire malgré
+    // l'étirement du viewBox, grâce à non-scaling-stroke)
+    var last = coords[coords.length - 1];
+    var dot = document.createElementNS("http://www.w3.org/2000/svg", "polyline");
+    dot.setAttribute("stroke", trend);
+    dot.setAttribute("stroke-width", "6");
+    dot.setAttribute("vector-effect", "non-scaling-stroke");
+    dot.setAttribute("points", last.join(",") + " " + last.join(","));
     svg.appendChild(dot);
 
     // Infobulle : point le plus proche du curseur
@@ -296,14 +300,16 @@
     el.edition.hidden = false;
   }
 
-  /* ---------- Rendu : marchés ---------- */
+  /* ---------- Rendu : marchés (bento double-bezel) ---------- */
   function renderMarkets(day) {
     el.markets.innerHTML = "";
     if (!day || !day.markets) { el.markets.hidden = true; return; }
     day.markets.forEach(function (m, i) {
+      var shell = document.createElement("div");
+      shell.className = "m-shell reveal";
+      shell.style.transitionDelay = (i * 0.06) + "s";
       var card = document.createElement("div");
       card.className = "market-card" + (m.ok || m.stale_from ? "" : " unavailable");
-      card.style.animationDelay = (i * 0.05) + "s";
       var cls = "flat", arrow = "→";
       if (m.change_pct > 0) { cls = "up"; arrow = "▲"; }
       if (m.change_pct < 0) { cls = "down"; arrow = "▼"; }
@@ -334,9 +340,58 @@
           el.toolbar.scrollIntoView({ behavior: "smooth", block: "start" });
         });
       }
-      el.markets.appendChild(card);
+      shell.appendChild(card);
+      el.markets.appendChild(shell);
     });
     el.markets.hidden = false;
+    observeReveals();
+  }
+
+  /* ---------- Squelettes de chargement ---------- */
+  function renderSkeletons() {
+    el.markets.innerHTML = "";
+    for (var i = 0; i < 6; i++) {
+      var sk = document.createElement("div");
+      sk.className = "m-shell";
+      sk.innerHTML = '<div class="skeleton sk-market"></div>';
+      el.markets.appendChild(sk);
+    }
+    el.markets.hidden = false;
+    el.days.innerHTML = "";
+    for (var j = 0; j < 5; j++) {
+      var row = document.createElement("div");
+      row.className = "skeleton sk-row";
+      el.days.appendChild(row);
+    }
+  }
+
+  /* ---------- Révélation au défilement ---------- */
+  var revealObserver = null;
+  function observeReveals() {
+    if (!("IntersectionObserver" in window)) {
+      Array.prototype.forEach.call(document.querySelectorAll(".reveal"), function (n) {
+        n.classList.add("in");
+      });
+      return;
+    }
+    if (!revealObserver) {
+      revealObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: "0px 0px -8% 0px" });
+    }
+    Array.prototype.forEach.call(document.querySelectorAll(".reveal:not(.in)"), function (n) {
+      // Déjà visible à l'écran -> révélation immédiate, sans attendre l'observer
+      if (n.getBoundingClientRect().top < window.innerHeight * 0.96) {
+        requestAnimationFrame(function () { n.classList.add("in"); });
+      } else {
+        revealObserver.observe(n);
+      }
+    });
   }
 
   /* ---------- Rendu : jours ---------- */
@@ -353,7 +408,7 @@
     }
     days.forEach(function (day) {
       var block = document.createElement("section");
-      block.className = "day-block";
+      block.className = "day-block reveal";
       var collapseKey = state.view + ":" + day.date;
       if (state.collapsed[collapseKey]) block.classList.add("collapsed");
 
@@ -384,15 +439,17 @@
         var list = document.createElement("div");
         list.className = "news-list";
         items.forEach(function (it, i) {
+          var isLead = i === 0;
           var card = document.createElement("article");
-          card.className = "news-card";
-          card.style.animationDelay = (Math.min(i, 10) * 0.03) + "s";
-          card.innerHTML =
+          card.className = "news-card" + (isLead ? " lead" : "");
+          var inner =
+            (isLead ? '<div class="lead-kicker">À la une</div>' : "") +
             '<a href="' + esc(it.link) + '" target="_blank" rel="noopener">' + esc(it.title) + "</a>" +
             '<div class="news-meta">' +
             (it.source ? '<span class="src">' + esc(it.source) + "</span> · " : "") + esc(fmtDateTime(it.published)) +
             ' · <code title="Identifiant pour la suppression définitive">' + esc(it.id) + "</code></div>" +
             '<button class="del-btn" title="Masquer cette information">✕</button>';
+          card.innerHTML = isLead ? '<div class="lead-inner">' + inner + "</div>" : inner;
           card.querySelector(".del-btn").addEventListener("click", function () {
             card.classList.add("removing");
             setTimeout(function () {
@@ -466,11 +523,12 @@
         el.days.innerHTML = '<p class="empty-cat">Choisissez un mois ci-dessus pour consulter les archives.</p>';
       }
     }
+    observeReveals();
   }
 
   /* ---------- Chargement ---------- */
   function loadLatest() {
-    el.status.textContent = "Chargement des données…";
+    renderSkeletons();
     fetchJSON("data/latest.json")
       .then(function (data) {
         state.latest = data;
@@ -480,6 +538,9 @@
         loadHistory();
       })
       .catch(function (err) {
+        el.markets.hidden = true;
+        el.days.innerHTML = "";
+        el.status.hidden = false;
         el.status.textContent =
           "Impossible de charger les données (" + err.message + "). " +
           "La première mise à jour automatique n'a peut-être pas encore eu lieu.";
@@ -562,8 +623,17 @@
     if (e.key === "Escape") el.modal.hidden = true;
   });
 
+  var progressEl = document.getElementById("progress");
+  var scrollScheduled = false;
   window.addEventListener("scroll", function () {
-    el.btnTop.hidden = window.scrollY < 400;
+    if (scrollScheduled) return;
+    scrollScheduled = true;
+    requestAnimationFrame(function () {
+      scrollScheduled = false;
+      el.btnTop.hidden = window.scrollY < 400;
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      progressEl.style.transform = "scaleX(" + (max > 0 ? window.scrollY / max : 0) + ")";
+    });
   }, { passive: true });
   el.btnTop.addEventListener("click", function () {
     window.scrollTo({ top: 0, behavior: "smooth" });
