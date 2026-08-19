@@ -11,9 +11,32 @@
     { cat: "crypto", label: "Crypto" }
   ];
   var ROMAN = ["I", "II", "III", "IV", "V"];
+
+  // Libellés élégants pour les sous-catégories (basés sur la requête d'origine)
+  var QUERY_LABELS = {
+    "Trump économie marchés": "Donald Trump",
+    "Jerome Powell Fed taux": "Jerome Powell · Fed",
+    "Christine Lagarde BCE": "Christine Lagarde · BCE",
+    "Larry Fink BlackRock": "Larry Fink · BlackRock",
+    "Warren Buffett investissement": "Warren Buffett",
+    "Jamie Dimon économie": "Jamie Dimon · JPMorgan",
+    "marchés actions bourse Wall Street": "Wall Street",
+    "CAC 40 bourse Paris": "Paris · CAC 40",
+    "marché immobilier investissement": "Marché immobilier",
+    "taux crédit immobilier": "Taux & crédit",
+    "cours de l'or once": "Cours de l'or",
+    "or valeur refuge investisseurs": "Valeur refuge",
+    "bitcoin cours marché": "Bitcoin",
+    "cryptomonnaies régulation investissement": "Régulation crypto"
+  };
+  function prettyQueryLabel(q) {
+    return QUERY_LABELS[q] || (q && q.charAt(0).toUpperCase() + q.slice(1)) || "Divers";
+  }
+
   var HIDDEN_KEY = "pulse-eco-hidden-ids";
   var THEME_KEY = "pulse-eco-theme";
   var VIEW_KEY = "pulse-eco-days-view";
+  var CHAT_ENDPOINT_KEY = "pulse-eco-chat-endpoint";
 
   var state = {
     view: "latest", // "latest" | "archive"
@@ -714,9 +737,28 @@
     var items = visibleItems(day, r.cat).filter(function (it) { return it.id !== excludeId; });
     if (!items.length) return null;
     var rub = document.createElement("section");
-    rub.className = "rub";
+    rub.className = "rub dossier";
     var rubKey = state.view + ":" + day.date + ":" + r.cat;
     if (state.rubClosed[rubKey]) rub.classList.add("closed");
+
+    // Groupement en sous-catégories via le champ .query
+    var groupsMap = {};
+    var order = [];
+    items.forEach(function (it) {
+      var q = it.query || "Divers";
+      if (!(q in groupsMap)) { groupsMap[q] = []; order.push(q); }
+      groupsMap[q].push(it);
+    });
+    var subgroups = order.map(function (q) {
+      return { query: q, label: prettyQueryLabel(q), items: groupsMap[q] };
+    });
+    // Trier les sous-groupes : d'abord ceux avec l'info la plus récente
+    subgroups.sort(function (a, b) {
+      var la = a.items[0].published || "";
+      var lb = b.items[0].published || "";
+      return lb.localeCompare(la);
+    });
+
     var head = document.createElement("button");
     head.className = "rub-head spot";
     head.setAttribute("aria-expanded", state.rubClosed[rubKey] ? "false" : "true");
@@ -724,7 +766,7 @@
       '<span class="rub-num">' + ROMAN[idx] + "</span>" +
       '<span class="rub-name">' + esc(r.label) + "</span>" +
       '<span class="rub-line"></span>' +
-      '<span class="rub-count">' + items.length + "</span>" +
+      '<span class="rub-count">' + items.length + " chronique" + (items.length > 1 ? "s" : "") + "</span>" +
       '<span class="rub-chev">▾</span>';
     head.addEventListener("click", function () {
       state.rubClosed[rubKey] = !state.rubClosed[rubKey];
@@ -735,7 +777,30 @@
     body.className = "rub-body";
     var innerEl = document.createElement("div");
     innerEl.className = "rub-inner";
-    items.forEach(function (it) { innerEl.appendChild(makeNewsCard(it)); });
+
+    // Rendu par sous-catégories si plusieurs, sinon liste plate
+    if (subgroups.length > 1) {
+      subgroups.forEach(function (sg) {
+        var subEl = document.createElement("div");
+        subEl.className = "subgroup";
+        var subHead = document.createElement("div");
+        subHead.className = "subgroup-head";
+        subHead.innerHTML =
+          '<span class="sub-dot"></span>' +
+          '<span class="sub-name">' + esc(sg.label) + "</span>" +
+          '<span class="sub-line"></span>' +
+          '<span class="sub-count">' + sg.items.length + "</span>";
+        var subList = document.createElement("div");
+        subList.className = "subgroup-list";
+        sg.items.forEach(function (it) { subList.appendChild(makeNewsCard(it)); });
+        subEl.appendChild(subHead);
+        subEl.appendChild(subList);
+        innerEl.appendChild(subEl);
+      });
+    } else {
+      items.forEach(function (it) { innerEl.appendChild(makeNewsCard(it)); });
+    }
+
     body.appendChild(innerEl);
     rub.appendChild(head);
     rub.appendChild(body);
@@ -1154,6 +1219,138 @@
     } else {
       link.href = "https://github.com/mdbp59r2dy-hash/site-economique/actions/workflows/delete.yml";
     }
+  })();
+
+  /* ---------- Assistant IA (chat drawer) ---------- */
+  (function () {
+    var btnChat = document.getElementById("btn-chat");
+    var drawer = document.getElementById("chat-drawer");
+    var backdrop = document.getElementById("chat-backdrop");
+    var closeBtn = document.getElementById("btn-chat-close");
+    var body = document.getElementById("chat-body");
+    var form = document.getElementById("chat-form");
+    var input = document.getElementById("chat-input");
+    var configBox = document.getElementById("chat-config");
+    var endpointInput = document.getElementById("chat-endpoint");
+    var saveBtn = document.getElementById("btn-save-endpoint");
+    if (!btnChat || !drawer) return;
+
+    function getEndpoint() { return (localStorage.getItem(CHAT_ENDPOINT_KEY) || "").trim(); }
+    function setEndpoint(v) { localStorage.setItem(CHAT_ENDPOINT_KEY, v.trim()); }
+
+    function open() {
+      document.body.classList.add("chat-open");
+      drawer.hidden = false;
+      backdrop.hidden = false;
+      if (!getEndpoint()) { configBox.hidden = false; endpointInput.value = ""; }
+      setTimeout(function () { input.focus(); }, 300);
+    }
+    function close() {
+      document.body.classList.remove("chat-open");
+      setTimeout(function () { drawer.hidden = true; backdrop.hidden = true; }, 500);
+    }
+    btnChat.addEventListener("click", open);
+    closeBtn.addEventListener("click", close);
+    backdrop.addEventListener("click", close);
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && document.body.classList.contains("chat-open")) close();
+    });
+
+    saveBtn.addEventListener("click", function () {
+      var v = endpointInput.value.trim();
+      if (!/^https?:\/\//.test(v)) {
+        endpointInput.style.borderColor = "var(--down)";
+        return;
+      }
+      setEndpoint(v);
+      configBox.hidden = true;
+      appendMsg("assistant", "Connexion établie. Posez-moi votre question quand vous voulez.");
+    });
+
+    document.querySelectorAll(".chat-sug").forEach(function (b) {
+      b.addEventListener("click", function () {
+        input.value = b.dataset.q || b.textContent;
+        form.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
+      });
+    });
+
+    function appendMsg(role, text) {
+      var node = document.createElement("div");
+      node.className = "chat-msg " + role;
+      if (role === "assistant") {
+        var label = document.createElement("span");
+        label.className = "msg-label";
+        label.textContent = "L'oracle";
+        node.appendChild(label);
+        node.appendChild(document.createTextNode(text));
+      } else {
+        node.textContent = text;
+      }
+      body.appendChild(node);
+      body.scrollTop = body.scrollHeight;
+      return node;
+    }
+
+    function buildContext() {
+      var day = (state.latest && state.latest.days && state.latest.days[0]) || null;
+      if (!day) return "Aucune édition disponible.";
+      var lines = ["Édition du " + day.date + ".", ""];
+      if (day.briefing) {
+        lines.push("Éditorial du matin :", "- " + day.briefing.line1, "- " + day.briefing.line2, "");
+      }
+      lines.push("Marchés :");
+      (day.markets || []).forEach(function (m) {
+        if (m.price == null) return;
+        var cur = m.currency === "EUR" ? "€" : "$";
+        var chg = m.change_pct != null ? " (" + (m.change_pct >= 0 ? "+" : "") + m.change_pct + " %)" : "";
+        lines.push("- " + m.label + " : " + m.price.toLocaleString("fr-FR") + " " + cur + chg);
+      });
+      lines.push("", "Chroniques du jour (titres) :");
+      CATEGORIES.forEach(function (c) {
+        var items = ((day.news && day.news[c]) || []).slice(0, 5);
+        if (!items.length) return;
+        lines.push("• " + c + " :");
+        items.forEach(function (it) {
+          lines.push("  - " + it.title + (it.source ? " — " + it.source : ""));
+        });
+      });
+      return lines.join("\n");
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var q = input.value.trim();
+      if (!q) return;
+      var ep = getEndpoint();
+      if (!ep) { configBox.hidden = false; endpointInput.focus(); return; }
+      appendMsg("user", q);
+      input.value = "";
+      var thinking = appendMsg("assistant", "");
+      thinking.classList.add("thinking");
+      thinking.innerHTML = "L'oracle rédige";
+
+      fetch(ep, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question: q, context: buildContext() })
+      }).then(function (r) {
+        return r.json().then(function (d) { return { ok: r.ok, data: d }; });
+      }).then(function (res) {
+        thinking.remove();
+        if (!res.ok) throw new Error((res.data && res.data.error) || "Erreur " + res.ok);
+        var answer = (res.data && (res.data.answer || res.data.text)) || "Je n'ai pas pu formuler de réponse.";
+        appendMsg("assistant", answer);
+      }).catch(function (err) {
+        thinking.remove();
+        var msg = document.createElement("div");
+        msg.className = "chat-msg error";
+        msg.textContent = "Impossible de joindre l'oracle : " + err.message + ". Vérifiez l'URL de votre worker dans les paramètres.";
+        body.appendChild(msg);
+        configBox.hidden = false;
+        endpointInput.value = ep;
+        body.scrollTop = body.scrollHeight;
+      });
+    });
   })();
 
   loadLatest();
