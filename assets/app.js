@@ -178,6 +178,26 @@
     });
   }
 
+  /* ---------- Conversion once → kilo pour l'or ---------- */
+  var OZ_TO_KG = 32.1507466;
+  function normalizeGold(market) {
+    if (!market || market.key !== "or") return market;
+    var lbl = String(market.label || "").toLowerCase();
+    if (lbl.indexOf("kilo") !== -1) return market;
+    if (lbl.indexOf("once") !== -1 || market.price != null && market.price < 30000) {
+      // On considère qu'un prix inférieur à 30k USD est une valeur en once,
+      // supérieur : déjà converti en kilo. Robuste au futur.
+      if (market.price != null) market.price = Math.round(market.price * OZ_TO_KG * 100) / 100;
+    }
+    market.label = "Or (kilo)";
+    return market;
+  }
+  function normalizeDay(day) {
+    if (!day) return day;
+    if (Array.isArray(day.markets)) day.markets = day.markets.map(normalizeGold);
+    return day;
+  }
+
   /* ---------- Utilitaires ---------- */
   function esc(s) {
     var div = document.createElement("div");
@@ -366,7 +386,10 @@
       .catch(function () { return []; })
       .then(function (monthFiles) {
         var all = [];
-        (monthFiles || []).forEach(function (mf) { all = all.concat(mf.days || []); });
+        (monthFiles || []).forEach(function (mf) {
+          (mf.days || []).forEach(normalizeDay);
+          all = all.concat(mf.days || []);
+        });
         if (state.latest) all = all.concat(state.latest.days || []);
         var byKey = {};
         all.sort(function (a, b) { return a.date < b.date ? -1 : 1; });
@@ -449,9 +472,35 @@
     var box = document.getElementById("edition-briefing");
     var l1 = document.getElementById("briefing-l1");
     var l2 = document.getElementById("briefing-l2");
+    var kicker = box ? box.querySelector(".briefing-kicker span:not(.briefing-diamond)") : null;
     if (!box || !l1 || !l2) return;
 
-    // === Ligne 1 : humeur des marchés ===
+    // Priorité à l'éditorial IA (Claude Haiku 4.5) généré par la GitHub Action
+    if (day.briefing && day.briefing.line1 && day.briefing.line2) {
+      if (kicker) kicker.textContent = "L'éditorial du matin";
+      l1.innerHTML = esc(day.briefing.line1);
+      l2.innerHTML = esc(day.briefing.line2);
+      // Petite mention en pied
+      var meta = box.querySelector(".briefing-signature");
+      if (!meta) {
+        meta = document.createElement("span");
+        meta.className = "briefing-signature";
+        box.appendChild(meta);
+      }
+      meta.innerHTML = '<span class="brf-quill">✒</span> écrit par la rédaction, épaulée par Claude Haiku';
+      // Redémarrage des animations
+      [l1, l2].forEach(function (n) {
+        n.style.animation = "none"; void n.offsetWidth; n.style.animation = "";
+      });
+      box.hidden = false;
+      return;
+    }
+
+    if (kicker) kicker.textContent = "Le résumé du matin";
+    var sig = box.querySelector(".briefing-signature");
+    if (sig) sig.remove();
+
+    // === Fallback : ligne 1 = humeur des marchés ===
     var markets = (day.markets || []).filter(function (m) {
       return m.price != null && m.change_pct != null && !m.stale_from;
     });
@@ -831,6 +880,7 @@
     renderSkeletons();
     fetchJSON("data/latest.json")
       .then(function (data) {
+        (data.days || []).forEach(normalizeDay);
         state.latest = data;
         el.status.hidden = true;
         el.generatedAt.textContent = fmtDateTime(data.generated_at);
@@ -858,7 +908,11 @@
     state.archiveData = null;
     render();
     fetchJSON("data/archive/" + month + ".json")
-      .then(function (data) { state.archiveData = data; render(); })
+      .then(function (data) {
+        (data.days || []).forEach(normalizeDay);
+        state.archiveData = data;
+        render();
+      })
       .catch(function () {
         el.days.innerHTML = '<p class="empty-cat">Impossible de charger ce mois d\'archive.</p>';
       });
@@ -958,6 +1012,123 @@
 
   var progressEl = document.getElementById("progress");
   var scrollScheduled = false;
+
+  /* ---------- Effet cinéma au scroll : poussière d'or + parallaxe + rail ---------- */
+  var scrollFx = (function () {
+    var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var canvas = document.getElementById("scroll-canvas");
+    if (!canvas || reduced) return { onScroll: function () {} };
+
+    var ctx = canvas.getContext("2d");
+    var dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+    var W = 0, H = 0;
+    function resize() {
+      W = window.innerWidth; H = window.innerHeight;
+      canvas.width = W * dpr; canvas.height = H * dpr;
+      canvas.style.width = W + "px"; canvas.style.height = H + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    resize();
+    window.addEventListener("resize", resize);
+
+    var particles = [];
+    var lastY = window.scrollY;
+    var lastT = performance.now();
+    var velocity = 0; // px / ms
+    var idleTimer = null;
+    var scrolling = false;
+    var aurora = document.querySelectorAll(".aurora-blob");
+    var rail = document.querySelector(".ink-rail");
+
+    function emit(count, direction) {
+      for (var i = 0; i < count; i++) {
+        // Émission depuis les côtés vers l'intérieur, hauteur variable
+        var side = Math.random() < 0.5 ? 0 : 1;
+        var x = side === 0 ? Math.random() * 60 : W - Math.random() * 60;
+        var y = Math.random() * H;
+        particles.push({
+          x: x,
+          y: y,
+          vx: (side === 0 ? 1 : -1) * (0.4 + Math.random() * 0.9),
+          vy: direction * (1.2 + Math.random() * 2.2) + (Math.random() - 0.5) * 0.6,
+          life: 1,
+          decay: 0.006 + Math.random() * 0.008,
+          size: 0.7 + Math.random() * 1.9,
+          hue: 42 + Math.random() * 14  // dorés variés
+        });
+      }
+      // Limite mémoire
+      if (particles.length > 220) particles.splice(0, particles.length - 220);
+    }
+
+    function tick() {
+      // Effacer avec un léger flou (trainées)
+      ctx.clearRect(0, 0, W, H);
+      for (var i = particles.length - 1; i >= 0; i--) {
+        var p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.02; // gravité légère
+        p.life -= p.decay;
+        if (p.life <= 0 || p.y > H + 20 || p.y < -20) { particles.splice(i, 1); continue; }
+        var alpha = Math.max(0, p.life) * 0.9;
+        ctx.beginPath();
+        ctx.fillStyle = "hsla(" + p.hue + ", 78%, 68%, " + alpha + ")";
+        ctx.shadowColor = "hsla(" + p.hue + ", 80%, 72%, " + (alpha * 0.9) + ")";
+        ctx.shadowBlur = 10;
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.shadowBlur = 0;
+      if (particles.length) requestAnimationFrame(tick);
+    }
+
+    function onScroll() {
+      var now = performance.now();
+      var y = window.scrollY;
+      var dt = Math.max(1, now - lastT);
+      velocity = (y - lastY) / dt;
+      lastY = y; lastT = now;
+
+      // Parallaxe aurore : décalage inverse subtil selon la profondeur
+      // (via propriété `translate` pour ne pas écraser l'animation `transform`)
+      if (aurora.length) {
+        aurora[0].style.translate = (y * -0.02) + "px " + (y * 0.08) + "px";
+        if (aurora[1]) aurora[1].style.translate = (y * 0.04) + "px " + (y * -0.05) + "px";
+        if (aurora[2]) aurora[2].style.translate = (y * -0.03) + "px " + (y * 0.06) + "px";
+      }
+
+      // Filet d'encre : goutte dorée qui suit la position
+      if (rail) {
+        var progress = Math.min(1, Math.max(0, y / Math.max(1, document.documentElement.scrollHeight - H)));
+        rail.style.setProperty("--ink-y", (progress * (H - 60)) + "px");
+      }
+
+      // Poussière d'or : émission proportionnelle à la vitesse
+      var speed = Math.abs(velocity);
+      if (speed > 0.3) {
+        var count = Math.min(6, Math.floor(speed * 3));
+        var direction = velocity > 0 ? 1 : -1;
+        emit(count, direction);
+        if (particles.length && !tickScheduled) { tickScheduled = true; requestAnimationFrame(function () { tickScheduled = false; tick(); }); }
+      }
+
+      // État "scrolling" pour révéler le rail
+      if (!scrolling) {
+        scrolling = true;
+        document.body.classList.add("scrolling");
+      }
+      clearTimeout(idleTimer);
+      idleTimer = setTimeout(function () {
+        scrolling = false;
+        document.body.classList.remove("scrolling");
+      }, 900);
+    }
+    var tickScheduled = false;
+
+    return { onScroll: onScroll };
+  })();
+
   window.addEventListener("scroll", function () {
     if (scrollScheduled) return;
     scrollScheduled = true;
@@ -966,6 +1137,7 @@
       el.btnTop.hidden = window.scrollY < 400;
       var max = document.documentElement.scrollHeight - window.innerHeight;
       progressEl.style.transform = "scaleX(" + (max > 0 ? window.scrollY / max : 0) + ")";
+      scrollFx.onScroll();
     });
   }, { passive: true });
   el.btnTop.addEventListener("click", function () {

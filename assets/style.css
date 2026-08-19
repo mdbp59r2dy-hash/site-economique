@@ -284,6 +284,46 @@ body.hover-link .cursor-dot { transform: translate(-50%, -50%) scale(0.4); }
 }
 
 /* =====================================================
+   Effet cinéma : poussière d'or + halo scroll
+   ===================================================== */
+.scroll-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 92;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.9;
+}
+[data-theme="light"] .scroll-canvas { mix-blend-mode: multiply; opacity: 0.55; }
+
+/* Filet d'encre dorée qui accompagne le scroll (côté gauche) */
+.ink-rail {
+  position: fixed;
+  top: 0; left: 22px;
+  width: 1px;
+  height: 100vh;
+  z-index: 78;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 0%, var(--gold-deep) 10%, var(--gold-bright) 50%, var(--gold-deep) 90%, transparent 100%);
+  opacity: 0;
+  transform: scaleY(0.4);
+  transform-origin: 50% 0;
+  transition: opacity 0.5s var(--ease), transform 0.6s var(--ease-out);
+}
+body.scrolling .ink-rail { opacity: 0.35; transform: scaleY(1); }
+.ink-rail::after {
+  content: "";
+  position: absolute;
+  left: -3px; top: 0;
+  width: 7px; height: 60px;
+  background: radial-gradient(circle at 50% 20%, var(--gold-bright), transparent 70%);
+  filter: blur(1px);
+  transform: translateY(var(--ink-y, 30vh));
+  transition: transform 0.15s linear;
+}
+@media (max-width: 900px) { .ink-rail { display: none; } }
+
+/* =====================================================
    Barre de progression
    ===================================================== */
 .progress {
@@ -649,6 +689,25 @@ body.hover-link .cursor-dot { transform: translate(-50%, -50%) scale(0.4); }
   color: var(--text);
   font-style: normal;
   letter-spacing: -0.01em;
+}
+.briefing-signature {
+  display: block;
+  margin-top: 1.15rem;
+  font-family: var(--sans-display);
+  font-size: 0.66rem;
+  color: var(--muted);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-weight: 500;
+  opacity: 0;
+  animation: brf-in 1s var(--ease-out) 0.6s forwards;
+}
+.briefing-signature .brf-quill {
+  color: var(--gold-bright);
+  margin-right: 0.5rem;
+  font-size: 1em;
+  transform: rotate(-8deg);
+  display: inline-block;
 }
 @keyframes brf-in { to { opacity: 1; transform: translateY(0); } }
 

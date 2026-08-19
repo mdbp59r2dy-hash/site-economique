@@ -24,8 +24,16 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: pip
+
+      - name: Installer les dépendances Python
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r scripts/requirements.txt
 
       - name: Collecter les données du jour
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python scripts/update_data.py
 
       - name: Publier les données

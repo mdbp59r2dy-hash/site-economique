@@ -42,7 +42,7 @@ MARKETS = [
     {"key": "sp500", "symbol": "^GSPC", "cnbc": ".SPX", "stooq": "^spx", "label": "S&P 500", "category": "actions", "currency": "USD"},
     {"key": "cac40", "symbol": "^FCHI", "cnbc": ".FCHI", "stooq": "^cac", "label": "CAC 40", "category": "actions", "currency": "EUR"},
     {"key": "immobilier", "symbol": "VNQ", "cnbc": "VNQ", "stooq": "vnq.us", "label": "Immobilier (ETF VNQ)", "category": "immobilier", "currency": "USD"},
-    {"key": "or", "symbol": "GC=F", "cnbc": "@GC.1", "stooq": "xauusd", "coingecko": "pax-gold", "label": "Or (once)", "category": "or", "currency": "USD"},
+    {"key": "or", "symbol": "GC=F", "cnbc": "@GC.1", "stooq": "xauusd", "coingecko": "pax-gold", "label": "Or (kilo)", "category": "or", "currency": "USD", "oz_to_kg": True},
     {"key": "btc", "symbol": "BTC-USD", "stooq": "btcusd", "coingecko": "bitcoin", "label": "Bitcoin", "category": "crypto", "currency": "USD"},
     {"key": "eth", "symbol": "ETH-USD", "stooq": "ethusd", "coingecko": "ethereum", "label": "Ethereum", "category": "crypto", "currency": "USD"},
 ]
@@ -207,6 +207,11 @@ def fetch_market(entry):
             break
         except Exception as exc:  # reseau, format, symbole retire...
             print(f"[marche] echec {entry['key']} via {name}: {exc}", file=sys.stderr)
+
+    # Conversion once troy -> kilogramme pour l'or (32,1507466 oz/kg)
+    if price is not None and entry.get("oz_to_kg"):
+        price = price * 32.1507466
+
     return {
         "key": entry["key"],
         "label": entry["label"],
@@ -375,9 +380,134 @@ def main():
         save_json(DELETED_PATH, {"ids": []})
     rebuild_archive_index()
 
+    # Enrichissement IA du jour du haut (résumé matinal en deux lignes)
+    briefing = generate_briefing(today_entry)
+    if briefing:
+        today_entry["briefing"] = briefing
+        # Regenerer latest.json avec le briefing inclus
+        save_json(
+            LATEST_PATH,
+            {"generated_at": now.isoformat(timespec="seconds"), "days": kept},
+        )
+
     total_news = sum(len(v) for v in news.values())
     ok_markets = sum(1 for m in markets if m["ok"])
     print(f"Termine : {ok_markets}/{len(markets)} cours recuperes, {total_news} actualites.")
+
+
+# ---------------------------------------------------------------------------
+# Résumé matinal généré par Claude Haiku 4.5 (Anthropic)
+# ---------------------------------------------------------------------------
+BRIEFING_SYSTEM = (
+    "Vous êtes le rédacteur en chef d'un journal financier haut de gamme "
+    "de langue française. Votre style est concis, littéraire, factuel, sans "
+    "sensationnalisme et sans conseil en investissement. Vous écrivez à la "
+    "manière d'un éditorial matinal du Monde ou des Echos."
+)
+
+BRIEFING_USER_TEMPLATE = """Voici les données du jour ({date}).
+
+MARCHÉS :
+{markets_lines}
+
+TITRES DU JOUR (5 principaux) :
+{news_lines}
+
+Rédigez le « Résumé du matin » en EXACTEMENT deux lignes courtes séparées par un saut de ligne.
+- Ligne 1 : verdict des marchés (ton éditorial, une idée forte, chiffres saillants inclus).
+- Ligne 2 : le fait politique/économique dominant du jour (nom propre, verbe fort, angle éditorial).
+
+Contraintes :
+- Français impeccable, phrases complètes, ponctuation soignée.
+- Pas d'introduction, pas de guillemets globaux, pas de tirets à puces.
+- Chaque ligne fait 90 à 160 caractères.
+- Pas de conseil d'investissement, pas de spéculation.
+
+Retournez uniquement les deux lignes, rien d'autre."""
+
+
+def generate_briefing(day_entry):
+    """Appelle Claude Haiku 4.5 pour produire un éditorial en deux lignes.
+    Renvoie {"line1", "line2", "model", "generated_at"} ou None si indisponible.
+    """
+    api_key = os.getenv("ANTHROPIC_API_KEY", "").strip()
+    if not api_key:
+        print("[briefing] ANTHROPIC_API_KEY absent, résumé IA sauté.", file=sys.stderr)
+        return None
+    try:
+        from anthropic import Anthropic  # type: ignore
+    except Exception as exc:
+        print(f"[briefing] SDK anthropic indisponible: {exc}", file=sys.stderr)
+        return None
+
+    # Résumer les marchés en une ligne par actif
+    market_lines = []
+    for m in (day_entry.get("markets") or []):
+        if m.get("price") is None:
+            continue
+        cur = "€" if m.get("currency") == "EUR" else "$"
+        chg = m.get("change_pct")
+        chg_txt = f"{chg:+.2f} %" if isinstance(chg, (int, float)) else "—"
+        market_lines.append(
+            f"- {m['label']} : {m['price']:.2f} {cur} ({chg_txt})"
+        )
+
+    # 5 titres tous cats confondues, triés par date
+    all_news = []
+    for cat, items in (day_entry.get("news") or {}).items():
+        for it in items:
+            all_news.append({**it, "cat": cat})
+    all_news.sort(key=lambda x: x.get("published") or "", reverse=True)
+    news_lines = []
+    for it in all_news[:5]:
+        src = f" — {it['source']}" if it.get("source") else ""
+        news_lines.append(f"- [{it['cat']}] {it['title']}{src}")
+
+    prompt = BRIEFING_USER_TEMPLATE.format(
+        date=day_entry.get("date", ""),
+        markets_lines="\n".join(market_lines) or "- (aucun cours disponible)",
+        news_lines="\n".join(news_lines) or "- (aucun titre disponible)",
+    )
+
+    try:
+        client = Anthropic(api_key=api_key)
+        response = client.messages.create(
+            model="claude-haiku-4-5",
+            system=BRIEFING_SYSTEM,
+            messages=[{"role": "user", "content": prompt}],
+            max_tokens=350,
+            temperature=0.4,
+        )
+        text = "".join(
+            b.text for b in response.content
+            if getattr(b, "type", None) == "text"
+        ).strip()
+    except Exception as exc:
+        print(f"[briefing] appel Claude échoué: {type(exc).__name__}: {exc}", file=sys.stderr)
+        return None
+
+    if not text:
+        print("[briefing] réponse vide.", file=sys.stderr)
+        return None
+
+    # Extraction robuste des deux lignes
+    lines = [l.strip(" \"«»\t").rstrip(".") + "." for l in text.split("\n") if l.strip()]
+    # Supprimer d'éventuels préfixes type "Ligne 1 :" ou tirets
+    cleaned = []
+    for l in lines:
+        l = re.sub(r"^(ligne\s*\d+\s*[:\-–—]\s*|[-–—•]\s*)", "", l, flags=re.IGNORECASE)
+        if l:
+            cleaned.append(l)
+    if len(cleaned) < 2:
+        print(f"[briefing] format inattendu: {text!r}", file=sys.stderr)
+        return None
+
+    return {
+        "line1": cleaned[0],
+        "line2": cleaned[1],
+        "model": "claude-haiku-4-5",
+        "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+    }
 
 
 if __name__ == "__main__":
