@@ -6,19 +6,26 @@
   <title>Pulse Éco — Suivi quotidien des investissements</title>
   <meta name="description" content="Suivi quotidien de l'économie : actions, immobilier, or, crypto et déclarations des grandes figures de la finance.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
   <header class="site-header">
     <div class="wrap header-inner">
-      <div>
-        <h1>📈 Pulse Éco</h1>
-        <p class="tagline">Actions · Immobilier · Or · Crypto — mis à jour chaque jour automatiquement</p>
+      <div class="brand">
+        <span class="logo">📈</span>
+        <div>
+          <h1>Pulse&nbsp;Éco</h1>
+          <p class="tagline">Actions · Immobilier · Or · Crypto — mis à jour chaque jour</p>
+        </div>
       </div>
       <div class="header-actions">
         <button id="btn-view-latest" class="nav-btn active">3 derniers jours</button>
-        <button id="btn-view-archive" class="nav-btn">Archives</button>
-        <button id="btn-edit-mode" class="nav-btn ghost" title="Activer le mode suppression">🗑️ Gérer</button>
+        <button id="btn-view-archive" class="nav-btn">🗃️ Archives</button>
+        <button id="btn-edit-mode" class="nav-btn ghost" title="Masquer / supprimer des infos">🗑️</button>
+        <button id="btn-theme" class="nav-btn ghost" title="Basculer clair / sombre">🌙</button>
       </div>
     </div>
   </header>
@@ -31,7 +38,7 @@
 
     <!-- Barre du mode suppression -->
     <div id="edit-bar" class="edit-bar" hidden>
-      <span>🗑️ <strong>Mode suppression actif</strong> — cliquez sur ✕ pour masquer une info.
+      <span>🗑️ <strong>Mode suppression</strong> — cliquez sur ✕ pour masquer une info.
         <span id="hidden-count"></span></span>
       <span class="edit-bar-actions">
         <button id="btn-restore" class="small-btn">Tout restaurer</button>
@@ -43,13 +50,18 @@
     <!-- Sélecteur de mois (vue archives) -->
     <div id="archive-picker" class="archive-picker" hidden></div>
 
-    <!-- Onglets catégories -->
-    <nav id="tabs" class="tabs" hidden>
-      <button data-cat="declarations" class="tab active">🎙️ Déclarations</button>
-      <button data-cat="actions" class="tab">📊 Actions</button>
-      <button data-cat="immobilier" class="tab">🏠 Immobilier</button>
-      <button data-cat="or" class="tab">🥇 Or</button>
-      <button data-cat="crypto" class="tab">₿ Crypto</button>
+    <!-- Onglets + recherche -->
+    <nav id="toolbar" class="toolbar" hidden>
+      <div id="tabs" class="tabs">
+        <button data-cat="declarations" class="tab active">🎙️ Déclarations<span class="count"></span></button>
+        <button data-cat="actions" class="tab">📊 Actions<span class="count"></span></button>
+        <button data-cat="immobilier" class="tab">🏠 Immobilier<span class="count"></span></button>
+        <button data-cat="or" class="tab">🥇 Or<span class="count"></span></button>
+        <button data-cat="crypto" class="tab">₿ Crypto<span class="count"></span></button>
+      </div>
+      <div class="search-box">
+        <input id="search" type="search" placeholder="🔍 Rechercher une info…" autocomplete="off">
+      </div>
     </nav>
 
     <!-- Contenu des jours -->
@@ -60,7 +72,7 @@
   <div id="modal" class="modal-backdrop" hidden>
     <div class="modal">
       <h2>Suppression définitive</h2>
-      <p>Les infos masquées ci-dessous ne le sont que <strong>sur ce navigateur</strong>.
+      <p>Les infos masquées ne le sont que <strong>sur ce navigateur</strong>.
          Pour les supprimer définitivement du site (y compris des archives) :</p>
       <ol>
         <li>Copiez la liste d'identifiants ci-dessous ;</li>
@@ -75,8 +87,16 @@
     </div>
   </div>
 
+  <!-- Notifications éphémères -->
+  <div id="toast" class="toast" hidden>
+    <span id="toast-msg"></span>
+    <button id="toast-undo" class="small-btn">Annuler</button>
+  </div>
+
+  <button id="btn-top" class="btn-top" hidden title="Revenir en haut">↑</button>
+
   <footer class="site-footer wrap">
-    <p>Données : Yahoo Finance &amp; Google News. Mise à jour automatique quotidienne via GitHub Actions.
+    <p>Données : CNBC, CoinGecko, Yahoo Finance &amp; Google News. Mise à jour automatique quotidienne via GitHub Actions.
        Dernière génération : <span id="generated-at">—</span>.</p>
     <p class="disclaimer">⚠️ Informations fournies à titre indicatif uniquement — ceci n'est pas un conseil en investissement.</p>
   </footer>
