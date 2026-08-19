@@ -62,15 +62,40 @@ export default {
     try { payload = await request.json(); }
     catch { return json({ error: "Corps JSON invalide." }, { status: 400, headers: cors }); }
 
-    const question = String(payload?.question || "").trim();
+    // Nouveau format : {messages, context} — priorité si présent (permet la mémoire conversationnelle).
+    // Ancien format : {question, context} — toujours accepté (rétro-compat).
     const context  = String(payload?.context  || "").slice(0, 12000);
-    if (!question) return json({ error: "Question manquante." }, { status: 400, headers: cors });
-    if (question.length > 500) return json({ error: "Question trop longue (max 500 caractères)." }, { status: 400, headers: cors });
+    let messages = Array.isArray(payload?.messages) ? payload.messages : null;
+
+    if (messages) {
+      // Nettoyer / limiter
+      messages = messages
+        .filter((m) => m && (m.role === "user" || m.role === "assistant") && typeof m.content === "string")
+        .map((m) => ({ role: m.role, content: String(m.content).slice(0, 4000) }))
+        .slice(-11); // 5 paires + le nouveau tour
+      if (!messages.length || messages[messages.length - 1].role !== "user") {
+        return json({ error: "Le dernier message doit être une question de l'utilisateur." },
+                    { status: 400, headers: cors });
+      }
+      // Injecter le contexte du jour dans le PREMIER message utilisateur
+      messages[0] = {
+        role: "user",
+        content: `CONTEXTE DE L'ÉDITION DU JOUR :\n${context}\n\n${messages[0].content}`,
+      };
+    } else {
+      const question = String(payload?.question || "").trim();
+      if (!question) return json({ error: "Question manquante." }, { status: 400, headers: cors });
+      if (question.length > 500) return json({ error: "Question trop longue (max 500 caractères)." }, { status: 400, headers: cors });
+      messages = [{
+        role: "user",
+        content: `CONTEXTE DE L'ÉDITION DU JOUR :\n${context}\n\nQUESTION DU LECTEUR :\n${question}`,
+      }];
+    }
 
     const apiKey = env.ANTHROPIC_API_KEY;
     if (!apiKey) return json({ error: "ANTHROPIC_API_KEY non configurée sur le worker." }, { status: 500, headers: cors });
 
-    const userPrompt = `CONTEXTE DE L'ÉDITION DU JOUR :\n${context}\n\nQUESTION DU LECTEUR :\n${question}`;
+    const userPrompt = messages; // pour lisibilité ci-dessous
 
     let response;
     try {
@@ -86,7 +111,7 @@ export default {
           max_tokens: MAX_TOKENS,
           temperature: 0.5,
           system: SYSTEM_PROMPT,
-          messages: [{ role: "user", content: userPrompt }],
+          messages: userPrompt,
         }),
       });
     } catch (err) {

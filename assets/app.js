@@ -36,11 +36,15 @@
   var HIDDEN_KEY = "pulse-eco-hidden-ids";
   var THEME_KEY = "pulse-eco-theme";
   var VIEW_KEY = "pulse-eco-days-view";
+  var PERIOD_KEY = "pulse-eco-market-period";
   var CHAT_ENDPOINT_KEY = "pulse-eco-chat-endpoint";
+  var CHAT_HISTORY_KEY = "pulse-eco-chat-history";
+  var CHAT_HISTORY_MAX_PAIRS = 5; // dernières 5 Q/R
 
   var state = {
     view: "latest", // "latest" | "archive"
     daysView: loadDaysView(), // "list" | "magazine" | "mosaic"
+    marketPeriod: loadMarketPeriod(), // "day" | "week" | "month" | "year"
     category: "toutes",
     rubClosed: {},
     query: "",
@@ -189,6 +193,13 @@
   }
   function saveDaysView() {
     localStorage.setItem(VIEW_KEY, state.daysView);
+  }
+  function loadMarketPeriod() {
+    var v = localStorage.getItem(PERIOD_KEY);
+    return (v === "week" || v === "month" || v === "year") ? v : "day";
+  }
+  function saveMarketPeriod() {
+    localStorage.setItem(PERIOD_KEY, state.marketPeriod);
   }
   function applyDaysView() {
     var container = el.days;
@@ -592,36 +603,71 @@
     box.hidden = false;
   }
 
+  /* ---------- Calcul de variation selon la période ---------- */
+  var PERIOD_DAYS = { day: 1, week: 7, month: 30, year: 365 };
+  var PERIOD_LABELS = { day: "Depuis hier", week: "Sur 7 jours", month: "Sur 30 jours", year: "Sur 1 an" };
+  function computeChangeForPeriod(market, refDateISO) {
+    if (state.marketPeriod === "day") {
+      // Utiliser la variation Yahoo native, ou fallback depuis history
+      if (market.change_pct != null) return { pct: market.change_pct, hasData: true };
+    }
+    if (market.price == null) return { pct: null, hasData: false };
+    var hist = state.history && state.history[market.key];
+    if (!hist || hist.length < 2) return { pct: null, hasData: false };
+    var refTime = new Date((refDateISO || hist[hist.length - 1].date) + "T12:00:00Z").getTime();
+    var daysBack = PERIOD_DAYS[state.marketPeriod] || 1;
+    var thresholdMs = refTime - daysBack * 86400000;
+    // Trouver le point le plus proche antérieur au seuil
+    var earlier = null;
+    for (var i = hist.length - 1; i >= 0; i--) {
+      var dMs = new Date(hist[i].date + "T12:00:00Z").getTime();
+      if (dMs <= thresholdMs) { earlier = hist[i]; break; }
+    }
+    if (!earlier) return { pct: null, hasData: false };
+    var pct = ((market.price - earlier.price) / earlier.price) * 100;
+    return { pct: Math.round(pct * 100) / 100, hasData: true, from: earlier };
+  }
+
   /* ---------- Rendu : marchés (bento double-bezel) ---------- */
   function renderMarkets(day) {
     el.markets.innerHTML = "";
     if (!day || !day.markets) { el.markets.hidden = true; return; }
+    var periodSwitcher = document.getElementById("period-switcher");
+    if (periodSwitcher) periodSwitcher.hidden = false;
     day.markets.forEach(function (m, i) {
       var shell = document.createElement("div");
       shell.className = "m-shell reveal";
       shell.style.transitionDelay = (i * 0.07) + "s";
       var card = document.createElement("div");
       card.className = "market-card spot" + (m.ok || m.stale_from ? "" : " unavailable");
+
+      // Calcul de la variation selon la période
+      var change = computeChangeForPeriod(m, day.date);
       var cls = "flat", arrow = "→";
-      if (m.change_pct > 0) { cls = "up"; arrow = "▲"; }
-      if (m.change_pct < 0) { cls = "down"; arrow = "▼"; }
+      if (change.pct != null && change.pct > 0) { cls = "up"; arrow = "▲"; }
+      if (change.pct != null && change.pct < 0) { cls = "down"; arrow = "▼"; }
       var changeHtml;
-      if (m.stale_from) {
+      if (m.stale_from && state.marketPeriod === "day") {
         changeHtml = "dernier cours du " + fmtDateShort(m.stale_from);
         cls = "flat";
-      } else if (m.change_pct == null) {
-        changeHtml = "—";
+      } else if (change.pct == null) {
+        changeHtml = "données insuffisantes";
+        cls = "flat";
       } else {
-        changeHtml = arrow + " " + Math.abs(m.change_pct).toLocaleString("fr-FR") + " %";
+        changeHtml = arrow + " " + Math.abs(change.pct).toLocaleString("fr-FR") + " %";
       }
       var parts = fmtPriceParts(m);
       var priceHtml = m.price == null
         ? '<div class="m-price"><span class="p-val">indisponible</span></div>'
         : '<div class="m-price"><span class="p-val">0</span><span class="cur">' + esc(parts.currency) + '</span></div>';
+      var hint = state.marketPeriod !== "day"
+        ? '<div class="m-period-hint">' + esc(PERIOD_LABELS[state.marketPeriod] || "") + '</div>'
+        : '';
       card.innerHTML =
         '<div class="m-label">' + esc(m.label) + "</div>" +
         priceHtml +
-        '<div class="m-change ' + cls + '">' + esc(changeHtml) + "</div>";
+        '<div class="m-change ' + cls + '">' + esc(changeHtml) + "</div>" +
+        hint;
 
       // Count-up animé sur le prix
       if (m.price != null) {
@@ -649,7 +695,29 @@
       el.markets.appendChild(shell);
     });
     el.markets.hidden = false;
+    updatePeriodButtons();
     observeReveals();
+  }
+
+  function updatePeriodButtons() {
+    var btns = document.querySelectorAll("#period-switcher .period-btn");
+    // Vérifier disponibilité des données pour chaque période
+    var histLens = {};
+    if (state.latest && state.latest.days && state.latest.days[0]) {
+      (state.latest.days[0].markets || []).forEach(function (m) {
+        var h = state.history && state.history[m.key];
+        histLens[m.key] = h ? h.length : 0;
+      });
+    }
+    Array.prototype.forEach.call(btns, function (b) {
+      b.classList.toggle("active", b.dataset.period === state.marketPeriod);
+      // Désactiver si aucun cours n'a l'historique suffisant
+      var needed = PERIOD_DAYS[b.dataset.period] || 1;
+      if (b.dataset.period === "day") { b.disabled = false; return; }
+      var anyEnough = Object.keys(histLens).some(function (k) { return histLens[k] >= needed; });
+      b.disabled = !anyEnough;
+      b.title = b.disabled ? "Historique encore incomplet pour cette période" : "";
+    });
   }
 
   /* ---------- Squelettes de chargement ---------- */
@@ -1020,6 +1088,24 @@
     });
   }
 
+  // Sélecteur de période (Marchés)
+  var periodSwitcher = document.getElementById("period-switcher");
+  if (periodSwitcher) {
+    periodSwitcher.addEventListener("click", function (e) {
+      var btn = e.target.closest(".period-btn");
+      if (!btn || btn.disabled) return;
+      var p = btn.dataset.period;
+      if (["day", "week", "month", "year"].indexOf(p) === -1) return;
+      state.marketPeriod = p;
+      saveMarketPeriod();
+      // Re-rendu des marchés uniquement
+      var day = state.view === "latest"
+        ? (state.latest && state.latest.days && state.latest.days[0])
+        : null;
+      if (day) renderMarkets(day);
+    });
+  }
+
   var searchTimer = null;
   el.search.addEventListener("input", function () {
     clearTimeout(searchTimer);
@@ -1233,16 +1319,61 @@
     var configBox = document.getElementById("chat-config");
     var endpointInput = document.getElementById("chat-endpoint");
     var saveBtn = document.getElementById("btn-save-endpoint");
+    var clearBtn = document.getElementById("btn-clear-chat");
+    var intro = body ? body.querySelector(".chat-intro") : null;
     if (!btnChat || !drawer) return;
 
     function getEndpoint() { return (localStorage.getItem(CHAT_ENDPOINT_KEY) || "").trim(); }
     function setEndpoint(v) { localStorage.setItem(CHAT_ENDPOINT_KEY, v.trim()); }
+
+    /* --- Mémoire persistante (5 dernières Q/R) --- */
+    function loadChatHistory() {
+      try {
+        var arr = JSON.parse(localStorage.getItem(CHAT_HISTORY_KEY) || "[]");
+        return Array.isArray(arr) ? arr : [];
+      } catch (e) { return []; }
+    }
+    function saveChatHistory(history) {
+      // Garder au plus 2 * CHAT_HISTORY_MAX_PAIRS messages
+      var trimmed = history.slice(-CHAT_HISTORY_MAX_PAIRS * 2);
+      localStorage.setItem(CHAT_HISTORY_KEY, JSON.stringify(trimmed));
+    }
+    function pushHistory(role, text) {
+      var h = loadChatHistory();
+      h.push({ role: role, text: text, ts: Date.now() });
+      saveChatHistory(h);
+    }
+    function clearHistory() {
+      localStorage.removeItem(CHAT_HISTORY_KEY);
+      // Retirer les messages du DOM
+      Array.prototype.forEach.call(body.querySelectorAll(".chat-msg"), function (n) { n.remove(); });
+      updateHistoryControls();
+      if (intro) intro.style.display = "";
+    }
+    function updateHistoryControls() {
+      if (!clearBtn) return;
+      var h = loadChatHistory();
+      clearBtn.hidden = h.length === 0;
+    }
+
+    function renderHistoryToDom() {
+      // Restaurer les messages sauvegardés
+      var h = loadChatHistory();
+      // Retirer messages précédents (garder l'intro)
+      Array.prototype.forEach.call(body.querySelectorAll(".chat-msg"), function (n) { n.remove(); });
+      if (h.length && intro) intro.style.display = "none";
+      h.forEach(function (m) { renderMsg(m.role, m.text); });
+      updateHistoryControls();
+      // Scroll bottom
+      body.scrollTop = body.scrollHeight;
+    }
 
     function open() {
       document.body.classList.add("chat-open");
       drawer.hidden = false;
       backdrop.hidden = false;
       if (!getEndpoint()) { configBox.hidden = false; endpointInput.value = ""; }
+      renderHistoryToDom();
       setTimeout(function () { input.focus(); }, 300);
     }
     function close() {
@@ -1255,6 +1386,7 @@
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && document.body.classList.contains("chat-open")) close();
     });
+    if (clearBtn) clearBtn.addEventListener("click", clearHistory);
 
     saveBtn.addEventListener("click", function () {
       var v = endpointInput.value.trim();
@@ -1264,7 +1396,8 @@
       }
       setEndpoint(v);
       configBox.hidden = true;
-      appendMsg("assistant", "Connexion établie. Posez-moi votre question quand vous voulez.");
+      var msg = "Connexion établie. Posez-moi votre question quand vous voulez.";
+      renderMsg("assistant", msg);
     });
 
     document.querySelectorAll(".chat-sug").forEach(function (b) {
@@ -1274,7 +1407,9 @@
       });
     });
 
-    function appendMsg(role, text) {
+    function renderMsg(role, text) {
+      // Cacher l'intro dès qu'il y a une conversation
+      if (intro && !intro.style.display) intro.style.display = "none";
       var node = document.createElement("div");
       node.className = "chat-msg " + role;
       if (role === "assistant") {
@@ -1317,29 +1452,48 @@
       return lines.join("\n");
     }
 
+    function buildMessagesPayload(newQuestion) {
+      var h = loadChatHistory();
+      var msgs = h.map(function (m) { return { role: m.role, content: m.text }; });
+      msgs.push({ role: "user", content: newQuestion });
+      // Garder max 10 messages (5 paires) + le nouveau = 11 max, mais on limite à 10 exactement
+      if (msgs.length > CHAT_HISTORY_MAX_PAIRS * 2 + 1) {
+        msgs = msgs.slice(-(CHAT_HISTORY_MAX_PAIRS * 2 + 1));
+      }
+      return msgs;
+    }
+
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       var q = input.value.trim();
       if (!q) return;
       var ep = getEndpoint();
       if (!ep) { configBox.hidden = false; endpointInput.focus(); return; }
-      appendMsg("user", q);
+      renderMsg("user", q);
+      pushHistory("user", q);
+      updateHistoryControls();
       input.value = "";
-      var thinking = appendMsg("assistant", "");
+      var thinking = renderMsg("assistant", "");
       thinking.classList.add("thinking");
       thinking.innerHTML = "L'oracle rédige";
 
       fetch(ep, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question: q, context: buildContext() })
+        body: JSON.stringify({
+          question: q, // fallback pour anciens workers
+          context: buildContext(),
+          messages: buildMessagesPayload(q)
+        })
       }).then(function (r) {
         return r.json().then(function (d) { return { ok: r.ok, data: d }; });
       }).then(function (res) {
         thinking.remove();
         if (!res.ok) throw new Error((res.data && res.data.error) || "Erreur " + res.ok);
         var answer = (res.data && (res.data.answer || res.data.text)) || "Je n'ai pas pu formuler de réponse.";
-        appendMsg("assistant", answer);
+        renderMsg("assistant", answer);
+        pushHistory("assistant", answer);
+        updateHistoryControls();
       }).catch(function (err) {
         thinking.remove();
         var msg = document.createElement("div");

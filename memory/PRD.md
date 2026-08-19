@@ -25,12 +25,14 @@ Site statique existant "Pulse Éco" (journal quotidien des marchés). Demande ut
 - **Assistant IA conversationnel « L'oracle de la rédaction »** :
   - Bouton flottant or en bas-gauche avec pictogramme étoile + label « Demander à l'IA ».
   - Drawer 440px qui glisse de la droite, backdrop flouté, cadre or dégradé.
-  - Chat body : intro kicker + lede italique + 4 suggestions cliquables (Fait marquant, Humeur marchés, Déclarations, Crypto).
+  - Chat body : intro kicker + lede italique + 4 suggestions cliquables.
   - Bulles utilisateur/assistant/erreur/thinking, animation d'entrée msg-in.
-  - Configuration d'endpoint (Cloudflare Worker URL) via panneau intégré au drawer, sauvée dans localStorage.
-  - Envoie question + contexte du jour (édition, briefing, marchés, top titres) au worker.
+  - Configuration d'endpoint (Cloudflare Worker URL) via panneau intégré au drawer.
+  - Envoie question + contexte du jour au worker.
+  - **Mémoire conversationnelle** : les 5 dernières paires Q/R sont sauvées en localStorage (`pulse-eco-chat-history`), restaurées au ré-ouverture du drawer, envoyées comme tableau `messages` au worker pour un contexte conversationnel naturel. Bouton corbeille dans l'en-tête pour purger la mémoire.
   - Fermeture au clic backdrop, croix, ou Escape.
-- **Cloudflare Worker** (`worker/chat.js`) : proxy sécurisé qui appelle Claude Haiku 4.5, CORS configurable, garde `ANTHROPIC_API_KEY` côté serveur. README complet dans `worker/README.md` (setup 3 min).
+- **Cloudflare Worker** (`worker/chat.js`) : proxy sécurisé qui appelle Claude Haiku 4.5, accepte deux formats (nouveau `{messages, context}` avec mémoire, ancien `{question, context}` en rétro-compat), CORS configurable. README complet dans `worker/README.md`.
+- **Sélecteur de période sur les marchés** : chips « Aujourd'hui · 7 jours · 30 jours · 1 an » sous le chapitre Marchés. Recalcule à la volée la variation % de chaque baromètre depuis l'historique local. État persistant en localStorage. Boutons désactivés tant que l'archive locale n'a pas assez de profondeur (accumulation via GitHub Action quotidienne).
 - Chapitres numérotés : I. Les marchés / II. La chronique.
 - Cartes marchés bento asymétriques avec count-up + sparklines animés.
 - Ticker « Cotations · en continu », onglets à filet or, recherche.
