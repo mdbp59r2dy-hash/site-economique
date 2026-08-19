@@ -13,9 +13,11 @@
   var ROMAN = ["I", "II", "III", "IV", "V"];
   var HIDDEN_KEY = "pulse-eco-hidden-ids";
   var THEME_KEY = "pulse-eco-theme";
+  var VIEW_KEY = "pulse-eco-days-view";
 
   var state = {
     view: "latest", // "latest" | "archive"
+    daysView: loadDaysView(), // "list" | "magazine" | "mosaic"
     category: "toutes",
     rubClosed: {},
     query: "",
@@ -157,6 +159,23 @@
   }
   function saveHidden() {
     localStorage.setItem(HIDDEN_KEY, JSON.stringify(Array.from(state.hidden)));
+  }
+  function loadDaysView() {
+    var v = localStorage.getItem(VIEW_KEY);
+    return (v === "magazine" || v === "mosaic") ? v : "list";
+  }
+  function saveDaysView() {
+    localStorage.setItem(VIEW_KEY, state.daysView);
+  }
+  function applyDaysView() {
+    var container = el.days;
+    if (!container) return;
+    container.classList.remove("days-view-list", "days-view-magazine", "days-view-mosaic");
+    container.classList.add("days-view-" + state.daysView);
+    var btns = document.querySelectorAll("#view-switcher .view-btn");
+    Array.prototype.forEach.call(btns, function (b) {
+      b.classList.toggle("active", b.dataset.view === state.daysView);
+    });
   }
 
   /* ---------- Utilitaires ---------- */
@@ -767,6 +786,7 @@
 
   /* ---------- Rendu global ---------- */
   function render() {
+    applyDaysView();
     el.btnLatest.classList.toggle("active", state.view === "latest");
     el.btnArchive.classList.toggle("active", state.view === "archive");
     el.archivePicker.hidden = state.view !== "archive";
@@ -860,6 +880,26 @@
     state.category = btn.dataset.cat;
     render();
   });
+
+  // Sélecteur de vue (Liste / Magazine / Mosaïque)
+  var viewSwitcher = document.getElementById("view-switcher");
+  if (viewSwitcher) {
+    viewSwitcher.addEventListener("click", function (e) {
+      var btn = e.target.closest(".view-btn");
+      if (!btn) return;
+      var v = btn.dataset.view;
+      if (v !== "list" && v !== "magazine" && v !== "mosaic") return;
+      state.daysView = v;
+      saveDaysView();
+      render();
+      // Petit feedback tactile
+      var days = document.getElementById("days");
+      if (days) {
+        days.style.animation = "none"; void days.offsetWidth;
+        days.style.animation = "brf-in 0.5s var(--ease-out) both";
+      }
+    });
+  }
 
   var searchTimer = null;
   el.search.addEventListener("input", function () {

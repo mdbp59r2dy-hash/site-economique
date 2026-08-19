@@ -8,8 +8,8 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◆</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,500;1,9..144,600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/style.css?v=6">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700&family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css?v=8">
 </head>
 <body>
   <!-- Rideau d'ouverture cinématographique -->
@@ -126,7 +126,7 @@
       <span class="chapter-sub">Voix, chiffres et manœuvres</span>
     </div>
 
-    <!-- Onglets + recherche -->
+    <!-- Onglets + recherche + vues -->
     <nav id="toolbar" class="toolbar" hidden aria-label="Catégories">
       <div id="tabs" class="tabs">
         <button data-cat="toutes" class="tab active" data-testid="tab-toutes">Toutes<span class="count"></span></button>
@@ -136,8 +136,24 @@
         <button data-cat="or" class="tab" data-testid="tab-or">Or<span class="count"></span></button>
         <button data-cat="crypto" class="tab" data-testid="tab-crypto">Crypto<span class="count"></span></button>
       </div>
-      <div class="search-box">
-        <input id="search" type="search" placeholder="Rechercher une info…" autocomplete="off" data-testid="search-input">
+      <div class="toolbar-right">
+        <div id="view-switcher" class="view-switcher" role="tablist" aria-label="Mise en page">
+          <button class="view-btn active" data-view="list"     title="Liste éditoriale"   data-testid="view-list">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+            <span>Liste</span>
+          </button>
+          <button class="view-btn" data-view="magazine" title="Magazine (colonnes)" data-testid="view-magazine">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 5h7v14H4zM13 5h7v14h-7z"/></svg>
+            <span>Magazine</span>
+          </button>
+          <button class="view-btn" data-view="mosaic"   title="Mosaïque"           data-testid="view-mosaic">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 4h7v9H4zM13 4h7v5h-7zM13 11h7v9h-7zM4 15h7v5H4z"/></svg>
+            <span>Mosaïque</span>
+          </button>
+        </div>
+        <div class="search-box">
+          <input id="search" type="search" placeholder="Rechercher une info…" autocomplete="off" data-testid="search-input">
+        </div>
       </div>
     </nav>
 
@@ -186,6 +202,6 @@
     <p class="disclaimer">Informations fournies à titre indicatif — ceci n'est pas un conseil en investissement.</p>
   </footer>
 
-  <script src="assets/app.js?v=6"></script>
+  <script src="assets/app.js?v=8"></script>
 </body>
 </html>
