@@ -1,6 +1,430 @@
 {
- "generated_at": "2026-09-03T10:01:57+00:00",
+ "generated_at": "2026-09-04T09:51:50+00:00",
  "days": [
+  {
+   "date": "2026-09-04",
+   "updated_at": "2026-09-04T09:51:50+00:00",
+   "markets": [
+    {
+     "key": "sp500",
+     "label": "S&P 500",
+     "category": "actions",
+     "currency": "USD",
+     "price": 7747.71,
+     "change_pct": 1.06,
+     "ok": true
+    },
+    {
+     "key": "cac40",
+     "label": "CAC 40",
+     "category": "actions",
+     "currency": "EUR",
+     "price": 8278.42,
+     "change_pct": -0.1,
+     "ok": true
+    },
+    {
+     "key": "immobilier",
+     "label": "Immobilier (ETF VNQ)",
+     "category": "immobilier",
+     "currency": "USD",
+     "price": 96.66,
+     "change_pct": 0.92,
+     "ok": true
+    },
+    {
+     "key": "or",
+     "label": "Or (kilo)",
+     "category": "or",
+     "currency": "USD",
+     "price": 145122.04,
+     "change_pct": -0.57,
+     "ok": true
+    },
+    {
+     "key": "btc",
+     "label": "Bitcoin",
+     "category": "crypto",
+     "currency": "USD",
+     "price": 81088,
+     "change_pct": 4.47,
+     "ok": true
+    },
+    {
+     "key": "eth",
+     "label": "Ethereum",
+     "category": "crypto",
+     "currency": "USD",
+     "price": 2523.56,
+     "change_pct": 5.39,
+     "ok": true
+    }
+   ],
+   "news": {
+    "declarations": [
+     {
+      "id": "35348cdb02f9",
+      "title": "Marché : Trump vante «l'opération économique la plus écrasante jamais entreprise» contre l'Iran, le CAC 40 recule - BFM Bourse",
+      "link": "https://news.google.com/rss/articles/CBMigAJBVV95cUxPQ2tlTWhzc2Y5b1BGbGZTOXVEbXdWNGs3Q0E0c2ozUVAzSGVaWW1RUmJ4Tldsa252LWtFcXJQSWx5WVhuVndrb3VZRnc2M2NDTXpQU19CbzJocjRCbkJZdEw0clp3bkpyS2hYRHctaklOdDlFWkE0cG1ka1gtRElNZHdyWkE2S19vVEhKa3dUWGlzUENDWGQ5dHpvLWNYQ0FOTjV4ME55Z1NLbUNQRVBBcW1jWmxnS1UzSHM0N3cxTktRREI5bVVDckJUMXQ2ajVDTHNuTkxuOTFjdmw3QllEYk96UHBERzFjNWhVYkpMeG82cm5yNEFFU0tvLTl3LTFB?oc=5",
+      "source": "BFM Bourse",
+      "published": "2026-08-20T07:00:00+00:00",
+      "query": "Trump économie marchés"
+     },
+     {
+      "id": "66461bb02d7c",
+      "title": "Souvent soporifique sur le dollar, Jackson Hole attend « son moment Warsh » - Les Echos",
+      "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQWWxiV0YxYnBoakF0ellVd1pkazNSakhGZldZdzNib3UxRkNHYi1JSk9sOUVaRlZFN0hhUHU2WXl1WE1vUDR1Q3Z4c3htbG4xWjh4bFdOaVl4TnZkRkp2TFdLWm5UQ1NNRVJTd2EzOE15Wkp5clF0UlBzOWtjZW5Vby1DdGdVZkl3T0JoTVlRTmh1bkpUTERpejJQUEZpVGs5SzFNTGtPT1JoaWJZTmdweGlHSEtvZU1FQ1pLT1ZwdXhWSHZpSnE4M24wbUtGTkRuOEJseEtB?oc=5",
+      "source": "Les Echos",
+      "published": "2026-08-27T07:00:09+00:00",
+      "query": "Jerome Powell Fed taux"
+     },
+     {
+      "id": "bc015d74ad51",
+      "title": "L’actuelle présidente de la BCE, Christine Lagarde, bientôt à la tête de l’organisation derrière le sommet de Davos - Investir Les Echos",
+      "link": "https://news.google.com/rss/articles/CBMikAJBVV95cUxNZDZITEVCdmpRSko5NzZneUhmdHdZVWZna0RiX0J6Z1BoSUVDbzhjMXlhMGY0dnhrYy16N3RoWU9tZnNYcTdPR05yT0IwdmRLQzhsU0gzcmo4Vl96S28zMUJES0ZwLV82N21XYmNkQTJ0OVFNNkhPZlhhQlNVN1g2REphelpJWlJzRWxxNDhZWTBrZkNlZFdfMVJuV2tRTDNQeUVod1p2NnhSVWZvdmJGVUhtYUw2OXQ2aHoxX2k3VGliWHF5ZTN4UGllWXJITXlldWRDQmtPRHEtNE1Jd3RwZk1jZkFnbGUxMkI3SVVJRG1jelhKYjlGb3NXTkJ4RDg3YzdNalpoUF8xYkJtZTFDVA?oc=5",
+      "source": "Investir Les Echos",
+      "published": "2026-08-20T07:00:00+00:00",
+      "query": "Christine Lagarde BCE"
+     },
+     {
+      "id": "4b541e54f966",
+      "title": "Larry Fink de BlackRock prévient que l'essor de l'IA pourrait creuser le fossé de la richesse sans une partici - Boursorama",
+      "link": "https://news.google.com/rss/articles/CBMirgJBVV95cUxNMWsxYXNGcW5icDFNTFFhQWx1OVZ4RjFGTkxGNmh0SnNiYlVjUGNjeVNLcmQ0SlRSRXE2dWoxYWtzMjN2NmkwV2xsUjEwejc4UENyQnNzaldiZk5rMjlHc0h1cms2SThFQ1lORHgwNnd4Q1NRd2hzSWZHRElWOEZXb2VBRHFMMHdyMXlCU0NvNENpMnVFNjA2cFZEa0ptOTlJZGRPOGJ2aFctOEd4ckg5NGZRSjhmLUpucDFheGFEWjc1b09sVWZyd1oyb2o0TElFYjZaUklZZW1kbzN6ano4X3hlODJ4MUcxR3lrTGoxYm9DRlNUY24zUEFDUF9SelRjaElxN20yTG9sUzl6cUV3VC1hUnVzY1pYaHZzRm1FVnlvRUFnTlc4cmh5clhXZ9IBswJBVV95cUxQdVRQaTZYTjR4c3JiOEk3VUV5RTJwSGJHbTlxUFVrWlFDMzc5cVl0ZTFSOGtxX2lTbFl5OWNxR0JQYnk4bDJlN2VaQ3ZmVExwWEpla0pVQTYzNkkwcTVOVllPNVpOZXBQNUVYT0VPSlBnMEJyY2l4a0ppNVdfOGwxbTRHc2ZyUHhCSWU2OHNhbzdmT25GaEVKcGs4RG1NajB4ZU53ZnJRVDB5NW1FUTljX243bzVKVGdCRFBiM0FvdzliUnN5OWpFMUppRWVHS2RoMUNzekZDOEdvZDRRYUpiR3I1NkNqMS1ydUhmVWlpTVY4bG9mY3M3Nk5kMUJzQlN0RFpVUUhKTzQ2LUpfRm9OUDZSRlJYaVU0WnFhdXJiQnd0X3RmYWgzY2FFMElTVkswVWpn?oc=5",
+      "source": "Boursorama",
+      "published": "2026-03-23T07:00:00+00:00",
+      "query": "Larry Fink BlackRock"
+     },
+     {
+      "id": "71831132fc64",
+      "title": "La société de Warren Buffett, Berkshire Hathaway, puise enfin dans son trésor de guerre pour quasiment doubler sa participation au capital d'Alphabet - BFM Bourse",
+      "link": "https://news.google.com/rss/articles/CBMiwgJBVV95cUxOYWdsLURpM1FsNjR3bHlxTWktREg3YU1SeEdrcXJVWUxNVU05VE5pUzhQOEJnQ1pNQ3ZVR09RNnJ4bGI4dUN0Y0tNZGhsUHhaY0J6eXlHdlhSMFhFU1Q5eHdYcHZ3emhnSEl4dVJXbWg2SFBTWnB4X3BRaDhXV0ZYT2lrNmRnMTdsUjdjRzY1Vl9VMVY5OGlTb3MxSFR5Q2E5UEdsaXBjQkdQSFBSbFpEY00yS0tyMlZNWlBIMUpUeDBjdk9uS1JrYUtURTlFbkVzamNhR2o2aC1sWE4tNHRzVDc2ZkhzMjhUZjV3VHVhVWRvZ0tqNVVSdUlTbTNOd0E0SERSaUFhd0xaelo4MHpjUFpDLVNuMGtoOGZNck9BX0U5VHFaODJEQXZNWmw4cGIwbG5FT1g3YjVvYW9jVHQ1ZWVR?oc=5",
+      "source": "BFM Bourse",
+      "published": "2026-08-17T07:00:00+00:00",
+      "query": "Warren Buffett investissement"
+     },
+     {
+      "id": "0f9cc9001324",
+      "title": "JP Morgan : la succession de Jamie Dimon se prépare - latribune.fr",
+      "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOQWlCdXYtYVRHM3FzRUV6a2RjREFEZTlzOHd3Qk9lZkVKRHo5UWhHN3VkMy1ULU96d1NmemgyX1QwektZdmZnVXhPVEZQQTF2ZWpWcUIzQlktX0hoOUQ0bi12X0lLT3pIOEVyMXJaVTYtMnQ4WHlMc3Jick5XQ24zY2xvTEljNXJHMG84LWhHNjZiSFF1RzlNOHBDWnA3OUJ0VjVaZFRjUzc3UEtXckowVmxCX3JJblB2XzJBXw?oc=5",
+      "source": "latribune.fr",
+      "published": "2026-06-26T07:00:00+00:00",
+      "query": "Jamie Dimon économie"
+     },
+     {
+      "id": "79704018fcd4",
+      "title": "« Les vociférations de Donald Trump ne rassurent plus les marchés financiers » - Le Monde.fr",
+      "link": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxQdjVzR0x4N2x4cG5JYUc0RkF6bHdxZkdKNlVqM0J2eVIxVVB4YU9UVzBRdENWQUhVaUpZRlJ3cDNiWngtQ0VidHo2cmRGSHZyN1BPT01manVjaklHNHpvZGJwN3paa2N1VmFMMHBfakNqbmRWRndjT0gzOU53NlM2VHMyV3hOczBmdWFqNzVJZU9rcE1pZlRRVzU4NHZ0YWFXOXhrUlA0YlNsaUdLZ3hOaDQyckNkdUxpOVBhVGRjUUtWS2ozTXRWendKVkM3WEVGZU9TY2dHSkQ4V0E?oc=5",
+      "source": "Le Monde.fr",
+      "published": "2026-03-30T07:00:00+00:00",
+      "query": "Trump économie marchés"
+     },
+     {
+      "id": "e55ff6292e28",
+      "title": "Il fera \"profil bas\": Jerome Powell annonce qu'il restera comme gouverneur de la Fed, les taux directeurs restent inchangés - BFM",
+      "link": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxNN2hRQ0pEcDhydFBsSzhZQTZfQnhJT0gyTFdhc3lxUjJvLUhfeEhpTXB2RUZWY01ieW9FdFd6YWhCYko4S1VZcHdJRkhlOUV6aTd2OFNEQkQ4M1Q3NjRScXRob3RuOWdlWDZNRTE2YXdwSVBHUThTQVgzWjJIMkVZT1lPR2JjOHRqMzVXaGV2WGdUdVo4Zl9UYlhpV1Q5OVZPVW5Ob2lyanpRMG1scUZEeE05ODhhUy1neXZpREVWZTY0UHdqM0ludjV3QWNuWFRyS05DMGFzNUxLOUpLaEVfa3hYa2VBaVBIWmtuXw?oc=5",
+      "source": "BFM",
+      "published": "2026-04-29T07:00:00+00:00",
+      "query": "Jerome Powell Fed taux"
+     },
+     {
+      "id": "f511e0f95a5f",
+      "title": "La patronne de la BCE Christine Lagarde se dit \"prête à servir\" le WEF de Davos, selon la presse - Euronews.com",
+      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOUFBkVGtXU1oxY1dTWDNIdzl5Y1Y3c3l5cXgxRXZCMmtkR2kyWnBzZWVRUUo1SWwzelZBck9raS1RYV9sUl9DUnR3bjJCNjMxTW50UVRYSzNBRDZmalVEampwY21XQ3VPSHc0TV82Nlpvd2pJWVZWX3VlcjRYNGw2SmM1NXNnQ1R5ODZPOEZ5d1RSaGNWODNqZDNsWVoyRElFSHpnNVk3clQwZU51T0VMRA?oc=5",
+      "source": "Euronews.com",
+      "published": "2026-08-23T07:00:00+00:00",
+      "query": "Christine Lagarde BCE"
+     },
+     {
+      "id": "b56b584c5000",
+      "title": "« L'histoire suggère que les technologies transformatrices créent une valeur énorme… » : les alertes de Larry Fink, le patron de BlackRock, sur les effets de l'IA - Les Echos",
+      "link": "https://news.google.com/rss/articles/CBMiugJBVV95cUxPSTRxaHhab0paOUVyNFJFV0FWMWlsdTRxVEFxUHl1TXBtQ25wMU94TGZ6WFpHVUNkbEI4MmhhSFMxUU4yOWJNYkRHSno0aWhNWFRvWGN5YWlrbzR0WWg1TE9KQkJFdGc2akRPZFBsdXpxN29hVG1IY0V6cndRREhtWE1TR3hmNjAyUmdMR1ppNU16c1NNZGxlc3kwQmZjMjJkOVhPemZIS1FKdGRqU0p3TnIwWmVTVlR4RHlNNE9TZmZOdnJWeXRhblZOcEZfaTZHYzJMOFRibFlQbU9KNWtpcUFnTXN6Q2taWGhBbnN6OUhaZWNKRDRiSVBaNVNra2gwSTRHRW8yQXRqTzFLYlVOTUFadUFWalNtMExEVXdyNkU4WF82T0FXalBVVG5iU0I0M2RXdkRtSXN6Zw?oc=5",
+      "source": "Les Echos",
+      "published": "2026-03-23T07:00:00+00:00",
+      "query": "Larry Fink BlackRock"
+     },
+     {
+      "id": "5a63b0d128af",
+      "title": "Abel, directeur général de Berkshire, affirme que l'IA contribuera à stimuler la croissance - Boursorama",
+      "link": "https://news.google.com/rss/articles/CBMigAJBVV95cUxQUWdwZmdxMmNBSUxRN1hsVXVFSElaUk9vMnRyUmRwcGxkcTdUNHo1WnduOW44dEpMTGxIT1NWeV96UVpUQk9JOHFjT2hhcF9DLXh2UDZMZ1JhcjJPTUpHS3l4eFdEZ1NPYkt2QmZiVWdsb28wV2xnTC05Nml1ckZxZDNjeDh2YWFobFJVSm1sV1phU2R5aW9JbGxPem9lR1hrWV9IQ0RJQXZZblNCSUlrbTZSazYtOFoza0F4MnFIOW8tWWxPeEl3N0JiQy00R09WUTZsNWgwZW9sYXpCWjk2cVYyR1cwU1N6blA0dkRMeW92eldMenZnOFJza2F1Yk9v0gGAAkFVX3lxTFBRZ3BmZ3EyY0FJTFE3WGxVdUVISVpST28ydHJSZHBwbGRxN1Q0ejVad245bjh0SkxMbEhPU1Z5X3pRWlRCT0k4cWNPaGFwX0MteHZQNkxnUmFyMk9NSkdLeXh4V0RnU09iS3ZCZmJVZ2xvbzBXbGdMLTk2aXVyRnFkM2N4OHZhYWhsUlVKbWxXWmFTZHlpb0lsbE96b2VHWGtZX0hDRElBdlluU0JJSWttNlJrNi04WjNrQXgycUg5by1ZbE94SXc3QmJDLTRHT1ZRNmw1aDBlb2xhekJaOTZxVjJHVzBTU3puUDR2REx5b3Z6V0x6dmc4UnNrYXViT28?oc=5",
+      "source": "Boursorama",
+      "published": "2026-09-02T13:23:08+00:00",
+      "query": "Warren Buffett investissement"
+     },
+     {
+      "id": "32e51c1c738a",
+      "title": "« N'attendez pas une catastrophe pour réformer l'Europe » : la mise en garde du patron de JP Morgan - Les Echos",
+      "link": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxOTi1YSlBEN1MtS0VSalZkM1NwV1ZIM0RyV3NFN1JQeFhJem5rNGd5SXAwSmNzYVN2eERITTQ4TWJrVVlmS2hJcUxOZ0c4WGRhbkZsX1FsYXI4dmkyaDhSWWhvSXZLNUNScmExZEw3YXZMb1RlWmJsSzV4cFZXZS1MN2pxZkdfWTJUUXJIVEw2QjdPY1dnRUZKZmcyMnJtV3JmUGJfeGtjc2ZiZm1PNUtGcWxDd2hJRmJPWEV4eHROODZFZnlpRmdDZE5RWG95VDJwNWNSV1pGRnNXY19kMEJOTnlYQzZWaXdYWmt6X19R?oc=5",
+      "source": "Les Echos",
+      "published": "2026-06-05T07:00:00+00:00",
+      "query": "Jamie Dimon économie"
+     }
+    ],
+    "actions": [
+     {
+      "id": "0928b178fea1",
+      "title": "Wall Street ouvre en hausse, Waller se dit enclin à maintenir les taux - Investir Les Echos",
+      "link": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxPSmJZOGo3S1kwb21CZkIzeEtfdWJzT2xSRWVDNDVmODZkNjFKcWs2VEtWT2NVS1ZFQzBxeFNjaGZtb3RmV0VoanlyM2t6VG8zZkNIcUwycGVkNk1sV1d4OWhmRmR6NGw3cUd1S0Nrd011X3Uta2stRmpUcnZtSUhoUWFUekdnelRjWnlqSk5sd0VGUnNCaG16b0JNTFVodFhiUWtxRWJtOE5KRnk4VWdQOUZsdmdUZUFVdXBzQnVPbXZ6ODItaDlVSXFKZjZHQUV1TVR2TkI3WQ?oc=5",
+      "source": "Investir Les Echos",
+      "published": "2026-09-03T14:00:17+00:00",
+      "query": "marchés actions bourse Wall Street"
+     },
+     {
+      "id": "a899314c06ab",
+      "title": "CAC 40 : La Bourse de Paris devrait ouvrir en légère hausse avant l'emploi américain - Zonebourse",
+      "link": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxOWkVvVFZ2djJKVXZ6UUIzUmcwWlgtSWZGcUJyWVplWEJKVEo3SVBlbFBraVNtNDIyQklWVlJXOU1Pa0pSSWhQaG4yR2VvN3lRQVFDbnd0M1FTMDdwTVQzLVp3dkFoRVM3WEhXbDdtc3RxYzY2RUtYYkJrcGVERERNbmFZTWdTV3dHQW5uUTJXeXRVV2RqSE9IdllaMWdwc3VxQVRoX01KUGd5MTNJT0FJOFRFSUdUaTlDNWVBOEhrandQNVNidUFIa19Ld1g3eU5id2ZLbTVYcTZqdUU?oc=5",
+      "source": "Zonebourse",
+      "published": "2026-09-04T06:35:38+00:00",
+      "query": "CAC 40 bourse Paris"
+     },
+     {
+      "id": "eddb67c4cf74",
+      "title": "Wall Street ouvre dans le rouge sous la pression des rendements obligataires - Investir Les Echos",
+      "link": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxQTHUzdlhuWWlrMnduTnhfb2M1eXl2ZnR4clNBQnRYYUlrRzN2NC1RZjJWYVlaMTZ1d1BNSUotbEVQMTh3YjFyWExjRmx6VjlDbmpNaktPUERXNW9PdzRaTXVwWTVkclZxU19aaFBzaGhSVVFwaWIteXN3TUg1Z2JHVl9sb1dQNDN2VXhDSTR6UEczdUlwbHNCNzVueUhtZE91NWhycm8zTzI4cWdXSjZKX3p6ZlVkNm91Q0F6Z3FOdzF0OVZKT2YyZ3ZZRDJiVUJ0azdSbm5hazhkcEt0MUhtNg?oc=5",
+      "source": "Investir Les Echos",
+      "published": "2026-09-01T13:44:55+00:00",
+      "query": "marchés actions bourse Wall Street"
+     },
+     {
+      "id": "936a8204fbd1",
+      "title": "CAC 40: La Bourse de Paris baisse, les investisseurs jouent la prudence avant l'emploi US - ABC Bourse",
+      "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxQU19oUEFVcmVjZWxWMUtkZlBQSXhvemotbWQtbWxvNC1Cc2E2Nm1UbHVfVnBQenJORV9MVV9pZElNUXVRS1dYNzI0a3VYRDc5MTRnMk9YNXdGMXB0WEMtNVRhMDVkQThsYWQxNFA1NDZwOGR2VVZvaExGUzNBMG5Ka0lsdWJVejVFOGdaLV9oY1pFOUpiUk9pcEUxN0o3SjZDSFVaYXZPWXp0ZklGd21TRHBUVXZvOV9mVHhj?oc=5",
+      "source": "ABC Bourse",
+      "published": "2026-09-04T07:18:23+00:00",
+      "query": "CAC 40 bourse Paris"
+     },
+     {
+      "id": "4739c0db66be",
+      "title": "Les bourses en direct | L'Europe clôture dans le rouge alors que Wall Street relève timidement la tête après deux séances baissières - L'Echo",
+      "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPSkJVRS1IZHNXT3c5RUdYc1BmazJZLWtQMzRnemdLdUtZQ1JjYnJYSGZ5QVJKU2w3eW1VUkZXWW1zcXVpaUlvdVgxTVJkcmZrSUIwQTJrT2pyRDZXUWhzMG9oY1lRNUxrTmhpNTZUdmJVY2dYUlBFQ2xSWmNwMGYyZTJQa0t5bWdJT0VaOVduNUl4VWp3d1h0NW9McXNNTTB3ekl3cDhtUnNwZml4ajRiM0FFeFBvZw?oc=5",
+      "source": "L'Echo",
+      "published": "2026-09-02T13:37:33+00:00",
+      "query": "marchés actions bourse Wall Street"
+     },
+     {
+      "id": "401cb6416678",
+      "title": "Bourse : Conseils boursiers, Analyse technique, Cours de bourse et CAC 40 en direct - BFM Bourse - BFM Bourse",
+      "link": "https://news.google.com/rss/articles/CBMiQEFVX3lxTE9aTnc0Rjh1VDBYdE4taXhhQnBSV3BBZzd2UlhaMEVUWmJtQnBHYWlUMmpxWVB1Vm9YaWVxTnc3Qkg?oc=5",
+      "source": "BFM Bourse",
+      "published": "2026-09-03T05:02:14+00:00",
+      "query": "CAC 40 bourse Paris"
+     },
+     {
+      "id": "df7086dccf19",
+      "title": "Bourse: Toronto perd plus de 440 points - lesaffaires.com",
+      "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxPRTVSa1ZGNklqSGJMSVl2dE9BcTdUV2FpYmZpRFk4R2Y1QzFGT29lbjg2NzJkMmRucGFFVk1HTGZBWkllTEt2Tml1QWdSZ2c5NERQNW1CbDRCTTBHQW94QjVFM3NMZ1NWYTlVNndiR3d3NFBzSGlycEduZ2ZuamYyZTRVNUduaHNDLUZvTXllN3VVbks3bFVKd3VYcw?oc=5",
+      "source": "lesaffaires.com",
+      "published": "2026-09-01T01:19:49+00:00",
+      "query": "marchés actions bourse Wall Street"
+     },
+     {
+      "id": "c04316396530",
+      "title": "CAC 40 : la Bourse attend au tournant l’emploi aux Etats-Unis, les taux de la Fed en ligne de mire - Capital.fr",
+      "link": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxPYTlvT01meXUwRzVHdWdMZ0sxVllWUndHQnhORnp2OHVMcUtsUWo2Y0RmWWVjMFZaMVNFb1JyOTllOWpjamRPUnFDeExUQ1dYRGowVF82aUE0eE5lZ3QtcVhLLUx4b2RsU0o4azFFdXVPeDZva0RCMWExNkc1bjQ1aTVCODhrcV95QzdNanRHbjVmTkQzUGVxWHZScS1MMW5lQmFBM29HMHpHSFdhYnNpR0lXZnlEZVNlZUIzZW9rT2wzNE93T0t3TmJ5QlBtUEIzZWx1VzlRM0ZPMFNmd3c?oc=5",
+      "source": "Capital.fr",
+      "published": "2026-09-04T09:16:21+00:00",
+      "query": "CAC 40 bourse Paris"
+     }
+    ],
+    "immobilier": [
+     {
+      "id": "a5b4cbb26b9f",
+      "title": "JO 2030 : ces 5 stations de montagne où investir avant que les prix ne s’envolent - Meilleurs Agents",
+      "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPMHVnNm96WkFGczFuWkxNcWI0cnhZZ2NMX045TktGd2J4RmpqVi1rY01qTWFHdE1IVXlXWTM5OGlwd1lsRWZTODBHSnBzYmY3SnB2UEx4US0zdV9JSS1HcUZ6QkczejM5U012ejBLRFpTRUFBY0hkX0hEXzd0MmpZZVJVQmRUMG1IczN4MkpyYmlnTTFORkNDSHZINWFVN2JjUVBKdVhvSklfRU54NTJIVnVsQk9yQkVYTTVycHpXcFdUVkRaTGI5WHBR?oc=5",
+      "source": "Meilleurs Agents",
+      "published": "2026-08-31T07:57:25+00:00",
+      "query": "marché immobilier investissement"
+     },
+     {
+      "id": "1329bad1c05c",
+      "title": "Après une accalmie, les taux des crédits immobiliers repartent à la hausse - franceinfo.fr",
+      "link": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxOcHhyR2pjbUpZZG82ZWxuQnloUXE2Y0RBM1d1WG1WcUVkMV9qSDVQdlJfZU5uYThaYk5kaURzaDNXVl85UkNodmE2MThvdmQ4emJ6bmZLcWxmLTdCOGluVVZ6VGM4YmFkNFNyd1N4Wnl5MU1pOE42NVJlZ0JNdFRvd3FOZVc4STBZeFRuQ296ejFpY1YtVEZWX2hycnpSbFNwX0xfU01kdWcyekFUajYtNHNuUUJwX3BXV1NMZFhJTEdIVTBPQ2ZpUkdBOVFQclBVRHl2WDVEM3JidEk?oc=5",
+      "source": "franceinfo.fr",
+      "published": "2026-09-02T06:05:02+00:00",
+      "query": "taux crédit immobilier"
+     },
+     {
+      "id": "7e0ee873febd",
+      "title": "Immobilier locatif : un Français sur trois conditionne son projet d'investissement aux résultats de la présidentielle de 2027 - Les Echos",
+      "link": "https://news.google.com/rss/articles/CBMihwJBVV95cUxPZ2ZoNUJBMUJpMUZiUVM1aWJIbmF0RDV5MndfcjdnWGtQcXhTc3JiamxORHJvVmhsZllucWl1bVJCb1pDM0FDcFZmWVR0VUlQS0JXYl9ocHV1QnNKeVJBV2ZpcnF3REw1NmtIM3NBckZjcGhRRWZCekw0QnBRaUdwMTQ0ZTR1c1RIcUo2NG1qVUNKeUg5aUNaMnlPZzBLY2k1VnRYWXRLN0p0enQ3eFV5NDhJLVpncDNvT1VhRHRMNDQ5YUVvMWRWRGxfUHVaMzM1di1UNEtydmhrcGRoSXJVU0paYVNiaEZfVWVpcWlQWWhJaEdGcG02WDR5SjhTM08zQ3FsWTVtaw?oc=5",
+      "source": "Les Echos",
+      "published": "2026-08-27T05:30:08+00:00",
+      "query": "marché immobilier investissement"
+     },
+     {
+      "id": "8ff6d24b1299",
+      "title": "Des taux à 4 % sur 20 ans : faut-il craindre un nouveau coup d’arrêt pour l’immobilier ? - Le Figaro",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxORmtUOW5aVC1OUnJvajkwZV8xMW5vdlB3cUNwQ3ZPNXdqbnFfbXhxUURZUE5DNjRTYkFIeXczMV9HX3ZVNHhOM2JQaV9qYUpoeUdZWVk2UzR4dVpvZC1JS2gxUmJNSlA4dzFpc3h1bjNUVkduNXlBNnEyeDA1ckh2SURGT0JDTFJhY0RQMWVvZjh1LTZjQzhSUFZfU2pGczJ5aE0zYmdGNHEwRjRMYzh2MVE2VVBPMlctRVhoNlhlS2E5Zw?oc=5",
+      "source": "Le Figaro",
+      "published": "2026-09-01T04:45:06+00:00",
+      "query": "taux crédit immobilier"
+     },
+     {
+      "id": "520e306c316b",
+      "title": "Analyse du marché international de l'immobilier d'entreprise, T2 2026 - JLL",
+      "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxOX2s1UXVKY3NFMnlOamkya3FTSUF2dExydDVUUmxNeU5wSkl1ekRiWWlUX3hYSVRvSDdublI1Q0dyTHVJMXN3R0hISV9DVjdvQ0pkSnVNc1BaNEM3QzZJeDZRN1RwdGlObEhfb2UtVnNqMEVycmNIMGw5YTl5Yi1UTXVpOTJYUWNBQTVSeE1JQzRiUmRWQUE?oc=5",
+      "source": "JLL",
+      "published": "2026-08-24T07:00:00+00:00",
+      "query": "marché immobilier investissement"
+     },
+     {
+      "id": "126efbed9f98",
+      "title": "Taux immobilier septembre 2026 : la hausse s'installe - Pretto",
+      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOWko0NjhOVzB6d3gwcHdTMkVYS1NNTTFYSjIzUlpTV2Y2Y3BtRks0ZHhIbHJiMXNxYTRwZE9qS1J3QmFfaHBySWNIajQ1TXg5cHdaMEVZU2VtaVMtMWE5OGZneGI1ZkpNWU1fX0V6Vzlrc1NvNFVBcU43Zjc5TTI5SHl5Nk1JZlZRX19mSmRROV82R0h2YWJsUG0yMzVFel9aRzJ4N2Z4dE9DZjBOdlE?oc=5",
+      "source": "Pretto",
+      "published": "2026-09-03T21:18:56+00:00",
+      "query": "taux crédit immobilier"
+     },
+     {
+      "id": "11e27996f56c",
+      "title": "Immobilier en 2026 : des villes où l’on peut investir - Ymanci",
+      "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNaTRpeXFFWlFrc2FhdDlPcF9jYjRzaldLM25xVW5WQURWN3hCOGQxcmVvTncxQ01rQXZkcDNQUVpHSngwQzlsZHdBR09PT2dpU0RZRXp0U0lRTGpoeWJVRnp0Y2UwbUZnWXVlWU9GY1NWQTNta0VKRkFJSWpaaHBkYkxmNEJVMkdYTTNwTg?oc=5",
+      "source": "Ymanci",
+      "published": "2026-08-26T07:00:00+00:00",
+      "query": "marché immobilier investissement"
+     },
+     {
+      "id": "114fba6caa4c",
+      "title": "Les taux des crédits remontent et s'approchent du seuil des 4%: les prochains mois pourraient bien être la \"dernière fenêtre de tir\" pour décrocher un prêt immobilier avant un risque de blocage - BFM",
+      "link": "https://news.google.com/rss/articles/CBMi0AJBVV95cUxOMUVTcENLeWJqT0RNQUctSkttYVJROHdWaFJDdmNJNjJfak84OVpvUDQyX3VGSHdHU09XazJVTmhTTmc1TzR2cWduaEp6aUhZVEpfNHNoaXctRzlxbC1aemd1WDRockt4WkRneExnY05VMGVHQU8zSm5hWi1mWFYwV05OdXRTWW5jcmpYTHgydXBXeTZTTTVwWmgyT1FhakhTZEZiYWF5cHpJaEpvdE9jS2VPckZsYzkxcmgwcVBZMmNlSFRoT091aXpJYkh3VC1SVTE3NWF6U3hEdGpqWTVYMGRfb2U5d3ZnUWozY2RhSGNOcGt3VkNnU19KSWo3RHRpenFYSFVSUTBqMkM3dEw5MEplMHFQX1d2MVQtOWRmWjlHNm5LQktXekVmWFZwR3J2ZFJueTZRaDFWU3dtVTA5YlZWcjgxSXFIQzFFUmFjcEw?oc=5",
+      "source": "BFM",
+      "published": "2026-09-02T14:09:38+00:00",
+      "query": "taux crédit immobilier"
+     }
+    ],
+    "or": [
+     {
+      "id": "f8097ddc3cc8",
+      "title": "Cours de l'or : l'or va-t-il continuer à monter en 2026 ? ? - Café du Trading",
+      "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE42WUFpV3pnajRKeXZ2eG43MWEyd3VZSVlwZk9JWGRGVTRndTBnWUk1T2g2WmU0cTZPeE5xOGJqZllSUF9rbFR2UWs5cFVsa0EzZnhGSUdBazJNNFA3S05nRXZhOFpZMFJLczJYYlk5Q3BUUQ?oc=5",
+      "source": "Café du Trading",
+      "published": "2026-08-28T07:00:00+00:00",
+      "query": "cours de l'or once"
+     },
+     {
+      "id": "557eb527b6f5",
+      "title": "Prix de l’or : montée, chute… et rebond. Que se passe-t-il avec la valeur refuge ? - The Conversation",
+      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxONnBvSllHU1I2QUhiNWdMcFhUMDNCT21xMHZ1YkpaMWRKOGFxYUpUTG5adzU0a0l6b1ZHRE9oUDJJYkNiM2V6SzVQYUptUjlGZHBVa2RXX1lJUXhmcm1LelU3UnhlVWxxaEQ3MGRLclFQOHR5blB2TTFCSWlEWGF5VXUzZzFLTE16dWJLaDJsa0lMN2tvaUhuem5NeDlLYjFLemhwLUNfd19GQmRWRFE?oc=5",
+      "source": "The Conversation",
+      "published": "2026-02-05T08:00:00+00:00",
+      "query": "or valeur refuge investisseurs"
+     },
+     {
+      "id": "eb19ba4a82bc",
+      "title": "Le cours de l'or rebondit nettement, profitant du repli du dollar - ABC Bourse",
+      "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQejFDU05CNTQzVm92WmRNVDNCVy1UTHpsMEx0XzV0ZHpnbWJqT1g0cmxOQnc0VFBSM2NxTkFxTVBxcWdZZU03Q3ZaeV90Z3Y2cHNNc2F2MUtWUGk5aWVyaERUQ21YNE1xTWdzb09oY1ZNN0hrMEtsQ0xVTFRiNmY1NDhSdzl3Yk1nY3VhQlptV09UWnM0b2NqSldrNGp2d19BY1Bia0w1cXA?oc=5",
+      "source": "ABC Bourse",
+      "published": "2026-09-03T12:53:30+00:00",
+      "query": "cours de l'or once"
+     },
+     {
+      "id": "630dc35bab76",
+      "title": "Guerre en Iran : l'or, une valeur refuge qui a du plomb dans l'aile - Les Echos",
+      "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQSWJCUUY5VDI1MmxIczNmTVVYU2lNYngtakJnV1owWXVMb3BLSHNtV2p0MXdwRVFPdThuLTRjODd3OTFwdG1vM1g5bTdBYjM5ZWFrWkR4ZWYwUGpza1l1QVdydFNnQVcwNkFoMmp6UzdWNVl5XzQ3TFU5UjNOZmxkdWZfdTg0dV9ONWxtZlBiV2ZVWmluYkloQmQyVmthRzNFd19LWHJNSHBvOUFxM0xoUWo3QWpTUHJNc0hMTl9MMVhKSVlmcVFkMQ?oc=5",
+      "source": "Les Echos",
+      "published": "2026-06-08T07:00:00+00:00",
+      "query": "or valeur refuge investisseurs"
+     },
+     {
+      "id": "7e70d1f2e7a7",
+      "title": "Le matin du 4 septembre, les cours de l'or ont de nouveau augmenté. - Vietnam.vn",
+      "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1QUFB6MG5YZUFlUW16QTdOZEtoUzZWTS1ENnU1Um4wTVlhWkU4aVhYa0kyOW51MGl2OUVTSEFleTE1YWR4VkVYWHZEVEg4Qzhmemx0eE9nai1vQmt5REhnZDlsUTJNN1E?oc=5",
+      "source": "Vietnam.vn",
+      "published": "2026-09-04T02:59:30+00:00",
+      "query": "cours de l'or once"
+     },
+     {
+      "id": "911589b22298",
+      "title": "Or : Pourquoi, alors qu'il souffre depuis le début du conflit en Iran, l'or n'a pas dit son dernier mot en tant que valeur refuge - BFM Bourse",
+      "link": "https://news.google.com/rss/articles/CBMinAJBVV95cUxNd01HS2N5b1R2eTFPb29zQmJqQUJhYlVZeDdLeUV5Y3o5NjNsNEFoNDZaMTR1cTBkNElHNkNJNmlYLTNXTDE5MldKNlhRYThvWEJreDRHWDFTTUE4TzcyUzA4RTVpdDNUYkJheG1Qd3pJajhLMXJCSDV6MVBjcE5kQ3pJaHNxZTN5TzRwakpUTXA5SEU5MHozLS15Y053QkRST2dOVkhzbmFnRHNuVGJ2ZFM2VWFadE9HejhQb3dEdWZGei03MW5MbEdGLWNPTUtxM0x3X1hNdFRZSUZBLW1OcFNlYzZINW1LamFsMExlR2N6NTg0RURHV2NMSEc4UjNCVjJfOGFmcU82c2NHenM2XzFwSnNvNERHOElieQ?oc=5",
+      "source": "BFM Bourse",
+      "published": "2026-05-24T07:00:00+00:00",
+      "query": "or valeur refuge investisseurs"
+     },
+     {
+      "id": "53ab27bbed72",
+      "title": "Or : l'once grimpe encore, au plus haut depuis 3 mois - Boursier.com",
+      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQRl9oRzYwZ0ZWVGFGanBKR0J5WW1sdzd4RTY3M3FXcGdJSW9CN21nN1lIRzRPNkdhczdUTC1UVEd3bFdYelg5UWY5bUFOc0hiYUxxNUtGUXp4NEJiR2JvSGpqLXFlOUZYbGtEX3daMzNyYUNvYWIwYTBDdUZoMzRLOG0xZ2xrbzNqbXhvd3RUYUw0a3FiYV9wSll0U2FuNFFtTGpQLWVrZ01YQklMZkNRNmNn?oc=5",
+      "source": "Boursier.com",
+      "published": "2026-08-24T12:45:00+00:00",
+      "query": "cours de l'or once"
+     },
+     {
+      "id": "6f99b56a2e07",
+      "title": "Investir dans l’or : une valeur sûre ? - Previssima",
+      "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxOcnhXRXBJM0hvVHotQmp6N1BILUVfbzVQRTdqelRxeG5nT3RiRTY5SnN2X2ViXzB2MGdDTVNGWUFQUFhXdV9BZGw3UVpfT2VyTjFMU0dmUlZDdkVlY2hMbkZMZ2J5UTZ4bHk0dVRiWUU3end3eTMzMkZzTlI4TDZxUFFNSVc?oc=5",
+      "source": "Previssima",
+      "published": "2026-02-06T08:00:00+00:00",
+      "query": "or valeur refuge investisseurs"
+     }
+    ],
+    "crypto": [
+     {
+      "id": "9087ac358eeb",
+      "title": "Marché crypto en hausse : Bitcoin, Ethereum, XRP et Solana accélèrent - cryptoast.fr",
+      "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQV21MclpOOG1MOTJCNjFLbG5aQ2VwOWtWNG5FVVJ1RERLaGFfSzM2T2JLRnBYZUpjTmFDdnBobXI4Y3VqdDFMNFZrU1dVa1NlT0I0dzFyMDJXX2g1eXYxRTJGTmlzWmF2MFAwWXdTT3lZMXhTMFpEMnhCZ1VRckRkYjh3aVdaZUVP?oc=5",
+      "source": "cryptoast.fr",
+      "published": "2026-09-04T08:57:23+00:00",
+      "query": "bitcoin cours marché"
+     },
+     {
+      "id": "38320eeeb95d",
+      "title": "L’Irlande exclut les cryptomonnaies de ses nouveaux comptes d’investissement fiscalement avantageux - TradingView",
+      "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE4zaVU4aHFFNnJPYW5PdE9rb0FMQVVjNGlIODVlSW5sZWlScU85V24yMW44c0JyT0FIU2pUNGlzQVVRRkVOMnRVSFpiRnRkT1FZZm1ubjFLb00waUxxazNReFRsajBad1hwZWh6ZkJtUQ?oc=5",
+      "source": "TradingView",
+      "published": "2026-08-31T20:25:25+00:00",
+      "query": "cryptomonnaies régulation investissement"
+     },
+     {
+      "id": "656e6537be16",
+      "title": "Le cours de Bitcoin atteint 82 000 dollars et Fidelity doute de la fin du marché baissier - BeInCrypto",
+      "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNcWN2X1p3R1BMSFRneVg3UVRaVlJtS1V2cTROTFhuMElHWmhfRHcteGk4YWVzRDExaTd4bjRlaW96b1RuZGRqeS1CUjBCQWtpZ2V6YlBONlduV0x4VnpKNEJCZWk0SDM1LV9MYk5RanJ6dmRTTVhaalFBdndvZUdJTy0tNHZwNE9qRENHVC1ITlM1eGM?oc=5",
+      "source": "BeInCrypto",
+      "published": "2026-09-04T03:32:00+00:00",
+      "query": "bitcoin cours marché"
+     },
+     {
+      "id": "0c5cc87e1efe",
+      "title": "Entrée en application du règlement européen MiCA : quelles conséquences pour les détenteurs de cryptos - amf-france.org",
+      "link": "https://news.google.com/rss/articles/CBMihAJBVV95cUxPQk9DTTBKbDQxTFZsZnRxeDVocmRyS2xRWnBIMVN1N0stdHBiRHk0d01BUi1Db2J1MFVLeFNqcVVvSjRjVUNzTExzdVY1U2s3ekQ4X0ZoZi1WXzk0dDFad0w2VFdFXy1Ia0NHR21Rb1hSQlFKS1d6d2tyRk5DbjBoNEJ4WmwySm5odjRpUmhVdVpMeGdIcDFBX2Y5ZF9aMjVnR3BUTXl5OTlFR3lxT2paY1htYkV6NC13Yi1GZlFDWmpKbU54aFM1ckRsN3lOUzExTnBNblVfT3VrUXZrZ1E0YnZYb1Vyejd4ZVlyQ0NrVDVnNHhYQUhuZk1mVmx5ODJoUVhsUg?oc=5",
+      "source": "amf-france.org",
+      "published": "2026-07-27T09:30:36+00:00",
+      "query": "cryptomonnaies régulation investissement"
+     },
+     {
+      "id": "529cfd3bc839",
+      "title": "Bitcoin remonte à 77 600 dollars après avoir défendu le prix de revient moyen du marché - Coin Academy",
+      "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE5FY3FFUjZSVk5KcFlhX0dObVI5dnVZOU9WUDM0N2x2aDlnbF96ZjRkYUhnYnhPUU5CQWI5R3FTc09WaEllald2RVh5ZS1JWFVjV296SkNYTklKdE1nbl9V?oc=5",
+      "source": "Coin Academy",
+      "published": "2026-09-03T09:03:00+00:00",
+      "query": "bitcoin cours marché"
+     },
+     {
+      "id": "7fb3d18896e5",
+      "title": "La SEC relance la réglementation américaine sur la garde des cryptomonnaies que la précédente administration n’a pas réussi à mettre en place - CoinDesk",
+      "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxNcE5jVmowSFRFcDcwdWc3XzV6MWdBS2VJaWNVVW5BMnlNNmhFSTRIazBtSHZCWi1ZOWt0Y2QzQkFHYmwxTEZlUE1OZl9EXzlWbmhmNEdFR2QtN3ByRlRLUERQUXppcGdtSmZXbEJUU1VoOEZsX0UwRzd1S2VHOG1qMng3bGxveHEtOUVHS3JJQXNXOUEwckRyT2NhSDlreHhETmVlX3dBUGc0V1hvOTFqY2s1elJHSU5KWWx0MTRyTnYzV3VEdFd5OHBlckk3a1M1N2c?oc=5",
+      "source": "CoinDesk",
+      "published": "2026-08-26T07:00:00+00:00",
+      "query": "cryptomonnaies régulation investissement"
+     },
+     {
+      "id": "f9a6b1b9e095",
+      "title": "La célèbre croix dorée du Bitcoin approche. Et l’USDT pourrait être le véritable signal cette fois - CoinDesk",
+      "link": "https://news.google.com/rss/articles/CBMixwFBVV95cUxQbnRmQnlKSGRYZ05hUU5MQXB6WkpUR2o2MldneTNCdkF3Z0didDZzU2JILWlCUGk3QVJ1bXlTd3ZjWjdXbGlDVTRoc2tLQlFldklaTjBxMm9ScVZQZTZmYWFzZjcyTmstbGJLLTlwYTFSNEsxUVNlM1NrdTVzS1lFdEtraDBqblgtZlV4X2gyaHFqQkFFRVdmbUhDUURlZ2xoZmZfX3Z1UWgtbWJTUWdadWJUNThFMlRHdEgxZmdnZ1lnRDRSUGVV?oc=5",
+      "source": "CoinDesk",
+      "published": "2026-09-03T07:01:28+00:00",
+      "query": "bitcoin cours marché"
+     },
+     {
+      "id": "da7cbebda5ab",
+      "title": "Cryptomonnaies : 11,6 millions d'entre elles ont « disparu » en 2025, les pièges à connaître avant d'investir - Capital.fr",
+      "link": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxOWXBDNDhpYUIwcUg5RWotNVR1OUV1WkhpYzJrVnVYLW9mVjBRYTVZTHpnV0FIaHdwbmkwU1FhbXhjN1NieUF3RUxNUDNuWTNhcHVmRXpnSzR4X1gwOGVqT255M2dUdWNZTC1Vbk1YR0hnOGFkenZYcnBtdkhYQllWbW14WlJfQ2lUTkd6Y2ZsWU5WSnR5YW1tV3hKVXpvczFGSXdLRHVRejdiZkxrS09YTkd0V3gwckk2SE5xV1UxaWZsdXZ5eXF0emEtbm14SGxMVkUzWXNGTQ?oc=5",
+      "source": "Capital.fr",
+      "published": "2026-08-24T07:00:00+00:00",
+      "query": "cryptomonnaies régulation investissement"
+     }
+    ]
+   }
+  },
   {
    "date": "2026-09-03",
    "updated_at": "2026-09-03T10:01:57+00:00",
@@ -843,430 +1267,6 @@
       "title": "Cryptomonnaies : ce que change la nouvelle réglementation européenne pour les épargnants - Le Monde.fr",
       "link": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxObFM1OHJiNURDQW9TTmFfcXZwSGxmRmp2aGdCZzJid2FHSGhYQ2d6SzVHZnZyYWxNemtSbVdIMng3eV9Gbm5td1NCZmNaQldkVXJXUEZ5R0ItcTRDUXN2dlBwdy1CZEhJeF9fcGpDVTdGUUdvUnFyX3ZvNi0xVmxScHNuMWd0RWRTUTAyckxrWDFiakxNaXBDLUZtcXJEQXg0REZqSlkxRnEyZ29xQklsUmFLLU9IN2U1Zmo0UGloLVMtdjZhVE5weVVocFRRQkVwM2NCYnhLQTNpZkFxZ1E2eWlWN0xHVXNqeXd5Rg?oc=5",
       "source": "Le Monde.fr",
-      "published": "2026-07-01T07:00:00+00:00",
-      "query": "cryptomonnaies régulation investissement"
-     }
-    ]
-   }
-  },
-  {
-   "date": "2026-09-01",
-   "updated_at": "2026-09-01T10:21:22+00:00",
-   "markets": [
-    {
-     "key": "sp500",
-     "label": "S&P 500",
-     "category": "actions",
-     "currency": "USD",
-     "price": 7686.14,
-     "change_pct": -0.33,
-     "ok": true
-    },
-    {
-     "key": "cac40",
-     "label": "CAC 40",
-     "category": "actions",
-     "currency": "EUR",
-     "price": 8294.9,
-     "change_pct": -0.48,
-     "ok": true
-    },
-    {
-     "key": "immobilier",
-     "label": "Immobilier (ETF VNQ)",
-     "category": "immobilier",
-     "currency": "USD",
-     "price": 96.44,
-     "change_pct": -0.82,
-     "ok": true
-    },
-    {
-     "key": "or",
-     "label": "Or (kilo)",
-     "category": "or",
-     "currency": "USD",
-     "price": 142273.48,
-     "change_pct": -1.26,
-     "ok": true
-    },
-    {
-     "key": "btc",
-     "label": "Bitcoin",
-     "category": "crypto",
-     "currency": "USD",
-     "price": 77762,
-     "change_pct": -0.83,
-     "ok": true
-    },
-    {
-     "key": "eth",
-     "label": "Ethereum",
-     "category": "crypto",
-     "currency": "USD",
-     "price": 2449.22,
-     "change_pct": 0.09,
-     "ok": true
-    }
-   ],
-   "news": {
-    "declarations": [
-     {
-      "id": "35348cdb02f9",
-      "title": "Marché : Trump vante «l'opération économique la plus écrasante jamais entreprise» contre l'Iran, le CAC 40 recule - BFM Bourse",
-      "link": "https://news.google.com/rss/articles/CBMigAJBVV95cUxPQ2tlTWhzc2Y5b1BGbGZTOXVEbXdWNGs3Q0E0c2ozUVAzSGVaWW1RUmJ4Tldsa252LWtFcXJQSWx5WVhuVndrb3VZRnc2M2NDTXpQU19CbzJocjRCbkJZdEw0clp3bkpyS2hYRHctaklOdDlFWkE0cG1ka1gtRElNZHdyWkE2S19vVEhKa3dUWGlzUENDWGQ5dHpvLWNYQ0FOTjV4ME55Z1NLbUNQRVBBcW1jWmxnS1UzSHM0N3cxTktRREI5bVVDckJUMXQ2ajVDTHNuTkxuOTFjdmw3QllEYk96UHBERzFjNWhVYkpMeG82cm5yNEFFU0tvLTl3LTFB?oc=5",
-      "source": "BFM Bourse",
-      "published": "2026-08-20T07:00:00+00:00",
-      "query": "Trump économie marchés"
-     },
-     {
-      "id": "a5b879d6ed36",
-      "title": "« Présidentielle 2027. L’hypothèse Christine Lagarde, le dossier spécial stratégies en ligne ! » L’édito de Charles SANNAT - legrenierdeleco.com",
-      "link": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxPaUNaOVFwb282NGpBZzZRWXNrdW4tampNS3c0ZTk5ZjJjV3lzWHBLVjdmTFVRWXBwNEFaSm1vMFpGOThSV1dfNmgzb1U1T3pNRjRxN3dGNHYxTDFIQmczVG11QUpldjE0ODZfOTJRVzFwdXowS09XWFNuV0RyNFF6Wjc5Y0x4c2gydkZpaFphd0ZFRjBfZGgzWFJtNFhWbUZqT2NVYng3dEpYSTN6bEZ6aVNodE1jeWFGY2Vsa0YtZXg5bV82aktXZTRLTXpGWjk3akRVci1hQTY?oc=5",
-      "source": "legrenierdeleco.com",
-      "published": "2026-08-31T21:48:09+00:00",
-      "query": "Christine Lagarde BCE"
-     },
-     {
-      "id": "4b541e54f966",
-      "title": "Larry Fink de BlackRock prévient que l'essor de l'IA pourrait creuser le fossé de la richesse sans une partici - Boursorama",
-      "link": "https://news.google.com/rss/articles/CBMirgJBVV95cUxNMWsxYXNGcW5icDFNTFFhQWx1OVZ4RjFGTkxGNmh0SnNiYlVjUGNjeVNLcmQ0SlRSRXE2dWoxYWtzMjN2NmkwV2xsUjEwejc4UENyQnNzaldiZk5rMjlHc0h1cms2SThFQ1lORHgwNnd4Q1NRd2hzSWZHRElWOEZXb2VBRHFMMHdyMXlCU0NvNENpMnVFNjA2cFZEa0ptOTlJZGRPOGJ2aFctOEd4ckg5NGZRSjhmLUpucDFheGFEWjc1b09sVWZyd1oyb2o0TElFYjZaUklZZW1kbzN6ano4X3hlODJ4MUcxR3lrTGoxYm9DRlNUY24zUEFDUF9SelRjaElxN20yTG9sUzl6cUV3VC1hUnVzY1pYaHZzRm1FVnlvRUFnTlc4cmh5clhXZ9IBswJBVV95cUxQdVRQaTZYTjR4c3JiOEk3VUV5RTJwSGJHbTlxUFVrWlFDMzc5cVl0ZTFSOGtxX2lTbFl5OWNxR0JQYnk4bDJlN2VaQ3ZmVExwWEpla0pVQTYzNkkwcTVOVllPNVpOZXBQNUVYT0VPSlBnMEJyY2l4a0ppNVdfOGwxbTRHc2ZyUHhCSWU2OHNhbzdmT25GaEVKcGs4RG1NajB4ZU53ZnJRVDB5NW1FUTljX243bzVKVGdCRFBiM0FvdzliUnN5OWpFMUppRWVHS2RoMUNzekZDOEdvZDRRYUpiR3I1NkNqMS1ydUhmVWlpTVY4bG9mY3M3Nk5kMUJzQlN0RFpVUUhKTzQ2LUpfRm9OUDZSRlJYaVU0WnFhdXJiQnd0X3RmYWgzY2FFMElTVkswVWpn?oc=5",
-      "source": "Boursorama",
-      "published": "2026-03-23T07:00:00+00:00",
-      "query": "Larry Fink BlackRock"
-     },
-     {
-      "id": "71831132fc64",
-      "title": "La société de Warren Buffett, Berkshire Hathaway, puise enfin dans son trésor de guerre pour quasiment doubler sa participation au capital d'Alphabet - BFM Bourse",
-      "link": "https://news.google.com/rss/articles/CBMiwgJBVV95cUxOYWdsLURpM1FsNjR3bHlxTWktREg3YU1SeEdrcXJVWUxNVU05VE5pUzhQOEJnQ1pNQ3ZVR09RNnJ4bGI4dUN0Y0tNZGhsUHhaY0J6eXlHdlhSMFhFU1Q5eHdYcHZ3emhnSEl4dVJXbWg2SFBTWnB4X3BRaDhXV0ZYT2lrNmRnMTdsUjdjRzY1Vl9VMVY5OGlTb3MxSFR5Q2E5UEdsaXBjQkdQSFBSbFpEY00yS0tyMlZNWlBIMUpUeDBjdk9uS1JrYUtURTlFbkVzamNhR2o2aC1sWE4tNHRzVDc2ZkhzMjhUZjV3VHVhVWRvZ0tqNVVSdUlTbTNOd0E0SERSaUFhd0xaelo4MHpjUFpDLVNuMGtoOGZNck9BX0U5VHFaODJEQXZNWmw4cGIwbG5FT1g3YjVvYW9jVHQ1ZWVR?oc=5",
-      "source": "BFM Bourse",
-      "published": "2026-08-17T07:00:00+00:00",
-      "query": "Warren Buffett investissement"
-     },
-     {
-      "id": "c4349aaeb867",
-      "title": "JP Morgan : la succession de Jamie Dimon se prépare - La Tribune",
-      "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOQWlCdXYtYVRHM3FzRUV6a2RjREFEZTlzOHd3Qk9lZkVKRHo5UWhHN3VkMy1ULU96d1NmemgyX1QwektZdmZnVXhPVEZQQTF2ZWpWcUIzQlktX0hoOUQ0bi12X0lLT3pIOEVyMXJaVTYtMnQ4WHlMc3Jick5XQ24zY2xvTEljNXJHMG84LWhHNjZiSFF1RzlNOHBDWnA3OUJ0VjVaZFRjUzc3UEtXckowVmxCX3JJblB2XzJBXw?oc=5",
-      "source": "La Tribune",
-      "published": "2026-06-26T07:00:00+00:00",
-      "query": "Jamie Dimon économie"
-     },
-     {
-      "id": "45250f6961ad",
-      "title": "\"Plus il fait bouger les marchés, plus l'abonnement devient rentable\": Donald Trump vend désormais ses annonces officielles sur Truth Social en avant-première aux investisseurs (et va empocher des centaines de milliers de dollars au passage) - BFM",
-      "link": "https://news.google.com/rss/articles/CBMirwNBVV95cUxPMlZmVHRXTE9yRmptcE9BQTN6dkVvTFZwNE45eWNYeENkWWtUa2VVMGJnZXkyMnlxeFNJQi1lM2UxMGhGMFRJc19qUUc2RzVIYl9LZnc1eW9rcEtmMXg1b2hfTGpXZWdnZlBNTzJMTWxZUUdnRlBhbjEzZGI4QWFnMG54amljWkZRSEhFeUktWHUtV2hHZ2k4NjdwZENfc1FZa0k0VGlWS29YNklsenFfbXVVMW85ZENJMS14Mjg1T1pka1ZRTWhRdDVOcm9HMnBqbmF2WkhnSl9leko4QVQteU53R3prTkJUdS1UOGpnUHZ4TTJETUROMGJQeERSYmdLMkxGdmdzdFdpa2k1emNadm9ONTYyMnhyS1VlUFRwbGFvekg2ZTA2TXFJR01MckcxZlFFN2FrWTQxcEl5Y29TSUR3T1pzZkx5MlY2R29WaVV0bzdmY2VReFhtNl9qbWw0SWZ0STUya2ZWb1RZd0hZYnVHZ0xrSENCU1dOUTRyc1N3bHdoNzVEODllVkRWU21xZ2JHT21HX2ppSkNmdk5kSDg3WVFOSEItM1FwVEk2aw?oc=5",
-      "source": "BFM",
-      "published": "2026-08-05T07:00:00+00:00",
-      "query": "Trump économie marchés"
-     },
-     {
-      "id": "7a10cf631df8",
-      "title": "Christine Lagarde candidate pour la présidentielle 2027 ? Très discrète en interview, la présidente de la BCE laisse planer le doute - RTL",
-      "link": "https://news.google.com/rss/articles/CBMihAJBVV95cUxNdm55ODZNWDUzVUU1dnF0NDhDZzZBbEd5THV3UG9RbzhEUWhDZmczZjN1LXZHaDVfN1pQbE5nOE1UZUhfYi1iUkVqNDVUd1dLaXViN3NwSHZtT3U1ZW9JNlE1aHRWeU53NkNhdUJXMDVHM2ZEdUFQQW44NmllMDhIX0Z1SGVMZFkyTmlXakthbWJVd056NVhTUU9OVDJncEhoRTBkaFpHT1J0NS1xT0RpWXZYajFZdE1meTVJbmRZT0prUXBUTkptcmJpdnRybHp1VmJZOHlFSDBnTnlRQ3hLOXhRc293QlhJVmJydmZ4UUZUQTFRRTh4Z0FESUQ3U1pUVGVqdQ?oc=5",
-      "source": "RTL",
-      "published": "2026-08-19T07:00:00+00:00",
-      "query": "Christine Lagarde BCE"
-     },
-     {
-      "id": "d60d2f35dadf",
-      "title": "Le PDG de BlackRock, Larry Fink, évoque une nouvelle classe d’actifs - Yahoo Finance France",
-      "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNRnJtZ3ZaSE9KakxVNWRHZ2FQWGxPbGl3ajVyeExJdEVrb0xYaEFERkI5TWYyZjNSbklEZ0ljRjlMd1F4NFpQUlVOZ05mSVJPX29XWUh6cW1CRE9JdzRaYUIwYXNBRk9pX0Q5N28zLWh0b1pqWHRHRldnQ2ZjZnZUT0FqSG8wSWZLWnYwUXpPbk9zX0ZtMEE?oc=5",
-      "source": "Yahoo Finance France",
-      "published": "2026-05-06T07:00:00+00:00",
-      "query": "Larry Fink BlackRock"
-     },
-     {
-      "id": "fe41e35d21e7",
-      "title": "« Ce n’est plus de l’investissement, c’est du jeu de hasard » : les sombres prédictions de Warren Buffett sur la finance mondiale - Le Parisien",
-      "link": "https://news.google.com/rss/articles/CBMitwJBVV95cUxNVU16VTBkbzBuV3BrbnU1RmxVZkFPR3M1Q2pNYUhSUVo4cHV2LWNfeEVGdFo5NjdMWHRGdDVuTDVKNWE5emNZVEJ4RDYzc2VfTDREYUh5ZEFZbjNLd2gtbWk0b3VhODNhT05xSXpTVzdidDRjOEhlTThURHNPNThxNl96OHRhQUpkTjFfVWNYSUhvTjEySVY4cDkyOFN5SEpqc0NHd0oyTTJnVlE4YUxlaG1qT0NOOFpBRG5QQnhpYVh0QnZDZXFoaFZHeGQtVEdWQTFHOWNub2ZGakpha1dEa2dpbl92eGdtc1RkZW9VMVdfZ0pSdTdFbmdXNlVKaWxRVHpQbDlPTkw5WHB5TnA3SEtUTDdjWFowbGdQcldIcVFpTkgzVkFRTXdPSkZZTnlNV0J1LVNLSQ?oc=5",
-      "source": "Le Parisien",
-      "published": "2026-05-03T07:00:00+00:00",
-      "query": "Warren Buffett investissement"
-     },
-     {
-      "id": "e3f208742461",
-      "title": "Jamie Dimon met en garde contre les risques du marché, évite les actions et les obligations. - fr.qz.com",
-      "link": "https://news.google.com/rss/articles/CBMifkFVX3lxTFBmNEswUTE2YVh6dEJFUzU0LW5oZFdwM2ZoSjRhVi12ZzMxZkw0T1QzRVpOSmRLM3ZNTlJhVE1rSWJTNHNTb2FpQ3NzMldjNlBqMnNxM1VjRVNOVU9QV2F1bzFSMG43MGpsODFMbElOSEtncEpjMDg5cmpLZHdhdw?oc=5",
-      "source": "fr.qz.com",
-      "published": "2026-07-21T07:00:00+00:00",
-      "query": "Jamie Dimon économie"
-     },
-     {
-      "id": "4d7a50e00008",
-      "title": "« Les vociférations de Donald Trump ne rassurent plus les marchés financiers » - lemonde.fr",
-      "link": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxQdjVzR0x4N2x4cG5JYUc0RkF6bHdxZkdKNlVqM0J2eVIxVVB4YU9UVzBRdENWQUhVaUpZRlJ3cDNiWngtQ0VidHo2cmRGSHZyN1BPT01manVjaklHNHpvZGJwN3paa2N1VmFMMHBfakNqbmRWRndjT0gzOU53NlM2VHMyV3hOczBmdWFqNzVJZU9rcE1pZlRRVzU4NHZ0YWFXOXhrUlA0YlNsaUdLZ3hOaDQyckNkdUxpOVBhVGRjUUtWS2ozTXRWendKVkM3WEVGZU9TY2dHSkQ4V0E?oc=5",
-      "source": "lemonde.fr",
-      "published": "2026-03-30T07:00:00+00:00",
-      "query": "Trump économie marchés"
-     },
-     {
-      "id": "f511e0f95a5f",
-      "title": "La patronne de la BCE Christine Lagarde se dit \"prête à servir\" le WEF de Davos, selon la presse - Euronews.com",
-      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOUFBkVGtXU1oxY1dTWDNIdzl5Y1Y3c3l5cXgxRXZCMmtkR2kyWnBzZWVRUUo1SWwzelZBck9raS1RYV9sUl9DUnR3bjJCNjMxTW50UVRYSzNBRDZmalVEampwY21XQ3VPSHc0TV82Nlpvd2pJWVZWX3VlcjRYNGw2SmM1NXNnQ1R5ODZPOEZ5d1RSaGNWODNqZDNsWVoyRElFSHpnNVk3clQwZU51T0VMRA?oc=5",
-      "source": "Euronews.com",
-      "published": "2026-08-23T07:00:00+00:00",
-      "query": "Christine Lagarde BCE"
-     }
-    ],
-    "actions": [
-     {
-      "id": "7a200a2f69b2",
-      "title": "Wall Street termine dans le rouge, le pétrole et l'obligataire en hausse - Investir Les Echos",
-      "link": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxNUmQxWHRsd0NpX0xiWUhUUkRSU0FnbXhCaVhqelBFY0J6MDA1Smdhby1EZ1hLaHYyaGtBTGhRQ0I2TDhzVXBkd2dvNW5iODBxQTA5VFJWWjBZcGo5MW40NWdYRUhYN0x6SGVURFpRY19kRmNKM2xVRzFtcUtwWHVQR1BJOGluSmFoYnYwUDZkaEdEemtkeDN6amFlcTd6MHVmSUg5bFFsZ0V2UGFDaWxFZURVN1lLNE5DUy1ibk5LZDhBRjZnOFNiLUdEWE9hbjdpMHlfbHdsTTM?oc=5",
-      "source": "Investir Les Echos",
-      "published": "2026-08-31T20:34:23+00:00",
-      "query": "marchés actions bourse Wall Street"
-     },
-     {
-      "id": "124fd6f6547d",
-      "title": "CAC 40 : La Bourse de Paris devrait ouvrir sur une note indécise avant l'inflation en zone euro - Zonebourse",
-      "link": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxPQlFPUXpDSlNBUnBzNHl6aXJ3RWhURTJ2MXRhTW0wMzNkYlM1WE9DLU91eFNrX0YyUkJZQVc4Q1lzWG9wc0REZmtwamJZN3lmNG5oSk83OUVaWTllX0wydm4ta0ZYMmVsbGRzSGx1ekdJUjJFTkttMm1ZMHdIcEhvVWNaZWpVUkF2RjU2UExKSDdUOVd3YS1NVE1ENzUtcGQyQzhJWW83OHVfbmktQWdIRVdUeWVCN20zV1oyb3lQRUk3eW8zazBnU0NFT1Qtc2lNendXcGt0Y0FZRHI5WjN0bWJhaW9VTmY5VEE?oc=5",
-      "source": "Zonebourse",
-      "published": "2026-09-01T06:48:34+00:00",
-      "query": "CAC 40 bourse Paris"
-     },
-     {
-      "id": "8f213a0f33d5",
-      "title": "Wall Street ouvre dans le rouge, la hausse du pétrole attise les craintes inflationnistes - Investir Les Echos",
-      "link": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxQbS15ZkN2TUoyb1B6RXV1OEowTXY3dkJqMHdlbzh1T29TaUtCOUM3SWp6N0szdERxM3RmcWlnM0VmYU5VQnFGbDJVWHhBQzJlVXBKbzZyS3g2dEltX0E2TXc0TXFYQ3hWLUluNTgwLVFjWG5Ebjc4aFBFTkFPTk5kWkxkYlRsVHJjNUZLNXBlMUFmMGRnOE96NDc0bmFmcm1wdjQ4eUxRekM2cUtRRTRLZWNXb1RWSm4wck9JLWhWUzVzRFVEOThVS1M5MVlHRWZTeG5DUl82NktXZy1SejFwQzFuTmdMQmZBT0MwNElSRGM?oc=5",
-      "source": "Investir Les Echos",
-      "published": "2026-08-31T13:48:00+00:00",
-      "query": "marchés actions bourse Wall Street"
-     },
-     {
-      "id": "b9f8344072c6",
-      "title": "La Bourse de Paris plie sous le poids de la hausse des prix de l’énergie - lecourrier.vn",
-      "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNNlpZSk5FWkw4Tm5FcWQ2Rjh2cXhNMGhHSExEX2I2RWJRMXFfcVNFRF9WSE5UZzl0bXU0N2Q2amQ1MzBNNUZCQVNGYlNkbFVZZ1g1N0dyeXRhYWdYQTd5OVNtMjJfOEtsX3MtekVGRkh2eHdIOElUaV9jX1NKWXJzbTczTEQ3MG1JOFZnR0Q4YmJiSW1wd0xmSmFHZkd1VXBma29UZUFDSHhYZw?oc=5",
-      "source": "lecourrier.vn",
-      "published": "2026-09-01T03:01:00+00:00",
-      "query": "CAC 40 bourse Paris"
-     },
-     {
-      "id": "494b643b21a5",
-      "title": "Wall Street termine en baisse - La Presse",
-      "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOZ0JldWF1a3hqamx1M1JOeTczNnhWQ3B5U2s5SWxMdlVzcVVaczViOVA5VGdlcUswSk9vQU5hZTRsMEttVzkyUTB4UE56dHlzd3dtY041LU5XalBkRnVBajFfUDQyM2hBZkpRZXNWN29HZ2NkQl9adS1NS0djSTY3d0FwVTY2OGctVDNQakdn?oc=5",
-      "source": "La Presse",
-      "published": "2026-08-18T07:00:00+00:00",
-      "query": "marchés actions bourse Wall Street"
-     },
-     {
-      "id": "6c273c1236c6",
-      "title": "A la Bourse de Paris, les perdants du premier semestre ont souvent été les gagnants de l'été - Investir Les Echos",
-      "link": "https://news.google.com/rss/articles/CBMi5wFBVV95cUxOZVFWZUVmSVVtWHRIOWR4OVZiLVVIQzdoS3FrZXgyRDJXWGpUV3ZBbnRsQVVtX04wYWhsenRLLTZQWXRuZmVwcWdkRU4xRWFZRWFtdzVGRU5raTZpWDRIUGZuRVc4cXFfTEdiTnZGQi1vSUhLMHBIcGswM2F4d1ZGQWJrLUdMdnpXTVdETVlhbU9LdHRiUUc3NE5qNEJqRlBLclhyOVhodEdzcmwxaV8yTktYR0N0aXJ2elo4U19sckFhUUhiajBtUmdxRWZHczBCNnFCbS1UVFFVYi0xT0pYRWtjNnJ3bE0?oc=5",
-      "source": "Investir Les Echos",
-      "published": "2026-08-31T13:06:52+00:00",
-      "query": "CAC 40 bourse Paris"
-     },
-     {
-      "id": "c14937741ec6",
-      "title": "Wall Street ouvre en hausse, Jackson Hole dans le viseur - Investir Les Echos",
-      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNSkI3aG5OR2tCLUxKU01FY3FpTldGRnduUmMzU2F1alBEMjc1cGR6cHhmMXpSZ0dBRnE3VnJhd2VlMkY1ZlR1c2xuU3VqbzJtX1dOREIyek5UWUZockRaRmdwOF9QVG5sRy1rTFAyNElKYWdITDNlTXRadU5NY1VzTTVqcUJaY3NGdkZKdzBaSnFvelR4SnR2dTdxcnNZYlNTMHNNclNoWGFuVmpYZTl3Xzk3SEZHRWJ1RXZsNmhwUW0yUzF3?oc=5",
-      "source": "Investir Les Echos",
-      "published": "2026-08-28T13:49:00+00:00",
-      "query": "marchés actions bourse Wall Street"
-     },
-     {
-      "id": "cf98a934950a",
-      "title": "CAC 40 : la Bourse de Paris tiraillée entre rebond espéré et tensions Iran-États-Unis - bdor.fr",
-      "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPSko3S3laaDlad3Z0clFSSm5aV3ZNR1lZc3dpd3BPMG1SVmc0NnZvYVJHS2MtNnltaXl2Qlk3c3ZYM2FEOHRWRFJxa3Y3RVNaZGJqRzJyYzhWa2JjcUxGWERPNjk2QkxWaDlhVnZPVGx3VzZLUzVMSmt5djgzTW1Oc0k5UFI?oc=5",
-      "source": "bdor.fr",
-      "published": "2026-09-01T07:32:40+00:00",
-      "query": "CAC 40 bourse Paris"
-     }
-    ],
-    "immobilier": [
-     {
-      "id": "7e0ee873febd",
-      "title": "Immobilier locatif : un Français sur trois conditionne son projet d'investissement aux résultats de la présidentielle de 2027 - Les Echos",
-      "link": "https://news.google.com/rss/articles/CBMihwJBVV95cUxPZ2ZoNUJBMUJpMUZiUVM1aWJIbmF0RDV5MndfcjdnWGtQcXhTc3JiamxORHJvVmhsZllucWl1bVJCb1pDM0FDcFZmWVR0VUlQS0JXYl9ocHV1QnNKeVJBV2ZpcnF3REw1NmtIM3NBckZjcGhRRWZCekw0QnBRaUdwMTQ0ZTR1c1RIcUo2NG1qVUNKeUg5aUNaMnlPZzBLY2k1VnRYWXRLN0p0enQ3eFV5NDhJLVpncDNvT1VhRHRMNDQ5YUVvMWRWRGxfUHVaMzM1di1UNEtydmhrcGRoSXJVU0paYVNiaEZfVWVpcWlQWWhJaEdGcG02WDR5SjhTM08zQ3FsWTVtaw?oc=5",
-      "source": "Les Echos",
-      "published": "2026-08-27T05:30:08+00:00",
-      "query": "marché immobilier investissement"
-     },
-     {
-      "id": "126efbed9f98",
-      "title": "Taux immobilier septembre 2026 : la hausse s'installe - Pretto",
-      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOWko0NjhOVzB6d3gwcHdTMkVYS1NNTTFYSjIzUlpTV2Y2Y3BtRks0ZHhIbHJiMXNxYTRwZE9qS1J3QmFfaHBySWNIajQ1TXg5cHdaMEVZU2VtaVMtMWE5OGZneGI1ZkpNWU1fX0V6Vzlrc1NvNFVBcU43Zjc5TTI5SHl5Nk1JZlZRX19mSmRROV82R0h2YWJsUG0yMzVFel9aRzJ4N2Z4dE9DZjBOdlE?oc=5",
-      "source": "Pretto",
-      "published": "2026-09-01T08:58:08+00:00",
-      "query": "taux crédit immobilier"
-     },
-     {
-      "id": "a5b4cbb26b9f",
-      "title": "JO 2030 : ces 5 stations de montagne où investir avant que les prix ne s’envolent - Meilleurs Agents",
-      "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPMHVnNm96WkFGczFuWkxNcWI0cnhZZ2NMX045TktGd2J4RmpqVi1rY01qTWFHdE1IVXlXWTM5OGlwd1lsRWZTODBHSnBzYmY3SnB2UEx4US0zdV9JSS1HcUZ6QkczejM5U012ejBLRFpTRUFBY0hkX0hEXzd0MmpZZVJVQmRUMG1IczN4MkpyYmlnTTFORkNDSHZINWFVN2JjUVBKdVhvSklfRU54NTJIVnVsQk9yQkVYTTVycHpXcFdUVkRaTGI5WHBR?oc=5",
-      "source": "Meilleurs Agents",
-      "published": "2026-08-31T07:57:25+00:00",
-      "query": "marché immobilier investissement"
-     },
-     {
-      "id": "a033c87075e4",
-      "title": "Taux d’emprunt immobilier en septembre 2026 - Immobilier-danger",
-      "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTE1fZWJnOHFlUS1yVWF1Zzg1dDFYM0ZYa1dwMndVUndEVmhTLXBiUzc0cXlPbmtZWWo4SHpwdUprRmxPd0V2ZFNpcEVwcWZDV0YzdWgxT3c3RW1xQ1FLOE1RSXNGdEt3TWtrWVZOeGxNbjZmdEJRYUZ1NA?oc=5",
-      "source": "Immobilier-danger",
-      "published": "2026-09-01T08:29:15+00:00",
-      "query": "taux crédit immobilier"
-     },
-     {
-      "id": "11e27996f56c",
-      "title": "Immobilier en 2026 : des villes où l’on peut investir - Ymanci",
-      "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNaTRpeXFFWlFrc2FhdDlPcF9jYjRzaldLM25xVW5WQURWN3hCOGQxcmVvTncxQ01rQXZkcDNQUVpHSngwQzlsZHdBR09PT2dpU0RZRXp0U0lRTGpoeWJVRnp0Y2UwbUZnWXVlWU9GY1NWQTNta0VKRkFJSWpaaHBkYkxmNEJVMkdYTTNwTg?oc=5",
-      "source": "Ymanci",
-      "published": "2026-08-26T07:00:00+00:00",
-      "query": "marché immobilier investissement"
-     },
-     {
-      "id": "1f7a12c65547",
-      "title": "Crédit immobilier : Les taux en hausse en septembre - MySweetImmo",
-      "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOR2dVYlZfb3g2S2UzTDBoLXR0UDZ6MFA4V205dW9yckhaTmNHdk9PXy1jZVNDVnZ6SjFPSWVaZ0t4d1daVjI4NDNGMDdxdUtBdjBBMTl4RjlNMndhYS1WenBNLTJ0Z3ZMSGhVWjdLYU44S0dvMi0wdk5aRVVtWERPdmFVSTFja1VBZ2NuQnFSTzN0T1k?oc=5",
-      "source": "MySweetImmo",
-      "published": "2026-09-01T08:16:48+00:00",
-      "query": "taux crédit immobilier"
-     },
-     {
-      "id": "520e306c316b",
-      "title": "Analyse du marché international de l'immobilier d'entreprise, T2 2026 - JLL",
-      "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxOX2s1UXVKY3NFMnlOamkya3FTSUF2dExydDVUUmxNeU5wSkl1ekRiWWlUX3hYSVRvSDdublI1Q0dyTHVJMXN3R0hISV9DVjdvQ0pkSnVNc1BaNEM3QzZJeDZRN1RwdGlObEhfb2UtVnNqMEVycmNIMGw5YTl5Yi1UTXVpOTJYUWNBQTVSeE1JQzRiUmRWQUE?oc=5",
-      "source": "JLL",
-      "published": "2026-08-24T07:00:00+00:00",
-      "query": "marché immobilier investissement"
-     },
-     {
-      "id": "14db10ff6cb5",
-      "title": "Crédit immobilier, un marché qui s'enfonce dans la récession en juillet ? - empruntis.com",
-      "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNb05BNTNCUVNqeGpkdEFXZDB2U3otY0VXNHVZTVl2RjJfdG01NnVjOVBQVUdrZTVtc1I2bFZOWEpvRWpZVGpaeVRDQl8tOHkxN0hmRFNWUFJpMWtibllORlBJZGNGQmp2T3EtWXNBeFY5N1JmQ0xIa1hTNTk5dUlmaXFzSjJvd3U5YXotUmYwck1BaXFlRWtuc1IxYy00VEY3ZHhSTUEwa09ZWUlaOExYLXA2dHRILU1DR0E?oc=5",
-      "source": "empruntis.com",
-      "published": "2026-08-17T07:00:00+00:00",
-      "query": "taux crédit immobilier"
-     }
-    ],
-    "or": [
-     {
-      "id": "0faf8059cc53",
-      "title": "L'or s'inscrit en baisse dans un contexte de taux élevés - ABC Bourse",
-      "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxPWHc2ZkQ2c2dxUThha25MS2lXSDl4c0VadVUwNUdDMXNCNnp2YnZBT2lnb0l0VzJBNEU1TnVRSktRczNqeVpyLVVVMGp1Wm5qMF9GRXBnRWpyY2ZIM3hldGxTLU4wLVFPbXRwRU9UcEMzSWRQZWVMdENtcjJKSW1vYWQ2RWs1TjA2X1BsVm1rby15eGZGSVdITk5QNDVyUQ?oc=5",
-      "source": "ABC Bourse",
-      "published": "2026-08-31T12:16:49+00:00",
-      "query": "cours de l'or once"
-     },
-     {
-      "id": "557eb527b6f5",
-      "title": "Prix de l’or : montée, chute… et rebond. Que se passe-t-il avec la valeur refuge ? - The Conversation",
-      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxONnBvSllHU1I2QUhiNWdMcFhUMDNCT21xMHZ1YkpaMWRKOGFxYUpUTG5adzU0a0l6b1ZHRE9oUDJJYkNiM2V6SzVQYUptUjlGZHBVa2RXX1lJUXhmcm1LelU3UnhlVWxxaEQ3MGRLclFQOHR5blB2TTFCSWlEWGF5VXUzZzFLTE16dWJLaDJsa0lMN2tvaUhuem5NeDlLYjFLemhwLUNfd19GQmRWRFE?oc=5",
-      "source": "The Conversation",
-      "published": "2026-02-05T08:00:00+00:00",
-      "query": "or valeur refuge investisseurs"
-     },
-     {
-      "id": "4135a180730a",
-      "title": "Cours de l'or aujourd'hui (1er septembre) : Inversion de tendance et nouvelle hausse. - Vietnam.vn",
-      "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTE5PS21QbTQyUDZDVUZfVUwybjV4aU90bE1VZF9KVEZkNnJvT0hMSXkyMGJSMUFmeG9uMUIwVW9uVjFMRUhQRWdnZU1fUmg1UjF1R2F6Mjl0akZ0eVRqazJWeThMWVoyLVJCUXdVNzJpRnJhRjdZRFk0WQ?oc=5",
-      "source": "Vietnam.vn",
-      "published": "2026-09-01T02:10:33+00:00",
-      "query": "cours de l'or once"
-     },
-     {
-      "id": "630dc35bab76",
-      "title": "Guerre en Iran : l'or, une valeur refuge qui a du plomb dans l'aile - Les Echos",
-      "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQSWJCUUY5VDI1MmxIczNmTVVYU2lNYngtakJnV1owWXVMb3BLSHNtV2p0MXdwRVFPdThuLTRjODd3OTFwdG1vM1g5bTdBYjM5ZWFrWkR4ZWYwUGpza1l1QVdydFNnQVcwNkFoMmp6UzdWNVl5XzQ3TFU5UjNOZmxkdWZfdTg0dV9ONWxtZlBiV2ZVWmluYkloQmQyVmthRzNFd19LWHJNSHBvOUFxM0xoUWo3QWpTUHJNc0hMTl9MMVhKSVlmcVFkMQ?oc=5",
-      "source": "Les Echos",
-      "published": "2026-06-08T07:00:00+00:00",
-      "query": "or valeur refuge investisseurs"
-     },
-     {
-      "id": "f91087f66550",
-      "title": "Cours de l’or : est-ce le bon moment pour vendre ses bijoux ou investir dans l’or ? - Nice-Matin",
-      "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxNYUZ1OGFiQ3NZcnhSN19XXzJjemhBbDI0SHk3ajV0T29FSDVXUS14bFBiNnE3YkZmbUJYajctZWI0OXFvcWg2ZVFaOUlnQ2tkYmlvUnQ3MjNqWW5XMjJUZkNkcVRtN09JX1o3QklkNC1MZHZSR0preTRkRktaTjhJaGZCQzBTdS14WG5yYUFiRzY2dDQxUUVrNlRNQmxWRDVMVWdwVzROMHVyaG10c0taWHNmeEZacldqZWNKRUltYmE?oc=5",
-      "source": "Nice-Matin",
-      "published": "2026-08-17T07:00:00+00:00",
-      "query": "cours de l'or once"
-     },
-     {
-      "id": "d0b04305b385",
-      "title": "Valeur refuge, l’or s’est maintenant installé autour de 5 000 dollars l’once - l'Opinion",
-      "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQZllqN2t6bXRFX1BLRndwZHBJWTd6Q3FRLUxjUGhZMHZkX0NnZmRneE1PeXNUMUZhTTlKaFRLUVpKRTBaYVJaSU5VbFNnN2Zxak9YOGhMazItUmM0M1RXcUZIODZKNnBxN1FkbzRoQVRVRWphZThKYl8yQ1FOLXNuVFpFWTdfRFdvLVFjRmJWamJsZWV4b0NfNzctcHhjZ1BLYnVTSUVGNDR3R1U?oc=5",
-      "source": "l'Opinion",
-      "published": "2026-03-20T07:00:00+00:00",
-      "query": "or valeur refuge investisseurs"
-     },
-     {
-      "id": "53ab27bbed72",
-      "title": "Or : l'once grimpe encore, au plus haut depuis 3 mois - Boursier.com",
-      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQRl9oRzYwZ0ZWVGFGanBKR0J5WW1sdzd4RTY3M3FXcGdJSW9CN21nN1lIRzRPNkdhczdUTC1UVEd3bFdYelg5UWY5bUFOc0hiYUxxNUtGUXp4NEJiR2JvSGpqLXFlOUZYbGtEX3daMzNyYUNvYWIwYTBDdUZoMzRLOG0xZ2xrbzNqbXhvd3RUYUw0a3FiYV9wSll0U2FuNFFtTGpQLWVrZ01YQklMZkNRNmNn?oc=5",
-      "source": "Boursier.com",
-      "published": "2026-08-24T12:45:00+00:00",
-      "query": "cours de l'or once"
-     },
-     {
-      "id": "3eefeaa505e8",
-      "title": "Et si l’or n’était plus la valeur refuge ? - Courrier international",
-      "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxORlNheFN3SXNQcHRFWURZYmNRT3JPU1hnWWI5empEZGVOT0pKTmE2bS14UTlMWmpBVU52clpERzlYUmVOQlY0a2xEdHltWjdVdHJ3RW9oenNCRGQxSF9VX01QQUNWTUVJUjVaalpuVEx3ZWZlMUVialRjRkdKbUZZSGVNMlYyTGtwdE5ZZnBfWGRwT1NzSE0tdm5pblJKWXdiZFBSYQ?oc=5",
-      "source": "Courrier international",
-      "published": "2026-01-26T08:00:00+00:00",
-      "query": "or valeur refuge investisseurs"
-     }
-    ],
-    "crypto": [
-     {
-      "id": "4e67449172ae",
-      "title": "Le cours du Bitcoin : la reprise franchit 80 000 dollars et bouscule le marché des changes - bdor.fr",
-      "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE50V0k0cjk0OVRrOUN6SEJWS1BzbTZXaWo1U001bW1OSFo4MU9LLTdBMjZzRHZiaEhvSTdGbHJ0NE9oV2FPN2c1OFVSeHlsU0VYRUpGZmRUaUJ6STFYakhWMnhqUVlfOHpFYTFPQ3pBMjVMUQ?oc=5",
-      "source": "bdor.fr",
-      "published": "2026-09-01T07:26:50+00:00",
-      "query": "bitcoin cours marché"
-     },
-     {
-      "id": "38320eeeb95d",
-      "title": "L’Irlande exclut les cryptomonnaies de ses nouveaux comptes d’investissement fiscalement avantageux - TradingView",
-      "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE4zaVU4aHFFNnJPYW5PdE9rb0FMQVVjNGlIODVlSW5sZWlScU85V24yMW44c0JyT0FIU2pUNGlzQVVRRkVOMnRVSFpiRnRkT1FZZm1ubjFLb00waUxxazNReFRsajBad1hwZWh6ZkJtUQ?oc=5",
-      "source": "TradingView",
-      "published": "2026-08-31T20:25:25+00:00",
-      "query": "cryptomonnaies régulation investissement"
-     },
-     {
-      "id": "558eb504eeb4",
-      "title": "Tom Lee estime que la peur d’un krach en septembre pourrait déclencher un rallye boursier et doubler le cours de Bitcoin - BeInCrypto",
-      "link": "https://news.google.com/rss/articles/CBMiekFVX3lxTE0xNlE0aVIwUTFXTFRGQWU4clEwSVBIT3ZpeEFET25NTkR0TWNfYW1BSjFCT0RwalZFS2FzTmNBQ3ljenRINk9zZUZUWGRlTDYxWDBuNGVudXRwV0syMkpRQ0RtX0xyczlBX3ZFVHdsTVVVY0Nmd2RMQ3Rn?oc=5",
-      "source": "BeInCrypto",
-      "published": "2026-08-31T21:00:00+00:00",
-      "query": "bitcoin cours marché"
-     },
-     {
-      "id": "7fb3d18896e5",
-      "title": "La SEC relance la réglementation américaine sur la garde des cryptomonnaies que la précédente administration n’a pas réussi à mettre en place - CoinDesk",
-      "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxNcE5jVmowSFRFcDcwdWc3XzV6MWdBS2VJaWNVVW5BMnlNNmhFSTRIazBtSHZCWi1ZOWt0Y2QzQkFHYmwxTEZlUE1OZl9EXzlWbmhmNEdFR2QtN3ByRlRLUERQUXppcGdtSmZXbEJUU1VoOEZsX0UwRzd1S2VHOG1qMng3bGxveHEtOUVHS3JJQXNXOUEwckRyT2NhSDlreHhETmVlX3dBUGc0V1hvOTFqY2s1elJHSU5KWWx0MTRyTnYzV3VEdFd5OHBlckk3a1M1N2c?oc=5",
-      "source": "CoinDesk",
-      "published": "2026-08-26T23:01:44+00:00",
-      "query": "cryptomonnaies régulation investissement"
-     },
-     {
-      "id": "228cd8ffc5a4",
-      "title": "Et si le bitcoin venait déjà de sortir de son marché baissier - Zonebourse",
-      "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPOFlYX0NQWkhXaDEyclpwX2s2aExITzJRSllMaTFkZHh1X3IwRWxWbW5FOWxINVNHdDA4bEh1STdhM1Q1UkZMVnZrcnFqN1pmcnc0YjhvOWtveXVMU1k4RWhvdF84ZXZyTW14a0h0Z0JYSlV6amhhNGd4bk5XXy1KdDhtOC1URlBrdmctaE43N0Z5NVA3Ql9naDBzMS1xaG1jWUhVRElsX2ZLNDFxdFlLbUlOZHhETWhROTBaTTFVVQ?oc=5",
-      "source": "Zonebourse",
-      "published": "2026-08-26T14:03:56+00:00",
-      "query": "bitcoin cours marché"
-     },
-     {
-      "id": "bb6d5f115e91",
-      "title": "Entrée en application du règlement européen MiCA : quelles conséquences pour les détenteurs de cryptos - Autorité des marchés financiers (AMF)",
-      "link": "https://news.google.com/rss/articles/CBMihAJBVV95cUxPQk9DTTBKbDQxTFZsZnRxeDVocmRyS2xRWnBIMVN1N0stdHBiRHk0d01BUi1Db2J1MFVLeFNqcVVvSjRjVUNzTExzdVY1U2s3ekQ4X0ZoZi1WXzk0dDFad0w2VFdFXy1Ia0NHR21Rb1hSQlFKS1d6d2tyRk5DbjBoNEJ4WmwySm5odjRpUmhVdVpMeGdIcDFBX2Y5ZF9aMjVnR3BUTXl5OTlFR3lxT2paY1htYkV6NC13Yi1GZlFDWmpKbU54aFM1ckRsN3lOUzExTnBNblVfT3VrUXZrZ1E0YnZYb1Vyejd4ZVlyQ0NrVDVnNHhYQUhuZk1mVmx5ODJoUVhsUg?oc=5",
-      "source": "Autorité des marchés financiers (AMF)",
-      "published": "2026-07-27T09:30:36+00:00",
-      "query": "cryptomonnaies régulation investissement"
-     },
-     {
-      "id": "c80824e02697",
-      "title": "Cours bitcoin et Ethereum : Blocage sous les résistances - xtb.com",
-      "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPX1VPREtXUkFaeVh5RFRRd3pSMFRqaFNTOVhKSEFnZDRFdXhHZmRzTHFGQ1RyaVViSlczdWtFSmZvZ2dhYmtBNERFN3daU0R5NkplWjJLZEszZ3NQd3pORzVfSm5Vb0JNTXZaSmw5cmpzR3VVU2dXd3pNeGZFSklQWUtIbzFxQ0p5RzZaa0VXak14YjRUS1RzNVdn?oc=5",
-      "source": "xtb.com",
-      "published": "2026-08-28T08:58:00+00:00",
-      "query": "bitcoin cours marché"
-     },
-     {
-      "id": "7482513dc016",
-      "title": "Cryptomonnaies : ce que change la nouvelle réglementation européenne pour les épargnants - lemonde.fr",
-      "link": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxObFM1OHJiNURDQW9TTmFfcXZwSGxmRmp2aGdCZzJid2FHSGhYQ2d6SzVHZnZyYWxNemtSbVdIMng3eV9Gbm5td1NCZmNaQldkVXJXUEZ5R0ItcTRDUXN2dlBwdy1CZEhJeF9fcGpDVTdGUUdvUnFyX3ZvNi0xVmxScHNuMWd0RWRTUTAyckxrWDFiakxNaXBDLUZtcXJEQXg0REZqSlkxRnEyZ29xQklsUmFLLU9IN2U1Zmo0UGloLVMtdjZhVE5weVVocFRRQkVwM2NCYnhLQTNpZkFxZ1E2eWlWN0xHVXNqeXd5Rg?oc=5",
-      "source": "lemonde.fr",
       "published": "2026-07-01T07:00:00+00:00",
       "query": "cryptomonnaies régulation investissement"
      }
