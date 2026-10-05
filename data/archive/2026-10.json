@@ -2,6 +2,73 @@
  "month": "2026-10",
  "days": [
   {
+   "date": "2026-10-02",
+   "updated_at": "2026-10-02T11:15:18+00:00",
+   "markets": [
+    {
+     "key": "sp500",
+     "label": "S&P 500",
+     "category": "actions",
+     "currency": "USD",
+     "price": 7666.45,
+     "change_pct": 0.19,
+     "ok": true
+    },
+    {
+     "key": "cac40",
+     "label": "CAC 40",
+     "category": "actions",
+     "currency": "EUR",
+     "price": 7898.15,
+     "change_pct": 0.8,
+     "ok": true
+    },
+    {
+     "key": "immobilier",
+     "label": "Immobilier (ETF VNQ)",
+     "category": "immobilier",
+     "currency": "USD",
+     "price": 89.17,
+     "change_pct": -0.51,
+     "ok": true
+    },
+    {
+     "key": "or",
+     "label": "Or (kilo)",
+     "category": "or",
+     "currency": "USD",
+     "price": 135480.03,
+     "change_pct": 0.28,
+     "ok": true
+    },
+    {
+     "key": "btc",
+     "label": "Bitcoin",
+     "category": "crypto",
+     "currency": "USD",
+     "price": 86432,
+     "change_pct": 3.09,
+     "ok": true
+    },
+    {
+     "key": "eth",
+     "label": "Ethereum",
+     "category": "crypto",
+     "currency": "USD",
+     "price": 2748.08,
+     "change_pct": 1.9,
+     "ok": true
+    }
+   ],
+   "news": {
+    "declarations": [],
+    "actions": [],
+    "immobilier": [],
+    "or": [],
+    "crypto": []
+   }
+  },
+  {
    "date": "2026-10-01",
    "updated_at": "2026-10-01T11:45:15+00:00",
    "markets": [
